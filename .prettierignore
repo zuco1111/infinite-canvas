@@ -1,0 +1,8 @@
+node_modules/
+dist/
+dist-electron/
+coverage/
+playwright-report/
+test-results/
+web/.next/
+package-lock.json

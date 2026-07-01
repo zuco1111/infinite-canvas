@@ -1,0 +1,18 @@
+{
+  "$schema": "https://unpkg.com/knip@5/schema.json",
+  "entry": [
+    "src/app/feature-registry/index.ts",
+    "src/features/canvas/index.ts",
+    "src/shared/ai/ai-provider-port.ts",
+    "src/shared/commands/command-contract.ts",
+    "src/shared/platform/index.ts",
+    "src/shared/storage/repository-ports.ts",
+    "src/shared/tokens/app.ts",
+    "src/shared/tokens/canvas.ts",
+    "electron/main/index.ts",
+    "electron/preload/index.ts",
+    "electron/agent/index.ts"
+  ],
+  "project": ["src/**/*.{ts,tsx}", "electron/**/*.ts", "tests/**/*.ts", "*.config.{cjs,js,ts}"],
+  "exclude": ["exports", "types"]
+}
