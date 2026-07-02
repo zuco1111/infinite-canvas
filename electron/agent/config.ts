@@ -87,12 +87,20 @@ function safeSegment(value: string) {
 }
 
 function readPackageVersion() {
+  const current = process.argv.find((arg) => /index\.(?:ts|js|cjs|mjs)$/.test(arg)) || '';
+  const entry = path.resolve(current || process.argv[1] || 'dist-electron/agent/index.cjs');
+  const packageJsonPath = path.resolve(path.dirname(entry), '..', '..', 'package.json');
   try {
-    const pkg = JSON.parse(
-      fs.readFileSync(new URL('../package.json', import.meta.url), 'utf8'),
-    ) as { version?: string };
+    const pkg = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8')) as { version?: string };
     return pkg.version || '0.0.0';
   } catch {
-    return '0.0.0';
+    try {
+      const pkg = JSON.parse(fs.readFileSync(path.resolve('package.json'), 'utf8')) as {
+        version?: string;
+      };
+      return pkg.version || '0.0.0';
+    } catch {
+      return '0.0.0';
+    }
   }
 }

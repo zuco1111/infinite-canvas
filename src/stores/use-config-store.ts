@@ -59,19 +59,20 @@ export type WebdavSyncConfig = {
 export const CONFIG_STORE_KEY = 'infinite-canvas:ai_config_store';
 export type ModelCapability = 'image' | 'video' | 'text' | 'audio';
 const CHANNEL_MODEL_SEPARATOR = '::';
-const OPENAI_BASE_URL = 'https://api.openai.com';
+const ZUCO_BASE_URL = 'https://api.zuco.ai/';
 const GEMINI_BASE_URL = 'https://generativelanguage.googleapis.com';
+const LOCAL_AI_PROXY_PATH = '/__ai-proxy';
 
 export const defaultConfig: AiConfig = {
   channelMode: 'local',
-  baseUrl: OPENAI_BASE_URL,
+  baseUrl: ZUCO_BASE_URL,
   apiKey: '',
   apiFormat: 'openai',
   channels: [
     {
       id: 'default',
       name: '默认渠道',
-      baseUrl: OPENAI_BASE_URL,
+      baseUrl: ZUCO_BASE_URL,
       apiKey: '',
       apiFormat: 'openai',
       models: ['gpt-image-2', 'grok-imagine-video', 'gpt-5.5', 'gpt-4o-mini-tts'],
@@ -431,7 +432,7 @@ function normalizeChannels(config: AiConfig) {
 }
 
 export function defaultBaseUrlForApiFormat(apiFormat: ApiCallFormat) {
-  return apiFormat === 'gemini' ? GEMINI_BASE_URL : OPENAI_BASE_URL;
+  return apiFormat === 'gemini' ? GEMINI_BASE_URL : ZUCO_BASE_URL;
 }
 
 function normalizeApiFormat(apiFormat: unknown): ApiCallFormat {
@@ -458,7 +459,29 @@ export function buildApiUrl(baseUrl: string, path: string) {
     lowerBaseUrl.endsWith('/api/plan/v3')
       ? normalizedBaseUrl
       : `${normalizedBaseUrl}/v1`;
-  return `${apiBaseUrl}${path}`;
+  const apiUrl = `${apiBaseUrl}${path}`;
+  return shouldUseLocalAiProxy(apiUrl) ? localAiProxyUrl(apiUrl) : apiUrl;
+}
+
+function shouldUseLocalAiProxy(apiUrl: string) {
+  if (typeof window === 'undefined' || !import.meta.env.DEV) return false;
+  try {
+    const url = new URL(apiUrl);
+    const currentOrigin = window.location.origin;
+    if (url.origin === currentOrigin) return false;
+    if (url.protocol !== 'http:' && url.protocol !== 'https:') return false;
+    return !isLocalApiHost(url.hostname);
+  } catch {
+    return false;
+  }
+}
+
+function isLocalApiHost(hostname: string) {
+  return ['localhost', '127.0.0.1', '::1'].includes(hostname);
+}
+
+function localAiProxyUrl(apiUrl: string) {
+  return `${LOCAL_AI_PROXY_PATH}?target=${encodeURIComponent(apiUrl)}`;
 }
 
 function normalizeArkPlanBaseUrl(baseUrl: string) {

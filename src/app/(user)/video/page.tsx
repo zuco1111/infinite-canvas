@@ -1,15 +1,12 @@
 'use client';
 
 import {
-  ArrowLeft,
-  ArrowRight,
   BookOpen,
   CheckSquare,
   ClipboardPaste,
   Download,
   FolderPlus,
   History,
-  LoaderCircle,
   Music2,
   Plus,
   SlidersHorizontal,
@@ -19,7 +16,7 @@ import {
   VideoIcon,
 } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
-import { App, Button, Checkbox, Drawer, Empty, Input, Modal, Tag, Typography } from 'antd';
+import { App, Button, Drawer, Input, Modal, Tag } from 'antd';
 import localforage from 'localforage';
 import { nanoid } from 'nanoid';
 import { saveAs } from 'file-saver';
@@ -31,11 +28,12 @@ import {
 import { ModelPicker } from '@/components/model-picker';
 import { PromptSelectDialog } from '@/components/prompts/prompt-select-dialog';
 import {
-  VideoSettingsPanel,
   normalizeVideoResolutionValue,
   normalizeVideoSizeValue,
   videoSizeLabel,
-} from '@/components/video-settings-panel';
+} from '@/components/video-settings-options';
+import { VideoSettingsPanel } from '@/components/video-settings-panel';
+import { AppMultiSelectCheckbox } from '@/shared/ui/app-multi-select-checkbox';
 import { canvasThemes } from '@/lib/canvas-theme';
 import { formatBytes, formatDuration } from '@/lib/image-utils';
 import {
@@ -55,6 +53,32 @@ import {
   storeGeneratedVideo,
   type VideoGenerationTask,
 } from '@/services/api/video';
+import {
+  WorkbenchContentGrid,
+  WorkbenchEditorPanel,
+  WorkbenchEmptyState,
+  WorkbenchFailedCard,
+  WorkbenchFieldHeader,
+  WorkbenchHeader,
+  WorkbenchLogEmpty,
+  WorkbenchLogHeader,
+  WorkbenchMainGrid,
+  WorkbenchMediaCard,
+  WorkbenchMobileSummary,
+  WorkbenchPageShell,
+  WorkbenchPendingCard,
+  WorkbenchReferenceEmpty,
+  WorkbenchReferenceOrderButtons,
+  WorkbenchReferenceStrip,
+  WorkbenchResultsPanel,
+  WorkbenchSidebar,
+} from '@/shared/ui/workbench-page';
+import {
+  moveWorkbenchListItem,
+  workbenchLogCardClassName,
+  workbenchTagClassName,
+  workbenchTagToneClassName,
+} from '@/shared/ui/workbench-style';
 import { useAssetStore } from '@/stores/use-asset-store';
 import {
   modelOptionLabel,
@@ -127,6 +151,7 @@ export default function VideoPage() {
   const { message } = App.useApp();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const activeLogIdsRef = useRef<Set<string>>(new Set());
+  const refreshLogsRef = useRef<() => Promise<GenerationLog[]>>(async () => []);
   const effectiveConfig = useEffectiveConfig();
   const updateConfig = useConfigStore((state) => state.updateConfig);
   const isAiConfigReady = useConfigStore((state) => state.isAiConfigReady);
@@ -159,7 +184,7 @@ export default function VideoPage() {
   }, [running, startedAt]);
 
   useEffect(() => {
-    void refreshLogs();
+    void refreshLogsRef.current();
   }, []);
 
   const addReferences = async (files?: FileList | null) => {
@@ -480,6 +505,7 @@ export default function VideoPage() {
     resumePendingLogs(nextLogs);
     return nextLogs;
   };
+  refreshLogsRef.current = refreshLogs;
 
   const resumePendingLogs = (items: GenerationLog[]) => {
     for (const log of items) {
@@ -571,9 +597,9 @@ export default function VideoPage() {
   };
 
   return (
-    <div className="flex h-full flex-col overflow-hidden bg-stone-50 text-stone-900 dark:bg-stone-950 dark:text-stone-100">
-      <main className="grid min-h-0 flex-1 grid-cols-1 gap-3 overflow-y-auto p-3 lg:grid-cols-[300px_minmax(0,1fr)] lg:overflow-hidden xl:grid-cols-[320px_minmax(0,1fr)]">
-        <aside className="thin-scrollbar hidden min-h-0 overflow-y-auto rounded-lg border border-stone-200 bg-card p-4 shadow-sm dark:border-stone-800 lg:block">
+    <WorkbenchPageShell>
+      <WorkbenchMainGrid>
+        <WorkbenchSidebar>
           <LogPanel
             logs={logs}
             selectedLogIds={selectedLogIds}
@@ -583,48 +609,50 @@ export default function VideoPage() {
             onDeleteSelected={() => setDeleteConfirmOpen(true)}
             onPreviewLog={previewGenerationLog}
           />
-        </aside>
+        </WorkbenchSidebar>
 
-        <section className="grid gap-3 lg:min-h-0 lg:overflow-hidden xl:grid-cols-[420px_minmax(0,1fr)]">
-          <div className="thin-scrollbar flex flex-col rounded-lg border border-stone-200 bg-card p-4 shadow-sm dark:border-stone-800 lg:min-h-0 lg:overflow-y-auto">
-            <div className="flex items-start justify-between gap-3">
-              <h1 className="text-2xl font-semibold text-stone-950 dark:text-stone-100">
-                视频创作台
-              </h1>
-              <div className="flex shrink-0 gap-2 lg:hidden">
-                <Button icon={<History className="size-4" />} onClick={() => setLogsOpen(true)}>
-                  记录
-                </Button>
-                <Button
-                  icon={<SlidersHorizontal className="size-4" />}
-                  onClick={() => setSettingsOpen(true)}
-                >
-                  参数
-                </Button>
-              </div>
-            </div>
+        <WorkbenchContentGrid>
+          <WorkbenchEditorPanel>
+            <WorkbenchHeader
+              title="视频创作台"
+              actions={
+                <>
+                  <Button icon={<History className="size-4" />} onClick={() => setLogsOpen(true)}>
+                    记录
+                  </Button>
+                  <Button
+                    icon={<SlidersHorizontal className="size-4" />}
+                    onClick={() => setSettingsOpen(true)}
+                  >
+                    参数
+                  </Button>
+                </>
+              }
+            />
 
             <div className="mt-6 space-y-5">
               <div>
-                <div className="mb-2 flex items-center justify-between gap-3">
-                  <span className="text-base font-semibold">提示词</span>
-                  <div className="flex gap-2">
-                    <Button
-                      size="small"
-                      icon={<BookOpen className="size-3.5" />}
-                      onClick={() => setPromptDialogOpen(true)}
-                    >
-                      查看提示词库
-                    </Button>
-                    <Button
-                      size="small"
-                      icon={<FolderPlus className="size-3.5" />}
-                      onClick={() => setAssetPickerOpen(true)}
-                    >
-                      查看我的素材
-                    </Button>
-                  </div>
-                </div>
+                <WorkbenchFieldHeader
+                  title="提示词"
+                  actions={
+                    <>
+                      <Button
+                        size="small"
+                        icon={<BookOpen className="size-3.5" />}
+                        onClick={() => setPromptDialogOpen(true)}
+                      >
+                        查看提示词库
+                      </Button>
+                      <Button
+                        size="small"
+                        icon={<FolderPlus className="size-3.5" />}
+                        onClick={() => setAssetPickerOpen(true)}
+                      >
+                        查看我的素材
+                      </Button>
+                    </>
+                  }
+                />
                 <Input.TextArea
                   value={prompt}
                   onChange={(event) => setPrompt(event.target.value)}
@@ -634,40 +662,42 @@ export default function VideoPage() {
               </div>
 
               <div className="min-w-0">
-                <div className="mb-2 flex items-center justify-between gap-3">
-                  <span className="text-base font-semibold">参考图</span>
-                  <div className="flex gap-2">
-                    <Button
-                      size="small"
-                      icon={<ClipboardPaste className="size-3.5" />}
-                      onClick={() => void addReferencesFromClipboard()}
-                    >
-                      剪切板
-                    </Button>
-                    <Button
-                      size="small"
-                      icon={<Upload className="size-3.5" />}
-                      onClick={() => fileInputRef.current?.click()}
-                    >
-                      上传
-                    </Button>
-                  </div>
-                </div>
-                <div className="hover-scrollbar hover-scrollbar-hint flex min-h-24 w-full min-w-0 max-w-full gap-2 overflow-x-scroll overflow-y-hidden rounded-lg border border-dashed border-stone-300 p-2 pb-3 overscroll-x-contain dark:border-stone-700">
+                <WorkbenchFieldHeader
+                  title="参考图"
+                  actions={
+                    <>
+                      <Button
+                        size="small"
+                        icon={<ClipboardPaste className="size-3.5" />}
+                        onClick={() => void addReferencesFromClipboard()}
+                      >
+                        剪切板
+                      </Button>
+                      <Button
+                        size="small"
+                        icon={<Upload className="size-3.5" />}
+                        onClick={() => fileInputRef.current?.click()}
+                      >
+                        上传
+                      </Button>
+                    </>
+                  }
+                />
+                <WorkbenchReferenceStrip>
                   {references.map((item, index) => (
                     <div
                       key={item.id}
-                      className="group relative size-20 shrink-0 overflow-hidden rounded-md border border-stone-200 dark:border-stone-800"
+                      className="group relative size-20 shrink-0 overflow-hidden rounded-md border border-border"
                     >
                       <img src={item.dataUrl} alt={item.name} className="size-full object-cover" />
                       <span className="absolute left-1 top-1 rounded bg-black/60 px-1.5 py-0.5 text-[10px] font-medium text-white">
                         {seedanceReferenceLabel('image', index)}
                       </span>
-                      <ReferenceOrderButtons
+                      <WorkbenchReferenceOrderButtons
                         index={index}
                         total={references.length}
                         onMove={(offset) =>
-                          setReferences((value) => moveListItem(value, index, offset))
+                          setReferences((value) => moveWorkbenchListItem(value, index, offset))
                         }
                       />
                       <button
@@ -683,29 +713,29 @@ export default function VideoPage() {
                     </div>
                   ))}
                   {!references.length ? (
-                    <div className="flex min-w-full items-center justify-center text-sm text-stone-500">
-                      暂无参考图，最多 9 张
-                    </div>
+                    <WorkbenchReferenceEmpty>暂无参考图，最多 9 张</WorkbenchReferenceEmpty>
                   ) : null}
-                </div>
+                </WorkbenchReferenceStrip>
               </div>
 
               <div className="min-w-0">
-                <div className="mb-2 flex items-center justify-between gap-3">
-                  <span className="text-base font-semibold">参考视频</span>
-                  <Button
-                    size="small"
-                    icon={<Upload className="size-3.5" />}
-                    onClick={() => fileInputRef.current?.click()}
-                  >
-                    上传
-                  </Button>
-                </div>
-                <div className="hover-scrollbar hover-scrollbar-hint flex min-h-24 w-full min-w-0 max-w-full gap-2 overflow-x-scroll overflow-y-hidden rounded-lg border border-dashed border-stone-300 p-2 pb-3 overscroll-x-contain dark:border-stone-700">
+                <WorkbenchFieldHeader
+                  title="参考视频"
+                  actions={
+                    <Button
+                      size="small"
+                      icon={<Upload className="size-3.5" />}
+                      onClick={() => fileInputRef.current?.click()}
+                    >
+                      上传
+                    </Button>
+                  }
+                />
+                <WorkbenchReferenceStrip>
                   {videoReferences.map((item, index) => (
                     <div
                       key={item.id}
-                      className="group relative h-20 w-32 shrink-0 overflow-hidden rounded-md border border-stone-200 bg-black dark:border-stone-800"
+                      className="group relative h-20 w-32 shrink-0 overflow-hidden rounded-md border border-border bg-black"
                     >
                       <video
                         src={item.url}
@@ -716,11 +746,11 @@ export default function VideoPage() {
                       <span className="absolute left-1 top-1 rounded bg-black/60 px-1.5 py-0.5 text-[10px] font-medium text-white">
                         {seedanceReferenceLabel('video', index)}
                       </span>
-                      <ReferenceOrderButtons
+                      <WorkbenchReferenceOrderButtons
                         index={index}
                         total={videoReferences.length}
                         onMove={(offset) =>
-                          setVideoReferences((value) => moveListItem(value, index, offset))
+                          setVideoReferences((value) => moveWorkbenchListItem(value, index, offset))
                         }
                       />
                       <button
@@ -736,43 +766,43 @@ export default function VideoPage() {
                     </div>
                   ))}
                   {!videoReferences.length ? (
-                    <div className="flex min-w-full items-center justify-center text-sm text-stone-500">
-                      暂无参考视频，最多 3 个
-                    </div>
+                    <WorkbenchReferenceEmpty>暂无参考视频，最多 3 个</WorkbenchReferenceEmpty>
                   ) : null}
-                </div>
+                </WorkbenchReferenceStrip>
               </div>
 
               <div className="min-w-0">
-                <div className="mb-2 flex items-center justify-between gap-3">
-                  <span className="text-base font-semibold">参考音频</span>
-                  <Button
-                    size="small"
-                    icon={<Upload className="size-3.5" />}
-                    onClick={() => fileInputRef.current?.click()}
-                  >
-                    上传
-                  </Button>
-                </div>
-                <div className="hover-scrollbar hover-scrollbar-hint flex min-h-24 w-full min-w-0 max-w-full gap-2 overflow-x-scroll overflow-y-hidden rounded-lg border border-dashed border-stone-300 p-2 pb-3 overscroll-x-contain dark:border-stone-700">
+                <WorkbenchFieldHeader
+                  title="参考音频"
+                  actions={
+                    <Button
+                      size="small"
+                      icon={<Upload className="size-3.5" />}
+                      onClick={() => fileInputRef.current?.click()}
+                    >
+                      上传
+                    </Button>
+                  }
+                />
+                <WorkbenchReferenceStrip>
                   {audioReferences.map((item, index) => (
                     <div
                       key={item.id}
-                      className="group relative flex h-20 w-48 shrink-0 flex-col justify-center gap-2 rounded-md border border-stone-200 bg-stone-50 px-2 dark:border-stone-800 dark:bg-stone-900"
+                      className="group relative flex h-20 w-48 shrink-0 flex-col justify-center gap-2 rounded-md border border-border bg-muted px-2"
                     >
-                      <div className="flex min-w-0 items-center gap-2 text-xs text-stone-500 dark:text-stone-400">
+                      <div className="flex min-w-0 items-center gap-2 text-xs text-muted-foreground">
                         <Music2 className="size-4 shrink-0" />
-                        <span className="shrink-0 rounded bg-stone-200 px-1 text-[10px] text-stone-700 dark:bg-stone-800 dark:text-stone-200">
+                        <span className="shrink-0 rounded bg-secondary px-1 text-[10px] text-secondary-foreground">
                           {seedanceReferenceLabel('audio', index)}
                         </span>
                         <span className="truncate">{item.name}</span>
                       </div>
                       <audio src={item.url} controls className="h-8 w-full" preload="metadata" />
-                      <ReferenceOrderButtons
+                      <WorkbenchReferenceOrderButtons
                         index={index}
                         total={audioReferences.length}
                         onMove={(offset) =>
-                          setAudioReferences((value) => moveListItem(value, index, offset))
+                          setAudioReferences((value) => moveWorkbenchListItem(value, index, offset))
                         }
                       />
                       <button
@@ -788,29 +818,22 @@ export default function VideoPage() {
                     </div>
                   ))}
                   {!audioReferences.length ? (
-                    <div className="flex min-w-full items-center justify-center text-center text-sm text-stone-500">
+                    <WorkbenchReferenceEmpty>
                       暂无参考音频，最多 3 个，mp3/wav，单个 15MB 内
-                    </div>
+                    </WorkbenchReferenceEmpty>
                   ) : null}
-                </div>
+                </WorkbenchReferenceStrip>
               </div>
 
-              <div className="flex items-center justify-between rounded-lg border border-stone-200 bg-stone-50 px-3 py-2 text-sm dark:border-stone-800 dark:bg-stone-900 sm:hidden">
-                <span className="truncate text-stone-500 dark:text-stone-400">
-                  {modelOptionLabel(effectiveConfig, model)} ·{' '}
-                  {normalizeResolution(effectiveConfig.vquality)}p ·{' '}
-                  {videoSizeLabel(effectiveConfig.size)} ·{' '}
-                  {normalizeVideoSeconds(effectiveConfig.videoSeconds)}s
-                </span>
-                <Button
-                  size="small"
-                  type="text"
-                  icon={<SlidersHorizontal className="size-4" />}
-                  onClick={() => setSettingsOpen(true)}
-                >
-                  调整
-                </Button>
-              </div>
+              <WorkbenchMobileSummary
+                summary={`${modelOptionLabel(effectiveConfig, model)} · ${normalizeResolution(
+                  effectiveConfig.vquality,
+                )}p · ${videoSizeLabel(effectiveConfig.size)} · ${normalizeVideoSeconds(
+                  effectiveConfig.videoSeconds,
+                )}s`}
+                icon={<SlidersHorizontal className="size-4" />}
+                onClick={() => setSettingsOpen(true)}
+              />
 
               <div className="hidden gap-4 sm:grid sm:grid-cols-2">
                 <GenerationSettings
@@ -835,15 +858,12 @@ export default function VideoPage() {
                 开始生成
               </Button>
             </div>
-          </div>
+          </WorkbenchEditorPanel>
 
-          <div className="thin-scrollbar rounded-lg border border-stone-200 bg-card p-4 shadow-sm dark:border-stone-800 lg:min-h-0 lg:overflow-y-auto lg:p-5">
-            <div className="mb-4 flex items-center justify-between gap-3">
-              <h2 className="text-xl font-semibold">生成结果</h2>
-              {running ? (
-                <Tag className="m-0 px-2 py-1">等待 {formatDuration(elapsedMs)}</Tag>
-              ) : null}
-            </div>
+          <WorkbenchResultsPanel
+            title="生成结果"
+            runningLabel={running ? `等待 ${formatDuration(elapsedMs)}` : undefined}
+          >
             {results.length ? (
               <div className="grid gap-4">
                 {results.map((result) =>
@@ -866,14 +886,11 @@ export default function VideoPage() {
                 )}
               </div>
             ) : (
-              <div className="flex min-h-[320px] flex-col items-center justify-center rounded-lg border border-dashed border-stone-300 text-center dark:border-stone-700 lg:min-h-[560px]">
-                <VideoIcon className="mb-4 size-11 text-stone-400" />
-                <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="还没有生成视频" />
-              </div>
+              <WorkbenchEmptyState icon={VideoIcon} description="还没有生成视频" />
             )}
-          </div>
-        </section>
-      </main>
+          </WorkbenchResultsPanel>
+        </WorkbenchContentGrid>
+      </WorkbenchMainGrid>
       <input
         ref={fileInputRef}
         type="file"
@@ -939,7 +956,7 @@ export default function VideoPage() {
       >
         确定删除选中的 {selectedLogIds.length} 条生成记录吗？
       </Modal>
-    </div>
+    </WorkbenchPageShell>
   );
 }
 
@@ -992,16 +1009,17 @@ function ResultVideoCard({
   onSaveAsset: (video: GeneratedVideo) => void;
 }) {
   return (
-    <div className="overflow-hidden rounded-lg border border-stone-200 bg-background dark:border-stone-800">
-      <video src={video.url} controls className="aspect-video w-full bg-black object-contain" />
-      <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2 border-t border-stone-200 px-3 py-2.5 dark:border-stone-800">
-        <div className="flex min-w-0 flex-wrap gap-x-2 gap-y-1 text-xs text-stone-500 dark:text-stone-400">
+    <WorkbenchMediaCard
+      meta={
+        <>
           <span>
             {video.width}x{video.height}
           </span>
           <span>{formatBytes(video.bytes)}</span>
           <span>{formatDuration(video.durationMs)}</span>
-        </div>
+        </>
+      }
+      actions={
         <div className="flex shrink-0 gap-1">
           <Button
             size="small"
@@ -1018,41 +1036,19 @@ function ResultVideoCard({
             下载
           </Button>
         </div>
-      </div>
-    </div>
+      }
+    >
+      <video src={video.url} controls className="aspect-video w-full bg-black object-contain" />
+    </WorkbenchMediaCard>
   );
 }
 
 function PendingVideoCard() {
-  return (
-    <div className="relative aspect-video overflow-hidden rounded-lg border border-dashed border-stone-300 bg-stone-50 dark:border-stone-700 dark:bg-stone-900">
-      <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 text-sm text-stone-500 dark:text-stone-400">
-        <LoaderCircle className="size-6 animate-spin" />
-        <span>生成中</span>
-      </div>
-    </div>
-  );
+  return <WorkbenchPendingCard aspect="video" />;
 }
 
 function FailedVideoCard({ error, onRetry }: { error: string; onRetry: () => void }) {
-  return (
-    <div className="overflow-hidden rounded-lg border border-red-200 bg-red-50 dark:border-red-950 dark:bg-red-950/20">
-      <div className="flex aspect-video flex-col items-center justify-center gap-3 p-5 text-center">
-        <div className="text-sm font-medium text-red-600 dark:text-red-300">生成失败</div>
-        <Typography.Paragraph
-          ellipsis={{ rows: 4 }}
-          className="!mb-0 !text-xs !text-red-500 dark:!text-red-300"
-        >
-          {error}
-        </Typography.Paragraph>
-      </div>
-      <div className="flex justify-end border-t border-red-200 p-3 dark:border-red-950">
-        <Button size="small" danger onClick={onRetry}>
-          重试
-        </Button>
-      </div>
-    </div>
-  );
+  return <WorkbenchFailedCard aspect="video" error={error} onRetry={onRetry} />;
 }
 
 function LogPanel({
@@ -1077,11 +1073,7 @@ function LogPanel({
 
   return (
     <>
-      <div className="mb-3 flex items-center justify-between gap-3">
-        <h2 className="text-base font-semibold">生成记录</h2>
-        <Tag className="m-0">{logs.length}</Tag>
-      </div>
-      <div className="mb-4 flex flex-wrap gap-2">
+      <WorkbenchLogHeader count={logs.length}>
         <Button size="small" icon={<Plus className="size-3.5" />} onClick={onCreateSession}>
           新建
         </Button>
@@ -1102,7 +1094,7 @@ function LogPanel({
         >
           删除
         </Button>
-      </div>
+      </WorkbenchLogHeader>
       <div className="space-y-3">
         {logs.map((log) => (
           <LogCard
@@ -1120,11 +1112,7 @@ function LogPanel({
             onClick={() => onPreviewLog(log)}
           />
         ))}
-        {!logs.length ? (
-          <div className="flex min-h-48 items-center justify-center rounded-lg border border-dashed border-stone-300 text-center text-sm text-stone-500 dark:border-stone-700">
-            暂无生成记录
-          </div>
-        ) : null}
+        {!logs.length ? <WorkbenchLogEmpty /> : null}
       </div>
     </>
   );
@@ -1144,49 +1132,36 @@ function LogCard({
   onClick: () => void;
 }) {
   return (
-    <button
-      type="button"
-      className={`block w-full rounded-lg border p-2 text-left transition ${active ? 'border-stone-900 bg-blue-50 dark:border-stone-100 dark:bg-blue-950/20' : 'border-stone-200 bg-background hover:bg-stone-50 dark:border-stone-800 dark:hover:bg-stone-900'}`}
-      onClick={onClick}
-    >
+    <button type="button" className={workbenchLogCardClassName(active)} onClick={onClick}>
       <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-start gap-2">
-        <Checkbox
+        <AppMultiSelectCheckbox
           className="mt-0.5"
           checked={selected}
-          onClick={(event) => event.stopPropagation()}
-          onChange={(event) => onSelectedChange(event.target.checked)}
+          onCheckedChange={onSelectedChange}
+          ariaLabel={`选择生成记录 ${log.title}`}
+          stopPropagation
         />
         <div className="min-w-0">
           <div className="truncate text-sm font-semibold leading-5">{log.title}</div>
           <div className="mt-2 flex flex-wrap gap-1">
-            <Tag className="m-0 flex h-6 items-center rounded-md px-1.5 text-xs leading-none">
-              {log.size}
-            </Tag>
-            <Tag className="m-0 flex h-6 items-center rounded-md px-1.5 text-xs leading-none">
-              {log.resolution}p
-            </Tag>
-            <Tag className="m-0 flex h-6 items-center rounded-md px-1.5 text-xs leading-none">
-              {log.seconds}s
-            </Tag>
+            <Tag className={workbenchTagClassName}>{log.size}</Tag>
+            <Tag className={workbenchTagClassName}>{log.resolution}p</Tag>
+            <Tag className={workbenchTagClassName}>{log.seconds}s</Tag>
           </div>
         </div>
         <div className="grid justify-items-end gap-2">
-          <Tag
-            className="m-0 flex h-6 items-center rounded-md px-1.5 text-xs leading-none"
-            color={log.status === '成功' ? 'blue' : log.status === '生成中' ? 'processing' : 'red'}
-          >
-            {log.status}
-          </Tag>
-          <Tag
-            className="m-0 flex h-6 items-center rounded-md px-1.5 text-xs leading-none"
-            color="green"
-          >
-            {formatDuration(log.durationMs)}
-          </Tag>
+          <Tag className={videoLogStatusTagClassName(log.status)}>{log.status}</Tag>
+          <Tag className={workbenchTagToneClassName.success}>{formatDuration(log.durationMs)}</Tag>
         </div>
       </div>
     </button>
   );
+}
+
+function videoLogStatusTagClassName(status: GenerationLog['status']) {
+  if (status === '成功') return workbenchTagToneClassName.primary;
+  if (status === '生成中') return workbenchTagToneClassName.warning;
+  return workbenchTagToneClassName.danger;
 }
 
 async function readStoredLogs() {
@@ -1298,44 +1273,6 @@ function filterAudioReferencesByDuration(
   }
   if (skipped) warn('已忽略不符合时长要求的参考音频：单个 2-15 秒，总时长不超过 15 秒');
   return accepted;
-}
-
-function moveListItem<T>(items: T[], index: number, offset: number) {
-  const targetIndex = index + offset;
-  if (targetIndex < 0 || targetIndex >= items.length) return items;
-  const next = [...items];
-  [next[index], next[targetIndex]] = [next[targetIndex], next[index]];
-  return next;
-}
-
-function ReferenceOrderButtons({
-  index,
-  total,
-  onMove,
-}: {
-  index: number;
-  total: number;
-  onMove: (offset: number) => void;
-}) {
-  if (total <= 1) return null;
-  return (
-    <div className="absolute inset-x-1 bottom-1 flex justify-between">
-      <Button
-        size="small"
-        className="!h-6 !w-6 !min-w-6 !rounded-full !bg-white/85 !p-0 !shadow-sm"
-        icon={<ArrowLeft className="size-3" />}
-        disabled={index <= 0}
-        onClick={() => onMove(-1)}
-      />
-      <Button
-        size="small"
-        className="!h-6 !w-6 !min-w-6 !rounded-full !bg-white/85 !p-0 !shadow-sm"
-        icon={<ArrowRight className="size-3" />}
-        disabled={index >= total - 1}
-        onClick={() => onMove(1)}
-      />
-    </div>
-  );
 }
 
 function normalizeLogConfig(log: Partial<GenerationLog>): GenerationLogConfig {

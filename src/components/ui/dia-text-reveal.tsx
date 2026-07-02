@@ -136,6 +136,7 @@ export function DiaTextReveal({
   ...props
 }: DiaTextRevealProps) {
   const texts = Array.isArray(text) ? text : [text];
+  const textKey = texts.join('\0');
   const isMulti = texts.length > 1;
   const prefersReducedMotion = useReducedMotion();
 
@@ -179,8 +180,8 @@ export function DiaTextReveal({
   useEffect(() => {
     const el = spanRef.current;
     if (!el || !isMulti) return;
-    setMeasuredWidths(measureWidths(el, texts));
-  }, [Array.isArray(text) ? text.join('\0') : text]);
+    setMeasuredWidths(measureWidths(el, optsRef.current.texts));
+  }, [isMulti, textKey]);
 
   playRef.current = () => {
     const { duration, delay, repeat, repeatDelay, texts } = optsRef.current;

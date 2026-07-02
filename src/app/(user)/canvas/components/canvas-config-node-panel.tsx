@@ -20,7 +20,8 @@ import {
   useEffectiveConfig,
   type AiConfig,
 } from '@/stores/use-config-store';
-import { CreditSymbol, requestCreditCost } from '@/constant/credits';
+import { requestCreditCost } from '@/constant/credits';
+import { CreditSymbol } from '@/shared/ui/credit-symbol';
 import { canvasThemes } from '@/lib/canvas-theme';
 import { useThemeStore } from '@/stores/use-theme-store';
 import { CanvasImageSettingsPopover } from './canvas-image-settings-popover';

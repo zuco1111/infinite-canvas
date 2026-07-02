@@ -1,69 +1,24 @@
 'use client';
 
-import { type ReactNode, useState } from 'react';
-import { ConfigProvider, Switch } from 'antd';
+import { useState } from 'react';
+import { Switch } from 'antd';
 
 import { type CanvasTheme } from '@/lib/canvas-theme';
+import {
+  SettingGroup,
+  SettingsDimensionInput,
+  SettingsNumberInput,
+  SettingsOptionPill,
+  SettingsPanelTheme,
+  SettingsPreviewTile,
+} from '@/shared/ui/settings-panel';
 import type { AiConfig } from '@/stores/use-config-store';
+import {
+  imageAspectOptions as aspectOptions,
+  imageQualityOptions as qualityOptions,
+} from './image-settings-options';
 
-const qualityOptions = [
-  { value: 'auto', label: '自动' },
-  { value: 'high', label: '高' },
-  { value: 'medium', label: '中' },
-  { value: 'low', label: '低' },
-];
 const DIMENSION_STEP = 16;
-
-const aspectOptions = [
-  { value: '1:1', label: '1:1', width: 1024, height: 1024, icon: 'square' },
-  { value: '3:2', label: '3:2', width: 1536, height: 1024, icon: 'landscape' },
-  { value: '2:3', label: '2:3', width: 1024, height: 1536, icon: 'portrait' },
-  { value: '4:3', label: '4:3', width: 1360, height: 1024, icon: 'landscape' },
-  { value: '3:4', label: '3:4', width: 1024, height: 1360, icon: 'portrait' },
-  { value: '16:9', label: '16:9', width: 1824, height: 1024, icon: 'landscape' },
-  { value: '9:16', label: '9:16', width: 1024, height: 1824, icon: 'portrait' },
-  {
-    value: '1:1-2k',
-    label: '1:1(2k)',
-    size: '2048x2048',
-    width: 2048,
-    height: 2048,
-    icon: 'square',
-  },
-  {
-    value: '16:9-2k',
-    label: '16:9(2k)',
-    size: '2048x1152',
-    width: 2048,
-    height: 1152,
-    icon: 'landscape',
-  },
-  {
-    value: '9:16-2k',
-    label: '9:16(2k)',
-    size: '1152x2048',
-    width: 1152,
-    height: 2048,
-    icon: 'portrait',
-  },
-  {
-    value: '16:9-4k',
-    label: '16:9(4k)',
-    size: '3840x2160',
-    width: 3840,
-    height: 2160,
-    icon: 'landscape',
-  },
-  {
-    value: '9:16-4k',
-    label: '9:16(4k)',
-    size: '2160x3840',
-    width: 2160,
-    height: 3840,
-    icon: 'portrait',
-  },
-  { value: 'auto', label: 'auto', width: 0, height: 0, icon: 'auto' },
-];
 
 type ImageSettingsPanelProps = {
   config: AiConfig;
@@ -107,7 +62,7 @@ export function ImageSettingsPanel({
   };
 
   return (
-    <ImageSettingsTheme theme={theme}>
+    <SettingsPanelTheme theme={theme}>
       <div
         className={className}
         style={{ color: theme.node.text }}
@@ -122,24 +77,24 @@ export function ImageSettingsPanel({
         }}
       >
         {showTitle ? <div className="text-lg font-semibold">图像设置</div> : null}
-        <div className="space-y-2.5">
-          <SettingTitle color={theme.node.muted}>质量</SettingTitle>
+        <SettingGroup title="质量" color={theme.node.muted}>
           <div className="grid grid-cols-4 gap-2.5">
             {qualityOptions.map((item) => (
-              <OptionPill
+              <SettingsOptionPill
                 key={item.value}
                 selected={quality === item.value}
                 theme={theme}
                 onClick={() => onConfigChange('quality', item.value)}
               >
                 {item.label}
-              </OptionPill>
+              </SettingsOptionPill>
             ))}
           </div>
-        </div>
-        <div className="space-y-2.5">
-          <div className="flex items-center justify-between gap-3">
-            <SettingTitle color={theme.node.muted}>尺寸</SettingTitle>
+        </SettingGroup>
+        <SettingGroup
+          title="尺寸"
+          color={theme.node.muted}
+          actions={
             <div className="flex items-center gap-2">
               <span className="text-xs font-medium" style={{ color: theme.node.muted }}>
                 16倍数对齐
@@ -155,42 +110,39 @@ export function ImageSettingsPanel({
                 />
               </span>
             </div>
-          </div>
+          }
+        >
           <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2.5">
-            <DimensionInput
+            <SettingsDimensionInput
               prefix="W"
               value={dimensions.width}
               disabled={activeSize === 'auto'}
               theme={theme}
               alignToStep={snapDimensionToStep}
+              commitOnBlur
               onChange={(value) => updateDimension('width', value)}
             />
             <span className="text-lg opacity-45">↔</span>
-            <DimensionInput
+            <SettingsDimensionInput
               prefix="H"
               value={dimensions.height}
               disabled={activeSize === 'auto'}
               theme={theme}
               alignToStep={snapDimensionToStep}
+              commitOnBlur
               onChange={(value) => updateDimension('height', value)}
             />
           </div>
-        </div>
-        <div className="space-y-2.5">
-          <SettingTitle color={theme.node.muted}>宽高比</SettingTitle>
+        </SettingGroup>
+        <SettingGroup title="宽高比" color={theme.node.muted}>
           <div className="grid grid-cols-4 gap-2.5">
             {aspectOptions.map((item) => (
-              <button
+              <SettingsPreviewTile
                 key={item.value}
-                type="button"
-                className="flex h-[72px] cursor-pointer flex-col items-center justify-center gap-1.5 rounded-xl border bg-transparent text-sm transition hover:opacity-80"
-                style={{
-                  borderColor:
-                    selectedAspect?.value === item.value ? theme.node.text : theme.node.stroke,
-                  background: 'transparent',
-                  color: theme.node.text,
-                }}
-                onMouseDown={(event) => event.stopPropagation()}
+                selected={selectedAspect?.value === item.value}
+                theme={theme}
+                heightClassName="h-[72px]"
+                className="gap-1.5"
                 onClick={() => selectAspect(item.value)}
               >
                 <AspectIcon
@@ -200,186 +152,34 @@ export function ImageSettingsPanel({
                   color={theme.node.text}
                 />
                 <span>{item.label}</span>
-              </button>
+              </SettingsPreviewTile>
             ))}
           </div>
-        </div>
-        <div className="space-y-2.5">
-          <SettingTitle color={theme.node.muted}>生成张数</SettingTitle>
+        </SettingGroup>
+        <SettingGroup title="生成张数" color={theme.node.muted}>
           <div className="grid grid-cols-4 gap-2.5">
             {Array.from({ length: quickCount }, (_, index) => index + 1).map((value) => (
-              <OptionPill
+              <SettingsOptionPill
                 key={value}
                 selected={count === value}
                 theme={theme}
                 onClick={() => onConfigChange('count', String(value))}
               >
                 {value} 张
-              </OptionPill>
+              </SettingsOptionPill>
             ))}
-            <CountInput
-              value={count}
+            <SettingsNumberInput
+              value={count || ''}
+              min={1}
               max={maxCount}
               theme={theme}
-              onChange={(value) => onConfigChange('count', String(value || 1))}
+              className="col-span-2"
+              onChange={(value) => onConfigChange('count', String(Number(value) || 1))}
             />
           </div>
-        </div>
+        </SettingGroup>
       </div>
-    </ImageSettingsTheme>
-  );
-}
-
-export function ImageSettingsTheme({
-  theme,
-  children,
-}: {
-  theme: CanvasTheme;
-  children: ReactNode;
-}) {
-  return (
-    <ConfigProvider
-      theme={{
-        token: {
-          colorBgContainer: theme.toolbar.panel,
-          colorBgElevated: theme.toolbar.panel,
-          colorBorder: theme.node.stroke,
-          colorPrimary: theme.node.activeStroke,
-          colorText: theme.node.text,
-          colorTextLightSolid: theme.node.panel,
-        },
-        components: {
-          Button: {
-            defaultBg: theme.toolbar.panel,
-            defaultBorderColor: theme.node.stroke,
-            defaultColor: theme.node.text,
-          },
-        },
-      }}
-    >
-      {children}
-    </ConfigProvider>
-  );
-}
-
-export function imageQualityLabel(value: string) {
-  return (
-    ({ auto: '自动', high: '高', medium: '中', low: '低' } as Record<string, string>)[value] ||
-    value
-  );
-}
-
-export function imageSizeLabel(size: string) {
-  return (
-    aspectOptions.find((item) => (item.size || item.value) === size || item.value === size)
-      ?.label || size
-  );
-}
-
-function OptionPill({
-  selected,
-  theme,
-  onClick,
-  children,
-}: {
-  selected: boolean;
-  theme: CanvasTheme;
-  onClick: () => void;
-  children: ReactNode;
-}) {
-  return (
-    <button
-      type="button"
-      className="h-9 cursor-pointer rounded-full border px-2 text-sm transition hover:opacity-80"
-      style={{
-        background: 'transparent',
-        borderColor: selected ? theme.node.text : theme.node.stroke,
-        color: theme.node.text,
-      }}
-      onMouseDown={(event) => event.stopPropagation()}
-      onClick={onClick}
-    >
-      {children}
-    </button>
-  );
-}
-
-function DimensionInput({
-  prefix,
-  value,
-  disabled,
-  theme,
-  alignToStep,
-  onChange,
-}: {
-  prefix: string;
-  value: number;
-  disabled: boolean;
-  theme: CanvasTheme;
-  alignToStep: boolean;
-  onChange: (value: number | null) => void;
-}) {
-  const commit = (input: HTMLInputElement) => {
-    const next = alignDimension(
-      Math.max(1, Math.floor(Number(input.value) || value || 1024)),
-      alignToStep,
-    );
-    input.value = String(next);
-    onChange(next);
-  };
-
-  return (
-    <label
-      className="flex h-9 overflow-hidden rounded-xl text-sm"
-      style={{ background: theme.node.fill, color: theme.node.text, opacity: disabled ? 0.55 : 1 }}
-    >
-      <span className="grid w-9 place-items-center" style={{ color: theme.node.muted }}>
-        {prefix}
-      </span>
-      <input
-        type="number"
-        min={1}
-        disabled={disabled}
-        className="min-w-0 flex-1 bg-transparent px-2 outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
-        defaultValue={value || ''}
-        key={`${prefix}-${value}`}
-        onBlur={(event) => commit(event.currentTarget)}
-        onKeyDown={(event) => {
-          if (event.key === 'Enter') event.currentTarget.blur();
-        }}
-        onMouseDown={(event) => event.stopPropagation()}
-      />
-    </label>
-  );
-}
-
-function CountInput({
-  value,
-  max,
-  theme,
-  onChange,
-}: {
-  value: number;
-  max: number;
-  theme: CanvasTheme;
-  onChange: (value: number | null) => void;
-}) {
-  return (
-    <label
-      className="col-span-2 flex h-9 overflow-hidden rounded-full border text-sm"
-      style={{ borderColor: theme.node.stroke, color: theme.node.text }}
-    >
-      <input
-        type="number"
-        min={1}
-        max={max}
-        className="min-w-0 flex-1 bg-transparent px-3 text-center outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
-        style={{ color: theme.node.text, WebkitTextFillColor: theme.node.text }}
-        value={value || ''}
-        onChange={(event) => onChange(Number(event.target.value) || null)}
-        onMouseDown={(event) => event.stopPropagation()}
-      />
-    </label>
+    </SettingsPanelTheme>
   );
 }
 
@@ -405,14 +205,6 @@ function AspectIcon({
         style={{ width: boxWidth, height: boxHeight, borderColor: color }}
       />
     </span>
-  );
-}
-
-function SettingTitle({ children, color }: { children: string; color: string }) {
-  return (
-    <div className="text-xs font-medium" style={{ color }}>
-      {children}
-    </div>
   );
 }
 

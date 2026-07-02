@@ -1,6 +1,7 @@
 import type { AiTextMessage } from '@/services/api/image';
 import { imageReferenceLabel } from '@/lib/image-reference-prompt';
 import { seedanceReferenceLabel } from '@/lib/seedance-video';
+import { imageToDataUrl } from '@/services/image-storage';
 import type { ReferenceImage } from '@/types/image';
 import type { ReferenceAudio, ReferenceVideo } from '@/types/media';
 import { CanvasNodeType, type CanvasConnection, type CanvasNodeData } from '../types';
@@ -176,7 +177,6 @@ export function buildNodeResponseMessages(context: NodeGenerationContext): AiTex
 }
 
 export async function hydrateNodeGenerationContext(context: NodeGenerationContext) {
-  const { imageToDataUrl } = await import('@/services/image-storage');
   return {
     ...context,
     referenceImages: await Promise.all(

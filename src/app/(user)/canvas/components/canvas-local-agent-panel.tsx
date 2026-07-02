@@ -175,6 +175,18 @@ export function CanvasLocalAgentPanel({
   const errorLoggedRef = useRef(false);
   const attachmentUrlsRef = useRef(new Set<string>());
   const clientIdRef = useRef(typeof crypto === 'undefined' ? `${Date.now()}` : crypto.randomUUID());
+  const addMessageRef = useRef<(item: Omit<AgentChatItem, 'id'>) => void>(() => undefined);
+  const addEventLogRef = useRef<(title: string, text: unknown, raw?: unknown) => void>(
+    () => undefined,
+  );
+  const clearAgentSessionRef = useRef<(patch?: Parameters<typeof setAgentState>[0]) => void>(
+    () => undefined,
+  );
+  const handleToolCallRef = useRef<
+    (endpoint: string, token: string, payload: AgentPendingToolCall) => Promise<void>
+  >(async () => undefined);
+  const handleAgentEventRef = useRef<(event: AgentEventPayload) => void>(() => undefined);
+  const toggleAgentConnectionRef = useRef<() => Promise<void>>(async () => undefined);
   const endpoint = useMemo(() => url.trim().replace(/\/$/, ''), [url]);
   const urlAgentAutoConnect = searchParams.has('agentUrl') && searchParams.has('agentToken');
   const loadThreads = useCallback(async () => {
@@ -203,7 +215,7 @@ export function CanvasLocalAgentPanel({
         setAgentState({ messages: normalizeHistoryMessages(thread.messages || []) });
       }
     } catch (error) {
-      addEventLog('读取历史失败', error);
+      addEventLogRef.current('读取历史失败', error);
     } finally {
       setAgentState({ loadingThreads: false });
     }
@@ -250,21 +262,21 @@ export function CanvasLocalAgentPanel({
     });
     source.addEventListener('tool_call', (event) => {
       const data = parseEventData<AgentPendingToolCall>(event);
-      if (data) void handleToolCall(endpoint, token, data);
+      if (data) void handleToolCallRef.current(endpoint, token, data);
     });
     source.addEventListener('agent_event', (event) => {
       const data = parseEventData<AgentEventPayload>(event);
-      if (data) handleAgentEvent(data);
+      if (data) handleAgentEventRef.current(data);
     });
     source.addEventListener('agent_log', (event) => {
       const text = parseEventData<{ text?: unknown }>(event)?.text;
-      addEventLog('日志', text, text);
+      addEventLogRef.current('日志', text, text);
     });
     source.addEventListener('agent_error', (event) => {
       const message = parseEventData<{ message?: unknown }>(event)?.message;
       setAgentState({ activity: '出错', waiting: false });
-      addMessage({ role: 'error', title: '错误', text: normalizeText(message) });
-      addEventLog('错误', message, message);
+      addMessageRef.current({ role: 'error', title: '错误', text: normalizeText(message) });
+      addEventLogRef.current('错误', message, message);
     });
     source.addEventListener('agent_done', () => {
       setAgentState({ activity: '完成', waiting: false, sending: false });
@@ -274,12 +286,15 @@ export function CanvasLocalAgentPanel({
       const wasConnected = connectedRef.current;
       const text = wasConnected ? '本地 Agent 连接失败或已断开' : '连接失败，请检查地址和 token';
       if (!errorLoggedRef.current || wasConnected) {
-        addEventLog(wasConnected ? '连接断开' : '连接失败', { endpoint, error: text });
+        addEventLogRef.current(wasConnected ? '连接断开' : '连接失败', {
+          endpoint,
+          error: text,
+        });
         if (!headless) message.error(text);
       }
       errorLoggedRef.current = true;
       connectedRef.current = false;
-      clearAgentSession({
+      clearAgentSessionRef.current({
         activity: wasConnected ? '连接断开' : '连接失败',
         connected: false,
         connectError: text,
@@ -294,7 +309,7 @@ export function CanvasLocalAgentPanel({
       connectedRef.current = false;
       setAgentState({ connected: false });
     };
-  }, [enabled, endpoint, loadThreads, message, setAgentState, token]);
+  }, [enabled, endpoint, headless, loadThreads, message, setAgentState, token]);
 
   useEffect(() => {
     if (connected) void loadThreads();
@@ -556,7 +571,7 @@ export function CanvasLocalAgentPanel({
   useEffect(() => {
     if (!autoConnect || autoConnectRef.current || enabled || connected) return;
     autoConnectRef.current = true;
-    void toggleAgentConnection();
+    void toggleAgentConnectionRef.current();
   }, [autoConnect, connected, enabled]);
 
   function clearAgentSession(patch: Parameters<typeof setAgentState>[0] = {}) {
@@ -754,6 +769,13 @@ export function CanvasLocalAgentPanel({
       addMessage(item);
     }
   };
+
+  addMessageRef.current = addMessage;
+  addEventLogRef.current = addEventLog;
+  clearAgentSessionRef.current = clearAgentSession;
+  handleToolCallRef.current = handleToolCall;
+  handleAgentEventRef.current = handleAgentEvent;
+  toggleAgentConnectionRef.current = toggleAgentConnection;
 
   const content = (
     <>

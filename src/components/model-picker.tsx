@@ -4,6 +4,7 @@ import { useEffect, useId, useMemo, useState } from 'react';
 import { Cpu } from 'lucide-react';
 
 import { Select, SelectContent, SelectItem, SelectTrigger } from '@/components/ui/select';
+import { publicAssetPath } from '@/lib/public-assets';
 import { cn } from '@/lib/utils';
 import {
   modelOptionLabel,
@@ -72,9 +73,8 @@ export function ModelPicker({
     >
       <SelectTrigger
         className={cn(
-          'canvas-composer-model-picker h-8 w-fit max-w-full gap-2 rounded-full border border-input bg-transparent px-3 text-sm font-normal shadow-sm transition-colors',
+          'canvas-composer-model-picker h-8 w-fit max-w-full gap-2 rounded-full px-3 text-sm font-normal',
           fullWidth ? 'w-full min-w-0 justify-start' : 'min-w-[9rem] justify-start',
-          'data-[state=open]:border-ring data-[state=open]:ring-2 data-[state=open]:ring-ring/20',
           className,
         )}
         onMouseDown={(event) => event.stopPropagation()}
@@ -88,7 +88,7 @@ export function ModelPicker({
       </SelectTrigger>
       <SelectContent
         data-canvas-no-zoom
-        className="z-[1200] w-80 max-w-[calc(100vw-24px)] rounded-xl border border-border/70 bg-popover p-1 shadow-xl"
+        className="z-[1200] w-80 max-w-[calc(100vw-24px)] p-1"
         position="popper"
         align="start"
         side="bottom"
@@ -147,11 +147,17 @@ function ModelIcon({ model }: { model: string }) {
 
 function resolveModelIcon(model: string) {
   const name = model.toLowerCase();
-  if (name.includes('claude') || name.includes('anthropic')) return '/icons/claude.svg';
-  if (name.includes('gemini') || name.includes('google')) return '/icons/gemini.svg';
-  if (name.includes('gpt') || name.includes('openai')) return '/icons/openai.svg';
-  if (name.includes('grok') || name.includes('grok')) return '/icons/grok.svg';
-  if (name.includes('deepseek') || name.includes('deepseek')) return '/icons/deepseek.svg';
-  if (name.includes('glm') || name.includes('glm')) return '/icons/glm.svg';
+  if (name.includes('claude') || name.includes('anthropic')) {
+    return publicAssetPath('/icons/claude.svg');
+  }
+  if (name.includes('gemini') || name.includes('google')) {
+    return publicAssetPath('/icons/gemini.svg');
+  }
+  if (name.includes('gpt') || name.includes('openai')) {
+    return publicAssetPath('/icons/openai.svg');
+  }
+  if (name.includes('grok')) return publicAssetPath('/icons/grok.svg');
+  if (name.includes('deepseek')) return publicAssetPath('/icons/deepseek.svg');
+  if (name.includes('glm')) return publicAssetPath('/icons/glm.svg');
   return '';
 }

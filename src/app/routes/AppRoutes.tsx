@@ -1,18 +1,27 @@
+import { lazy, Suspense } from 'react';
+
 import UserLayout from '../(user)/layout';
-import AssetsPage from '../(user)/assets/page';
-import CanvasPage from '../(user)/canvas/page';
-import CanvasClientPage from '../(user)/canvas/[id]/canvas-client-page';
-import HomePage from '../(user)/page';
-import ImagePage from '../(user)/image/page';
-import PromptsPage from '../(user)/prompts/page';
-import VideoPage from '../(user)/video/page';
 import { featureRegistry } from '../feature-registry';
-import { useClientPathname } from '../../shared/router/client-router';
+import { useClientPathname } from '../../shared/router/client-router-state';
+
+const AssetsPage = lazy(() => import('../(user)/assets/page'));
+const CanvasPage = lazy(() => import('../(user)/canvas/page'));
+const CanvasClientPage = lazy(() => import('../(user)/canvas/[id]/canvas-client-page'));
+const HomePage = lazy(() => import('../(user)/page'));
+const ImagePage = lazy(() => import('../(user)/image/page'));
+const PromptsPage = lazy(() => import('../(user)/prompts/page'));
+const VideoPage = lazy(() => import('../(user)/video/page'));
 
 export function AppRoutes() {
   const pathname = useClientPathname();
 
-  return <UserLayout>{resolveRoute(pathname, enabledRoutePatterns())}</UserLayout>;
+  return (
+    <UserLayout>
+      <Suspense fallback={<RouteFallback />}>
+        {resolveRoute(pathname, enabledRoutePatterns())}
+      </Suspense>
+    </UserLayout>
+  );
 }
 
 function resolveRoute(pathname: string, routePatterns: Set<string>) {
@@ -26,6 +35,14 @@ function resolveRoute(pathname: string, routePatterns: Set<string>) {
   if (routePatterns.has('/prompts') && pathname === '/prompts') return <PromptsPage />;
   if (routePatterns.has('/assets') && pathname === '/assets') return <AssetsPage />;
   return <HomePage />;
+}
+
+function RouteFallback() {
+  return (
+    <main className="flex h-full items-center justify-center bg-background text-sm text-muted-foreground">
+      加载中...
+    </main>
+  );
 }
 
 function enabledRoutePatterns() {

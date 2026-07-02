@@ -10,7 +10,7 @@ describe('Phase 4 app shell', () => {
     render(<App />);
 
     expect(screen.getByRole('link', { name: /无限画布/ })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: '无限画布' })).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { name: '无限画布' })).toBeInTheDocument();
     expect(await screen.findAllByRole('button', { name: /新建画布/ })).not.toHaveLength(0);
   });
 });

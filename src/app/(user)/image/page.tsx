@@ -1,8 +1,6 @@
 'use client';
 
 import {
-  ArrowLeft,
-  ArrowRight,
   BookOpen,
   CheckSquare,
   ClipboardPaste,
@@ -10,7 +8,6 @@ import {
   FolderPlus,
   History,
   ImagePlus,
-  LoaderCircle,
   PenLine,
   Plus,
   SlidersHorizontal,
@@ -19,25 +16,14 @@ import {
   Upload,
 } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
-import {
-  App,
-  Button,
-  Checkbox,
-  Drawer,
-  Empty,
-  Image,
-  Input,
-  Modal,
-  Tag,
-  Tooltip,
-  Typography,
-} from 'antd';
+import { App, Button, Drawer, Image, Input, Modal, Tag, Tooltip } from 'antd';
 import localforage from 'localforage';
 import { saveAs } from 'file-saver';
 
 import { ImageSettingsPanel } from '@/components/image-settings-panel';
 import { ModelPicker } from '@/components/model-picker';
 import { PromptSelectDialog } from '@/components/prompts/prompt-select-dialog';
+import { AppMultiSelectCheckbox } from '@/shared/ui/app-multi-select-checkbox';
 import {
   AssetPickerModal,
   type InsertAssetPayload,
@@ -55,6 +41,33 @@ import { nanoid } from 'nanoid';
 import { formatBytes, formatDuration, getDataUrlByteSize, readImageMeta } from '@/lib/image-utils';
 import { requestEdit, requestGeneration } from '@/services/api/image';
 import { deleteStoredImages, resolveImageUrl, uploadImage } from '@/services/image-storage';
+import {
+  WorkbenchContentGrid,
+  WorkbenchEditorPanel,
+  WorkbenchEmptyState,
+  WorkbenchFailedCard,
+  WorkbenchFieldHeader,
+  WorkbenchHeader,
+  WorkbenchLogEmpty,
+  WorkbenchLogHeader,
+  WorkbenchMainGrid,
+  WorkbenchMediaCard,
+  WorkbenchMobileSummary,
+  WorkbenchPageShell,
+  WorkbenchPendingCard,
+  WorkbenchReferenceEmpty,
+  WorkbenchReferenceOrderButtons,
+  WorkbenchReferenceStrip,
+  WorkbenchResultsPanel,
+  WorkbenchSidebar,
+} from '@/shared/ui/workbench-page';
+import {
+  moveWorkbenchListItem,
+  workbenchLogCardClassName,
+  workbenchResultActionButtonClassName,
+  workbenchTagClassName,
+  workbenchTagToneClassName,
+} from '@/shared/ui/workbench-style';
 import { useAssetStore } from '@/stores/use-asset-store';
 import type { ReferenceImage } from '@/types/image';
 
@@ -88,6 +101,7 @@ type GenerationLog = {
   durationMs: number;
   successCount: number;
   failCount: number;
+  errors: string[];
   imageCount: number;
   size: string;
   quality: string;
@@ -100,8 +114,6 @@ type GenerationLogConfig = Pick<AiConfig, 'model' | 'imageModel' | 'quality' | '
 
 type UpdateAiConfig = <K extends keyof AiConfig>(key: K, value: AiConfig[K]) => void;
 
-const RESULT_ACTION_BUTTON_CLASS =
-  'min-w-0 px-1.5 [&_.ant-btn-icon]:shrink-0 [&>span:last-child]:min-w-0 [&>span:last-child]:truncate';
 const logStore = localforage.createInstance({
   name: 'infinite-canvas',
   storeName: 'image_generation_logs',
@@ -227,6 +239,9 @@ export default function ImagePage() {
       .map((item) => item.value);
     const successCount = successImages.length;
     const failCount = generationCount - successCount;
+    const errors = result
+      .filter((item): item is PromiseRejectedResult => item.status === 'rejected')
+      .map((item) => (item.reason instanceof Error ? item.reason.message : '生成失败'));
     const failed = result.find((item): item is PromiseRejectedResult => item.status === 'rejected');
 
     try {
@@ -253,6 +268,7 @@ export default function ImagePage() {
           durationMs: performance.now() - batchStartedAt,
           successCount,
           failCount,
+          errors,
           status: successCount ? '成功' : '失败',
           images: logImages,
         }),
@@ -372,7 +388,14 @@ export default function ImagePage() {
     if (log.config.quality) updateConfig('quality', log.config.quality);
     if (log.config.size) updateConfig('size', log.config.size);
     if (log.config.count) updateConfig('count', log.config.count);
-    setResults(log.images.map((image) => ({ id: image.id, status: 'success', image })));
+    setResults([
+      ...log.images.map((image) => ({ id: image.id, status: 'success' as const, image })),
+      ...Array.from({ length: Math.max(0, log.failCount || 0) }, (_, index) => ({
+        id: `${log.id}-failed-${index}`,
+        status: 'failed' as const,
+        error: log.errors[index] || '生成失败',
+      })),
+    ]);
   };
 
   const buildRequestSnapshot = () => {
@@ -433,9 +456,9 @@ export default function ImagePage() {
   };
 
   return (
-    <div className="flex h-full flex-col overflow-hidden bg-stone-50 text-stone-900 dark:bg-stone-950 dark:text-stone-100">
-      <main className="grid min-h-0 flex-1 grid-cols-1 gap-3 overflow-y-auto p-3 lg:grid-cols-[300px_minmax(0,1fr)] lg:overflow-hidden xl:grid-cols-[320px_minmax(0,1fr)]">
-        <aside className="thin-scrollbar hidden min-h-0 overflow-y-auto rounded-lg border border-stone-200 bg-card p-4 shadow-sm dark:border-stone-800 lg:block">
+    <WorkbenchPageShell>
+      <WorkbenchMainGrid>
+        <WorkbenchSidebar>
           <LogPanel
             logs={logs}
             selectedLogIds={selectedLogIds}
@@ -445,18 +468,14 @@ export default function ImagePage() {
             onDeleteSelected={() => setDeleteConfirmOpen(true)}
             onPreviewLog={(log) => void previewGenerationLog(log)}
           />
-        </aside>
+        </WorkbenchSidebar>
 
-        <section className="grid gap-3 lg:min-h-0 lg:overflow-hidden xl:grid-cols-[420px_minmax(0,1fr)]">
-          <div className="thin-scrollbar flex flex-col rounded-lg border border-stone-200 bg-card p-4 shadow-sm dark:border-stone-800 lg:min-h-0 lg:overflow-y-auto">
-            <div>
-              <div className="flex items-start justify-between gap-3">
-                <div className="min-w-0">
-                  <h1 className="text-2xl font-semibold text-stone-950 dark:text-stone-100">
-                    生图工作台
-                  </h1>
-                </div>
-                <div className="flex shrink-0 gap-2 lg:hidden">
+        <WorkbenchContentGrid>
+          <WorkbenchEditorPanel>
+            <WorkbenchHeader
+              title="生图工作台"
+              actions={
+                <>
                   <Button icon={<History className="size-4" />} onClick={() => setLogsOpen(true)}>
                     记录
                   </Button>
@@ -466,31 +485,33 @@ export default function ImagePage() {
                   >
                     参数
                   </Button>
-                </div>
-              </div>
-            </div>
+                </>
+              }
+            />
 
             <div className="mt-6 space-y-5">
               <div>
-                <div className="mb-2 flex items-center justify-between gap-3">
-                  <span className="text-base font-semibold">提示词</span>
-                  <div className="flex gap-2">
-                    <Button
-                      size="small"
-                      icon={<BookOpen className="size-3.5" />}
-                      onClick={() => setPromptDialogOpen(true)}
-                    >
-                      查看提示词库
-                    </Button>
-                    <Button
-                      size="small"
-                      icon={<FolderPlus className="size-3.5" />}
-                      onClick={() => setAssetPickerOpen(true)}
-                    >
-                      查看我的素材
-                    </Button>
-                  </div>
-                </div>
+                <WorkbenchFieldHeader
+                  title="提示词"
+                  actions={
+                    <>
+                      <Button
+                        size="small"
+                        icon={<BookOpen className="size-3.5" />}
+                        onClick={() => setPromptDialogOpen(true)}
+                      >
+                        查看提示词库
+                      </Button>
+                      <Button
+                        size="small"
+                        icon={<FolderPlus className="size-3.5" />}
+                        onClick={() => setAssetPickerOpen(true)}
+                      >
+                        查看我的素材
+                      </Button>
+                    </>
+                  }
+                />
                 <Input.TextArea
                   value={prompt}
                   onChange={(event) => setPrompt(event.target.value)}
@@ -500,27 +521,28 @@ export default function ImagePage() {
               </div>
 
               <div className="min-w-0">
-                <div className="mb-2 flex items-center justify-between gap-3">
-                  <span className="text-base font-semibold">参考图</span>
-                  <div className="flex gap-2">
-                    <Button
-                      size="small"
-                      icon={<ClipboardPaste className="size-3.5" />}
-                      onClick={() => void addReferencesFromClipboard()}
-                    >
-                      剪切板
-                    </Button>
-                    <Button
-                      size="small"
-                      icon={<Upload className="size-3.5" />}
-                      onClick={() => fileInputRef.current?.click()}
-                    >
-                      上传
-                    </Button>
-                  </div>
-                </div>
-                <div
-                  className="hover-scrollbar hover-scrollbar-hint flex min-h-24 w-full min-w-0 max-w-full gap-2 overflow-x-scroll overflow-y-hidden rounded-lg border border-dashed border-stone-300 p-2 pb-3 overscroll-x-contain dark:border-stone-700"
+                <WorkbenchFieldHeader
+                  title="参考图"
+                  actions={
+                    <>
+                      <Button
+                        size="small"
+                        icon={<ClipboardPaste className="size-3.5" />}
+                        onClick={() => void addReferencesFromClipboard()}
+                      >
+                        剪切板
+                      </Button>
+                      <Button
+                        size="small"
+                        icon={<Upload className="size-3.5" />}
+                        onClick={() => fileInputRef.current?.click()}
+                      >
+                        上传
+                      </Button>
+                    </>
+                  }
+                />
+                <WorkbenchReferenceStrip
                   onWheel={(event) => {
                     if (event.currentTarget.scrollWidth <= event.currentTarget.clientWidth) return;
                     event.preventDefault();
@@ -530,17 +552,17 @@ export default function ImagePage() {
                   {references.map((item, index) => (
                     <div
                       key={item.id}
-                      className="group relative size-20 shrink-0 overflow-hidden rounded-md border border-stone-200 dark:border-stone-800"
+                      className="group relative size-20 shrink-0 overflow-hidden rounded-md border border-border"
                     >
                       <img src={item.dataUrl} alt={item.name} className="size-full object-cover" />
                       <span className="absolute left-1 top-1 rounded bg-black/60 px-1.5 py-0.5 text-[10px] font-medium text-white">
                         {imageReferenceLabel(index)}
                       </span>
-                      <ReferenceOrderButtons
+                      <WorkbenchReferenceOrderButtons
                         index={index}
                         total={references.length}
                         onMove={(offset) =>
-                          setReferences((value) => moveListItem(value, index, offset))
+                          setReferences((value) => moveWorkbenchListItem(value, index, offset))
                         }
                       />
                       <button
@@ -556,27 +578,18 @@ export default function ImagePage() {
                     </div>
                   ))}
                   {!references.length ? (
-                    <div className="flex min-w-full items-center justify-center text-sm text-stone-500">
-                      暂无参考图
-                    </div>
+                    <WorkbenchReferenceEmpty>暂无参考图</WorkbenchReferenceEmpty>
                   ) : null}
-                </div>
+                </WorkbenchReferenceStrip>
               </div>
 
-              <div className="flex items-center justify-between rounded-lg border border-stone-200 bg-stone-50 px-3 py-2 text-sm dark:border-stone-800 dark:bg-stone-900 sm:hidden">
-                <span className="truncate text-stone-500 dark:text-stone-400">
-                  {modelOptionLabel(effectiveConfig, model)} · {effectiveConfig.size} ·{' '}
-                  {effectiveConfig.quality}
-                </span>
-                <Button
-                  size="small"
-                  type="text"
-                  icon={<SlidersHorizontal className="size-4" />}
-                  onClick={() => setSettingsOpen(true)}
-                >
-                  调整
-                </Button>
-              </div>
+              <WorkbenchMobileSummary
+                summary={`${modelOptionLabel(effectiveConfig, model)} · ${effectiveConfig.size} · ${
+                  effectiveConfig.quality
+                }`}
+                icon={<SlidersHorizontal className="size-4" />}
+                onClick={() => setSettingsOpen(true)}
+              />
 
               <div className="hidden gap-4 sm:grid sm:grid-cols-2">
                 <GenerationSettings
@@ -601,17 +614,12 @@ export default function ImagePage() {
                 开始生成
               </Button>
             </div>
-          </div>
+          </WorkbenchEditorPanel>
 
-          <div className="thin-scrollbar rounded-lg border border-stone-200 bg-card p-4 shadow-sm dark:border-stone-800 lg:min-h-0 lg:overflow-y-auto lg:p-5">
-            <div className="mb-4 flex items-center justify-between gap-3">
-              <div>
-                <h2 className="text-xl font-semibold">生成结果</h2>
-              </div>
-              {running ? (
-                <Tag className="m-0 px-2 py-1">等待 {formatDuration(elapsedMs)}</Tag>
-              ) : null}
-            </div>
+          <WorkbenchResultsPanel
+            title="生成结果"
+            runningLabel={running ? `等待 ${formatDuration(elapsedMs)}` : undefined}
+          >
             {results.length ? (
               <div className="grid gap-4 sm:grid-cols-2 2xl:grid-cols-3">
                 {results.map((result, index) =>
@@ -636,14 +644,11 @@ export default function ImagePage() {
                 )}
               </div>
             ) : (
-              <div className="flex min-h-[320px] flex-col items-center justify-center rounded-lg border border-dashed border-stone-300 text-center dark:border-stone-700 lg:min-h-[560px]">
-                <ImagePlus className="mb-4 size-11 text-stone-400" />
-                <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="还没有生成图片" />
-              </div>
+              <WorkbenchEmptyState icon={ImagePlus} description="还没有生成图片" />
             )}
-          </div>
-        </section>
-      </main>
+          </WorkbenchResultsPanel>
+        </WorkbenchContentGrid>
+      </WorkbenchMainGrid>
       <input
         ref={fileInputRef}
         type="file"
@@ -709,7 +714,7 @@ export default function ImagePage() {
       >
         确定删除选中的 {selectedLogIds.length} 条生成记录吗？
       </Modal>
-    </div>
+    </WorkbenchPageShell>
   );
 }
 
@@ -767,24 +772,21 @@ function ResultImageCard({
   onSaveAsset: (image: GeneratedImage, index: number) => void;
 }) {
   return (
-    <div className="overflow-hidden rounded-lg border border-stone-200 bg-background dark:border-stone-800">
-      <Image
-        src={image.dataUrl}
-        alt={`生成结果 ${index + 1}`}
-        className="aspect-square object-cover"
-      />
-      <div className="space-y-2 border-t border-stone-200 px-3 py-2.5 dark:border-stone-800">
-        <div className="flex min-w-0 gap-x-2 gap-y-1 text-xs text-stone-500 dark:text-stone-400">
+    <WorkbenchMediaCard
+      meta={
+        <>
           <span>
             {image.width}x{image.height}
           </span>
           <span>{formatBytes(image.bytes)}</span>
           <span>{formatDuration(image.durationMs)}</span>
-        </div>
+        </>
+      }
+      actions={
         <div className="grid min-w-0 grid-cols-3 gap-2">
           <Tooltip title="添加到素材">
             <Button
-              className={RESULT_ACTION_BUTTON_CLASS}
+              className={workbenchResultActionButtonClassName}
               size="small"
               icon={<FolderPlus className="size-3.5" />}
               onClick={() => void onSaveAsset(image, index)}
@@ -794,7 +796,7 @@ function ResultImageCard({
           </Tooltip>
           <Tooltip title="加入参考图">
             <Button
-              className={RESULT_ACTION_BUTTON_CLASS}
+              className={workbenchResultActionButtonClassName}
               size="small"
               icon={<PenLine className="size-3.5" />}
               onClick={() => void onEdit(image, index)}
@@ -804,7 +806,7 @@ function ResultImageCard({
           </Tooltip>
           <Tooltip title="下载">
             <Button
-              className={RESULT_ACTION_BUTTON_CLASS}
+              className={workbenchResultActionButtonClassName}
               size="small"
               icon={<Download className="size-3.5" />}
               onClick={() => onDownload(image, index)}
@@ -813,49 +815,24 @@ function ResultImageCard({
             </Button>
           </Tooltip>
         </div>
-      </div>
-    </div>
+      }
+      footerClassName="grid gap-2"
+    >
+      <Image
+        src={image.dataUrl}
+        alt={`生成结果 ${index + 1}`}
+        className="aspect-square object-cover"
+      />
+    </WorkbenchMediaCard>
   );
 }
 
 function PendingImageCard() {
-  return (
-    <div className="relative aspect-square overflow-hidden rounded-lg border border-dashed border-stone-300 bg-stone-50 dark:border-stone-700 dark:bg-stone-900">
-      <div
-        className="absolute inset-0 opacity-60"
-        style={{
-          backgroundImage:
-            'radial-gradient(circle, rgba(120,113,108,0.35) 1.4px, transparent 1.6px)',
-          backgroundSize: '16px 16px',
-        }}
-      />
-      <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 text-sm text-stone-500 dark:text-stone-400">
-        <LoaderCircle className="size-6 animate-spin" />
-        <span>生成中</span>
-      </div>
-    </div>
-  );
+  return <WorkbenchPendingCard patterned />;
 }
 
 function FailedImageCard({ error, onRetry }: { error: string; onRetry: () => void }) {
-  return (
-    <div className="overflow-hidden rounded-lg border border-red-200 bg-red-50 dark:border-red-950 dark:bg-red-950/20">
-      <div className="flex aspect-square flex-col items-center justify-center gap-3 p-5 text-center">
-        <div className="text-sm font-medium text-red-600 dark:text-red-300">生成失败</div>
-        <Typography.Paragraph
-          ellipsis={{ rows: 4 }}
-          className="!mb-0 !text-xs !text-red-500 dark:!text-red-300"
-        >
-          {error}
-        </Typography.Paragraph>
-      </div>
-      <div className="flex justify-end border-t border-red-200 p-3 dark:border-red-950">
-        <Button size="small" danger onClick={onRetry}>
-          重试
-        </Button>
-      </div>
-    </div>
-  );
+  return <WorkbenchFailedCard error={error} onRetry={onRetry} />;
 }
 
 function updateResultAt(
@@ -888,13 +865,7 @@ function LogPanel({
 
   return (
     <>
-      <div className="mb-3 flex items-center justify-between gap-3">
-        <div>
-          <h2 className="text-base font-semibold">生成记录</h2>
-        </div>
-        <Tag className="m-0">{logs.length}</Tag>
-      </div>
-      <div className="mb-4 flex flex-wrap gap-2">
+      <WorkbenchLogHeader count={logs.length}>
         <Button size="small" icon={<Plus className="size-3.5" />} onClick={onCreateSession}>
           新建
         </Button>
@@ -915,7 +886,7 @@ function LogPanel({
         >
           删除
         </Button>
-      </div>
+      </WorkbenchLogHeader>
       <div className="space-y-3">
         {logs.map((log) => (
           <LogCard
@@ -933,11 +904,7 @@ function LogPanel({
             onClick={() => onPreviewLog(log)}
           />
         ))}
-        {!logs.length ? (
-          <div className="flex min-h-48 items-center justify-center rounded-lg border border-dashed border-stone-300 text-center text-sm text-stone-500 dark:border-stone-700">
-            暂无生成记录
-          </div>
-        ) : null}
+        {!logs.length ? <WorkbenchLogEmpty /> : null}
       </div>
     </>
   );
@@ -959,18 +926,15 @@ function LogCard({
   const thumbnails = (log.thumbnails || []).filter(Boolean).slice(0, 4);
 
   return (
-    <button
-      type="button"
-      className={`block w-full rounded-lg border p-2 text-left transition ${active ? 'border-stone-900 bg-blue-50 dark:border-stone-100 dark:bg-blue-950/20' : 'border-stone-200 bg-background hover:bg-stone-50 dark:border-stone-800 dark:hover:bg-stone-900'}`}
-      onClick={onClick}
-    >
+    <button type="button" className={workbenchLogCardClassName(active)} onClick={onClick}>
       <div className="grid grid-cols-[minmax(128px,1fr)_auto] gap-2">
         <div className="grid min-w-0 grid-cols-[auto_minmax(0,1fr)] items-start gap-2">
-          <Checkbox
+          <AppMultiSelectCheckbox
             className="mt-0.5"
             checked={selected}
-            onClick={(event) => event.stopPropagation()}
-            onChange={(event) => onSelectedChange(event.target.checked)}
+            onCheckedChange={onSelectedChange}
+            ariaLabel={`选择生成记录 ${log.title}`}
+            stopPropagation
           />
           <div className="min-w-0">
             <div className="truncate text-sm font-semibold leading-5">{log.title}</div>
@@ -990,36 +954,21 @@ function LogCard({
         </div>
         <div className="grid justify-items-end gap-2">
           <div className="flex gap-1">
-            <Tag
-              className="m-0 flex h-6 items-center rounded-md px-1.5 text-xs leading-none"
-              color="blue"
-            >
+            <Tag className={workbenchTagToneClassName.primary}>
               成功 {log.successCount ?? log.imageCount}
             </Tag>
             {log.failCount ? (
-              <Tag
-                className="m-0 flex h-6 items-center rounded-md px-1.5 text-xs leading-none"
-                color="red"
-              >
-                失败 {log.failCount}
-              </Tag>
+              <Tag className={workbenchTagToneClassName.danger}>失败 {log.failCount}</Tag>
             ) : null}
           </div>
           <div className="flex flex-wrap justify-end gap-1">
-            <Tag className="m-0 flex h-6 items-center rounded-md px-1.5 text-xs leading-none">
-              {log.imageCount} 张
-            </Tag>
-            <Tag
-              className="m-0 flex h-6 items-center rounded-md px-1.5 text-xs leading-none"
-              color="green"
-            >
+            <Tag className={workbenchTagClassName}>{log.imageCount} 张</Tag>
+            <Tag className={workbenchTagToneClassName.success}>
               {formatDuration(log.durationMs)}
             </Tag>
           </div>
           <div className="flex justify-end">
-            <Tag className="m-0 flex h-6 items-center rounded-md px-1.5 text-xs leading-none">
-              {log.time}
-            </Tag>
+            <Tag className={workbenchTagClassName}>{log.time}</Tag>
           </div>
         </div>
       </div>
@@ -1067,6 +1016,7 @@ async function normalizeLog(log: Partial<GenerationLog>): Promise<GenerationLog>
     durationMs: log.durationMs || 0,
     successCount: log.successCount ?? log.imageCount ?? 0,
     failCount: log.failCount || 0,
+    errors: log.errors || [],
     imageCount: log.imageCount || log.successCount || 0,
     size: log.size || config.size || '',
     quality: log.quality || config.quality || '',
@@ -1101,44 +1051,6 @@ function normalizeLogConfig(log: Partial<GenerationLog>): GenerationLogConfig {
   };
 }
 
-function moveListItem<T>(items: T[], index: number, offset: number) {
-  const targetIndex = index + offset;
-  if (targetIndex < 0 || targetIndex >= items.length) return items;
-  const next = [...items];
-  [next[index], next[targetIndex]] = [next[targetIndex], next[index]];
-  return next;
-}
-
-function ReferenceOrderButtons({
-  index,
-  total,
-  onMove,
-}: {
-  index: number;
-  total: number;
-  onMove: (offset: number) => void;
-}) {
-  if (total <= 1) return null;
-  return (
-    <div className="absolute inset-x-1 bottom-1 flex justify-between">
-      <Button
-        size="small"
-        className="!h-6 !w-6 !min-w-6 !rounded-full !bg-white/85 !p-0 !shadow-sm"
-        icon={<ArrowLeft className="size-3" />}
-        disabled={index <= 0}
-        onClick={() => onMove(-1)}
-      />
-      <Button
-        size="small"
-        className="!h-6 !w-6 !min-w-6 !rounded-full !bg-white/85 !p-0 !shadow-sm"
-        icon={<ArrowRight className="size-3" />}
-        disabled={index >= total - 1}
-        onClick={() => onMove(1)}
-      />
-    </div>
-  );
-}
-
 function buildLog({
   prompt,
   model,
@@ -1147,6 +1059,7 @@ function buildLog({
   durationMs,
   successCount,
   failCount,
+  errors,
   status,
   images,
 }: {
@@ -1157,6 +1070,7 @@ function buildLog({
   durationMs: number;
   successCount: number;
   failCount: number;
+  errors: string[];
   status: GenerationLog['status'];
   images: GeneratedImage[];
 }): GenerationLog {
@@ -1179,6 +1093,7 @@ function buildLog({
     durationMs,
     successCount,
     failCount,
+    errors,
     imageCount: Number(logConfig.count) || successCount,
     size: logConfig.size,
     quality: logConfig.quality,

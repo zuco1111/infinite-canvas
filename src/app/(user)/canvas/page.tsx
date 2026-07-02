@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { App, Button } from 'antd';
 import { Download, FileUp, Plus } from 'lucide-react';
@@ -31,9 +31,12 @@ export default function CanvasPage() {
   const mode = searchParams.get('mode');
   const agentMode = mode === 'new' || mode === 'recent' || mode === 'choose';
   const agentQuery = agentMode ? `?${searchParams.toString()}` : '';
-  const enterProject = (id: string) => {
-    router.push(`/canvas/${id}${agentQuery}`);
-  };
+  const enterProject = useCallback(
+    (id: string) => {
+      router.push(`/canvas/${id}${agentQuery}`);
+    },
+    [agentQuery, router],
+  );
   const createAndEnter = () => enterProject(createProject(`无限画布 ${projects.length + 1}`));
   const importCanvas = async (file?: File) => {
     if (!file) return;
@@ -71,21 +74,21 @@ export default function CanvasPage() {
         ? createProject(`无限画布 ${projects.length + 1}`)
         : projects[0]?.id || createProject(`无限画布 ${projects.length + 1}`),
     );
-  }, [createProject, hydrated, mode, projects]);
+  }, [createProject, enterProject, hydrated, mode, projects]);
 
   if (hydrated && (mode === 'new' || mode === 'recent'))
     return (
-      <main className="flex h-full items-center justify-center bg-background text-sm text-stone-500">
+      <main className="flex h-full items-center justify-center bg-background text-sm text-muted-foreground">
         正在打开画布...
       </main>
     );
 
   return (
-    <main className="h-full overflow-auto bg-background text-stone-950 dark:text-stone-100">
+    <main className="h-full overflow-auto bg-background text-foreground">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-6 py-10">
-        <header className="flex flex-wrap items-end justify-between gap-4 border-b border-stone-200 pb-6 dark:border-stone-800">
+        <header className="flex flex-wrap items-end justify-between gap-4 border-b border-border pb-6">
           <div>
-            <p className="text-xs text-stone-500">画布库</p>
+            <p className="text-xs text-muted-foreground">画布库</p>
             <h1 className="mt-3 text-3xl font-semibold">无限画布</h1>
           </div>
           <div className="flex items-center gap-2">
@@ -135,7 +138,7 @@ export default function CanvasPage() {
         </header>
 
         {!hydrated ? (
-          <section className="flex min-h-[360px] items-center justify-center border-y border-stone-200 text-sm text-stone-500 dark:border-stone-800">
+          <section className="flex min-h-[360px] items-center justify-center border-y border-border text-sm text-muted-foreground">
             正在加载画布...
           </section>
         ) : projects.length ? (
@@ -145,9 +148,9 @@ export default function CanvasPage() {
             ))}
           </div>
         ) : (
-          <section className="flex min-h-[360px] flex-col items-center justify-center border-y border-stone-200 text-center dark:border-stone-800">
+          <section className="flex min-h-[360px] flex-col items-center justify-center border-y border-border text-center">
             <h2 className="text-xl font-medium">还没有画布</h2>
-            <p className="mt-3 text-sm text-stone-500">
+            <p className="mt-3 text-sm text-muted-foreground">
               新建一个画布后，就可以独立保存节点、连线和画布外观。
             </p>
             <Button

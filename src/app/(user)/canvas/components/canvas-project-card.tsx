@@ -4,6 +4,7 @@ import { Check, Download, Pencil, Trash2, X } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Button, Input } from 'antd';
 
+import { AppMultiSelectCheckbox } from '@/shared/ui/app-multi-select-checkbox';
 import { useCanvasStore, type CanvasProject } from '../stores/use-canvas-store';
 import { useCanvasUiStore } from '../stores/use-canvas-ui-store';
 import { exportCanvasProjects } from '../utils/canvas-export';
@@ -33,17 +34,16 @@ export function CanvasProjectCard({ project }: { project: CanvasProject }) {
 
   return (
     <article
-      className="group flex min-h-44 cursor-pointer flex-col justify-between rounded-2xl bg-[#f1eee8] p-5 transition hover:bg-[#ebe6dc] dark:bg-white/5 dark:hover:bg-white/10"
+      className="group flex min-h-44 cursor-pointer flex-col justify-between rounded-lg border border-border bg-card p-5 transition hover:bg-muted"
       onClick={() => !editing && open()}
     >
       <div className="flex items-start gap-3">
-        <input
-          type="checkbox"
+        <AppMultiSelectCheckbox
           checked={selected}
-          onClick={(event) => event.stopPropagation()}
-          onChange={(event) => toggleSelected(project.id, event.target.checked)}
-          className="mt-1 size-4 accent-stone-950 dark:accent-stone-100"
-          aria-label={`选择 ${project.title}`}
+          onCheckedChange={(checked) => toggleSelected(project.id, checked)}
+          className="mt-1"
+          ariaLabel={`选择 ${project.title}`}
+          stopPropagation
         />
         {editing ? (
           <Input
@@ -64,14 +64,14 @@ export function CanvasProjectCard({ project }: { project: CanvasProject }) {
             }}
           >
             <h2 className="truncate text-xl font-semibold">{project.title}</h2>
-            <p className="mt-3 text-sm leading-6 text-stone-600 dark:text-stone-400">
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">
               {project.nodes.length} 个节点 · {project.connections.length} 条连线
             </p>
           </button>
         )}
       </div>
       <div className="mt-8 flex items-end justify-between gap-3">
-        <p className="text-xs text-stone-500">
+        <p className="text-xs text-muted-foreground">
           更新于{' '}
           {new Date(project.updatedAt).toLocaleString('zh-CN', {
             month: '2-digit',

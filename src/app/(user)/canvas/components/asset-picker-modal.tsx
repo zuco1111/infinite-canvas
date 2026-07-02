@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Empty, Input, Modal, Pagination, Tag } from 'antd';
 import { Search } from 'lucide-react';
 
-import { cn } from '@/lib/utils';
+import { CatalogCheckableTagList } from '@/shared/ui/catalog-page';
 import { useAssetStore, type Asset } from '@/stores/use-asset-store';
 
 export type InsertAssetPayload =
@@ -64,27 +64,25 @@ function PickerCard({
   return (
     <button
       type="button"
-      className="group relative cursor-pointer overflow-hidden rounded-lg border border-stone-200 bg-white text-left transition hover:border-stone-400 hover:shadow-md dark:border-stone-700 dark:bg-stone-900 dark:hover:border-stone-500"
+      className="group relative cursor-pointer overflow-hidden rounded-lg border border-border bg-card text-left transition hover:bg-muted hover:shadow-md"
       onClick={onClick}
     >
       {cover ? (
         <img src={cover} alt={title} className="aspect-[4/3] w-full object-cover" />
       ) : (
-        <div className="flex aspect-[4/3] items-center justify-center bg-stone-100 p-3 text-center text-xs leading-5 text-stone-500 dark:bg-stone-800 dark:text-stone-400">
+        <div className="flex aspect-[4/3] items-center justify-center bg-muted p-3 text-center text-xs leading-5 text-muted-foreground">
           {title}
         </div>
       )}
       <div className="p-2.5">
         <div className="flex items-center justify-between gap-2">
-          <span className="line-clamp-1 text-xs font-medium text-stone-800 dark:text-stone-200">
-            {title}
-          </span>
+          <span className="line-clamp-1 text-xs font-medium text-foreground">{title}</span>
           <Tag className="m-0 shrink-0 text-[10px]">
             {kind === 'image' ? '图片' : kind === 'video' ? '视频' : '文本'}
           </Tag>
         </div>
       </div>
-      <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-stone-950/0 text-sm font-medium text-white opacity-0 transition group-hover:bg-stone-950/55 group-hover:opacity-100">
+      <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/0 text-sm font-medium text-white opacity-0 transition group-hover:bg-black/55 group-hover:opacity-100">
         插入
       </div>
     </button>
@@ -147,7 +145,7 @@ function MyAssetsTab({ onInsert }: { onInsert: (payload: InsertAssetPayload) => 
         <Input
           className="w-56"
           size="small"
-          prefix={<Search className="size-3.5 text-stone-400" />}
+          prefix={<Search className="size-3.5 text-muted-foreground" />}
           placeholder="搜索素材"
           value={keyword}
           allowClear
@@ -156,21 +154,15 @@ function MyAssetsTab({ onInsert }: { onInsert: (payload: InsertAssetPayload) => 
             setKeyword(e.target.value);
           }}
         />
-        <div className="flex gap-1.5">
-          {kindOptions.map((opt) => (
-            <Tag.CheckableTag
-              key={opt.value}
-              checked={kindFilter === opt.value}
-              className={cn('prompt-filter-tag', kindFilter === opt.value && 'is-active')}
-              onChange={() => {
-                setPage(1);
-                setKindFilter(opt.value);
-              }}
-            >
-              {opt.label}
-            </Tag.CheckableTag>
-          ))}
-        </div>
+        <CatalogCheckableTagList
+          options={kindOptions}
+          isChecked={(value) => kindFilter === value}
+          onChange={(value) => {
+            setPage(1);
+            setKindFilter(value);
+          }}
+          className="gap-1.5"
+        />
       </div>
 
       {visible.length ? (

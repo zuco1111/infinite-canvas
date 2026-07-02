@@ -5,7 +5,6 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   App,
   Button,
-  Card,
   Drawer,
   Empty,
   Form,
@@ -23,7 +22,13 @@ import { saveAs } from 'file-saver';
 import { useCopyText } from '@/hooks/use-copy-text';
 import { formatBytes, readFileAsDataUrl } from '@/lib/image-utils';
 import { uploadImage } from '@/services/image-storage';
-import { cn } from '@/lib/utils';
+import {
+  CatalogCheckableFilterGroup,
+  CatalogItemCard,
+  CatalogPageHeader,
+  CatalogPageShell,
+  CatalogTextAction,
+} from '@/shared/ui/catalog-page';
 import {
   useAssetStore,
   type Asset,
@@ -246,125 +251,92 @@ export default function AssetsPage() {
   };
 
   return (
-    <div className="flex h-full flex-col overflow-hidden bg-background text-stone-900 dark:text-stone-100">
-      <main className="min-h-0 flex-1 overflow-y-auto bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] px-6 py-8 [background-size:16px_16px] dark:bg-[radial-gradient(rgba(245,245,244,.14)_1px,transparent_1px)]">
-        <div className="pb-8">
-          <div className="mx-auto max-w-5xl text-center">
-            <h1 className="text-4xl font-semibold tracking-tight text-stone-950 dark:text-stone-100">
-              我的素材
-            </h1>
-            <p className="mt-3 text-sm text-stone-500 dark:text-stone-400">
-              收藏常用文本和图片，按类型、标题和标签快速查找。
-            </p>
-          </div>
+    <CatalogPageShell gridTone="soft">
+      <div className="pb-8">
+        <CatalogPageHeader
+          title="我的素材"
+          description="收藏常用文本和图片，按类型、标题和标签快速查找。"
+        />
 
-          <div className="mx-auto mt-8 w-full max-w-2xl">
-            <Input.Search
-              className="w-full"
-              size="large"
-              allowClear
-              prefix={<Search className="size-4 text-stone-400" />}
-              value={keyword}
-              placeholder="搜索标题、内容、标签或来源"
-              onChange={(event) => {
+        <div className="mx-auto mt-8 w-full max-w-2xl">
+          <Input.Search
+            className="w-full"
+            size="large"
+            allowClear
+            prefix={<Search className="size-4 text-muted-foreground" />}
+            value={keyword}
+            placeholder="搜索标题、内容、标签或来源"
+            onChange={(event) => {
+              setPage(1);
+              setKeyword(event.target.value);
+            }}
+            onSearch={(value) => {
+              setPage(1);
+              setKeyword(value);
+            }}
+          />
+        </div>
+
+        <div className="mx-auto mt-6 grid max-w-6xl gap-3 text-left">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <CatalogCheckableFilterGroup
+              label="类型"
+              align="center"
+              options={kindOptions}
+              isChecked={(value) => kindFilter === value}
+              onChange={(value) => {
                 setPage(1);
-                setKeyword(event.target.value);
-              }}
-              onSearch={(value) => {
-                setPage(1);
-                setKeyword(value);
+                setKindFilter(value as AssetKind | 'all');
               }}
             />
-          </div>
-
-          <div className="mx-auto mt-6 grid max-w-6xl gap-3 text-left">
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-              <div className="grid gap-2 sm:grid-cols-[56px_minmax(0,1fr)] sm:items-center">
-                <div className="text-xs font-medium text-stone-500 dark:text-stone-400">类型</div>
-                <div className="flex flex-wrap gap-2">
-                  {kindOptions.map((option) => (
-                    <Tag.CheckableTag
-                      key={option.value}
-                      checked={kindFilter === option.value}
-                      className={cn(
-                        'prompt-filter-tag',
-                        kindFilter === option.value && 'is-active',
-                      )}
-                      onChange={() => {
-                        setPage(1);
-                        setKindFilter(option.value as AssetKind | 'all');
-                      }}
-                    >
-                      {option.label}
-                    </Tag.CheckableTag>
-                  ))}
-                </div>
-              </div>
-              <div className="flex flex-wrap gap-4">
-                <button
-                  type="button"
-                  className="cursor-pointer text-sm font-medium text-stone-700 underline-offset-4 hover:underline focus-visible:outline-none focus-visible:underline dark:text-stone-300"
-                  onClick={() => void exportAllAssets()}
-                >
-                  导出素材
-                </button>
-                <button
-                  type="button"
-                  className="cursor-pointer text-sm font-medium text-stone-700 underline-offset-4 hover:underline focus-visible:outline-none focus-visible:underline dark:text-stone-300"
-                  onClick={() => assetInputRef.current?.click()}
-                >
-                  导入素材
-                </button>
-                <button
-                  type="button"
-                  className="cursor-pointer text-sm font-medium text-stone-700 underline-offset-4 hover:underline focus-visible:outline-none focus-visible:underline dark:text-stone-300"
-                  onClick={openCreate}
-                >
-                  新增素材
-                </button>
-              </div>
+            <div className="flex flex-wrap gap-4">
+              <CatalogTextAction onClick={() => void exportAllAssets()}>导出素材</CatalogTextAction>
+              <CatalogTextAction onClick={() => assetInputRef.current?.click()}>
+                导入素材
+              </CatalogTextAction>
+              <CatalogTextAction onClick={openCreate}>新增素材</CatalogTextAction>
             </div>
           </div>
         </div>
+      </div>
 
-        <div className="mx-auto flex max-w-7xl flex-col gap-5">
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {visibleAssets.map((asset) => (
-              <AssetCard
-                key={asset.id}
-                asset={asset}
-                onOpen={() => setPreviewAsset(asset)}
-                onEdit={() => openEdit(asset)}
-                onCopy={copyAssetText}
-                onDownload={downloadImage}
-                onDelete={() => setDeletingAsset(asset)}
-              />
-            ))}
-          </div>
-
-          {!visibleAssets.length ? (
-            <Empty
-              image={Empty.PRESENTED_IMAGE_SIMPLE}
-              description="没有找到素材"
-              className="py-20"
+      <div className="mx-auto flex max-w-7xl flex-col gap-5">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {visibleAssets.map((asset) => (
+            <AssetCard
+              key={asset.id}
+              asset={asset}
+              onOpen={() => setPreviewAsset(asset)}
+              onEdit={() => openEdit(asset)}
+              onCopy={copyAssetText}
+              onDownload={downloadImage}
+              onDelete={() => setDeletingAsset(asset)}
             />
-          ) : null}
-
-          <div className="flex justify-center">
-            <Pagination
-              current={page}
-              pageSize={pageSize}
-              total={filteredAssets.length}
-              showSizeChanger
-              pageSizeOptions={[10, 20, 50, 100]}
-              onChange={(nextPage, nextPageSize) => {
-                setPage(nextPage);
-                setPageSize(nextPageSize);
-              }}
-            />
-          </div>
+          ))}
         </div>
-      </main>
+
+        {!visibleAssets.length ? (
+          <Empty
+            image={Empty.PRESENTED_IMAGE_SIMPLE}
+            description="没有找到素材"
+            className="py-20"
+          />
+        ) : null}
+
+        <div className="flex justify-center">
+          <Pagination
+            current={page}
+            pageSize={pageSize}
+            total={filteredAssets.length}
+            showSizeChanger
+            pageSizeOptions={[10, 20, 50, 100]}
+            onChange={(nextPage, nextPageSize) => {
+              setPage(nextPage);
+              setPageSize(nextPageSize);
+            }}
+          />
+        </div>
+      </div>
 
       <Modal
         title={editingAsset ? '编辑素材' : '新增素材'}
@@ -431,7 +403,7 @@ export default function AssetsPage() {
               </Form.Item>
             ) : (
               <Form.Item label="图片内容" required>
-                <div className="rounded-lg border border-dashed border-stone-300 p-4 dark:border-stone-700">
+                <div className="rounded-lg border border-dashed border-border p-4">
                   <Button
                     icon={<Upload className="size-4" />}
                     onClick={() => imageInputRef.current?.click()}
@@ -451,9 +423,9 @@ export default function AssetsPage() {
               </Form.Item>
             )}
           </Form>
-          <div className="rounded-xl border border-stone-200 bg-stone-50 p-4 dark:border-stone-800 dark:bg-stone-950">
+          <div className="rounded-lg border border-border bg-muted p-4">
             <Typography.Text strong>预览</Typography.Text>
-            <div className="mt-3 overflow-hidden rounded-lg border border-stone-200 bg-background dark:border-stone-800">
+            <div className="mt-3 overflow-hidden rounded-lg border border-border bg-card">
               {coverUrl || imageDraft?.dataUrl ? (
                 <img
                   src={coverUrl || imageDraft?.dataUrl}
@@ -461,7 +433,7 @@ export default function AssetsPage() {
                   className="aspect-[4/3] w-full object-cover"
                 />
               ) : (
-                <div className="flex aspect-[4/3] items-center justify-center bg-stone-100 p-5 text-center text-sm text-stone-500 dark:bg-stone-900">
+                <div className="flex aspect-[4/3] items-center justify-center bg-muted p-5 text-center text-sm text-muted-foreground">
                   {content || '暂无封面'}
                 </div>
               )}
@@ -532,7 +504,7 @@ export default function AssetsPage() {
       >
         确定删除「{deletingAsset?.title}」吗？删除后会从我的素材中移除。
       </Modal>
-    </div>
+    </CatalogPageShell>
   );
 }
 
@@ -554,29 +526,21 @@ function AssetCard({
   const cover = asset.coverUrl || (asset.kind === 'image' ? asset.data.dataUrl : '');
   const summary = assetSummary(asset);
   return (
-    <Card
-      hoverable
-      className="overflow-hidden"
-      styles={{ body: { padding: 0 } }}
-      cover={
-        <button type="button" className="block w-full text-left" onClick={onOpen}>
-          {cover ? (
-            <img src={cover} alt={asset.title} className="aspect-[4/3] w-full object-cover" />
-          ) : (
-            <div className="flex aspect-[4/3] items-center justify-center bg-stone-100 p-5 text-center text-sm leading-6 text-stone-600 dark:bg-stone-900 dark:text-stone-300">
-              {asset.kind === 'text' ? asset.data.content : '暂无封面'}
-            </div>
-          )}
-        </button>
+    <CatalogItemCard
+      media={
+        cover ? (
+          <img src={cover} alt={asset.title} className="aspect-[4/3] w-full object-cover" />
+        ) : (
+          <div className="flex aspect-[4/3] items-center justify-center bg-muted p-5 text-center text-sm leading-6 text-muted-foreground">
+            {asset.kind === 'text' ? asset.data.content : '暂无封面'}
+          </div>
+        )
       }
-    >
-      <button type="button" className="block w-full text-left" onClick={onOpen}>
-        <div className="p-4">
+      body={
+        <>
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0">
-              <h2 className="line-clamp-1 text-sm font-semibold text-stone-950 dark:text-stone-100">
-                {asset.title}
-              </h2>
+              <h2 className="line-clamp-1 text-sm font-semibold text-foreground">{asset.title}</h2>
               <Typography.Text type="secondary" className="mt-1 block text-xs">
                 {asset.source || '未标注来源'}
               </Typography.Text>
@@ -600,40 +564,43 @@ function AssetCard({
             ))}
             {!asset.tags?.length ? <Tag className="m-0 text-[11px]">无标签</Tag> : null}
           </div>
-        </div>
-      </button>
-      <div className="flex items-center gap-2 px-4 pb-4">
-        <Button size="small" onClick={onOpen}>
-          查看
-        </Button>
-        {asset.kind !== 'video' ? (
-          <Button size="small" icon={<PencilLine className="size-3.5" />} onClick={onEdit}>
-            编辑
+        </>
+      }
+      onOpen={onOpen}
+      actions={
+        <>
+          <Button size="small" onClick={onOpen}>
+            查看
           </Button>
-        ) : null}
-        {asset.kind === 'text' ? (
-          <Button
-            size="small"
-            icon={<Copy className="size-3.5" />}
-            onClick={() => void onCopy(asset)}
-          >
-            复制
+          {asset.kind !== 'video' ? (
+            <Button size="small" icon={<PencilLine className="size-3.5" />} onClick={onEdit}>
+              编辑
+            </Button>
+          ) : null}
+          {asset.kind === 'text' ? (
+            <Button
+              size="small"
+              icon={<Copy className="size-3.5" />}
+              onClick={() => void onCopy(asset)}
+            >
+              复制
+            </Button>
+          ) : null}
+          {asset.kind === 'image' || asset.kind === 'video' ? (
+            <Button
+              size="small"
+              icon={<Download className="size-3.5" />}
+              onClick={() => onDownload(asset)}
+            >
+              下载
+            </Button>
+          ) : null}
+          <Button size="small" danger icon={<Trash2 className="size-3.5" />} onClick={onDelete}>
+            删除
           </Button>
-        ) : null}
-        {asset.kind === 'image' || asset.kind === 'video' ? (
-          <Button
-            size="small"
-            icon={<Download className="size-3.5" />}
-            onClick={() => onDownload(asset)}
-          >
-            下载
-          </Button>
-        ) : null}
-        <Button size="small" danger icon={<Trash2 className="size-3.5" />} onClick={onDelete}>
-          删除
-        </Button>
-      </div>
-    </Card>
+        </>
+      }
+    />
   );
 }
 
@@ -656,7 +623,7 @@ function AssetDrawer({
           {cover ? (
             <Image src={cover} alt={asset.title} className="rounded-lg" />
           ) : (
-            <div className="rounded-lg border border-stone-200 bg-stone-50 p-5 text-sm leading-6 text-stone-600 dark:border-stone-800 dark:bg-stone-900 dark:text-stone-300">
+            <div className="rounded-lg border border-border bg-muted p-5 text-sm leading-6 text-muted-foreground">
               {asset.kind === 'text' ? asset.data.content : '暂无封面'}
             </div>
           )}
@@ -673,7 +640,7 @@ function AssetDrawer({
               ))}
             </Space>
           </div>
-          <div className="rounded-lg border border-stone-200 p-4 dark:border-stone-800">
+          <div className="rounded-lg border border-border p-4">
             <Typography.Text type="secondary" className="block text-xs">
               内容
             </Typography.Text>

@@ -1,9 +1,8 @@
 import { spawn, type ChildProcess, type StdioOptions } from 'node:child_process';
+import { existsSync } from 'node:fs';
 import fs from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
-import { createRequire } from 'node:module';
-import { fileURLToPath } from 'node:url';
 
 import { AGENT_PROMPT, VERSION } from './config.js';
 import type { AgentAttachment, AgentEmit } from './types.js';
@@ -25,7 +24,6 @@ let codexQueue: Promise<unknown> = Promise.resolve();
 let codexApp: CodexAppClient | null = null;
 let codexThreadId = '';
 const canvasAgentMcp = canvasAgentMcpCommand();
-const require = createRequire(import.meta.url);
 
 export function withAgentPrompt(prompt: string) {
   return prompt.trim() ? `${AGENT_PROMPT}\n\n用户请求：${prompt}` : '';
@@ -375,8 +373,8 @@ class CodexAppClient {
 }
 
 function canvasAgentMcpCommand() {
-  const current = process.argv.find((arg) => /index\.(t|j)s$/.test(arg)) || '';
-  const entry = path.resolve(current || fileURLToPath(new URL('./index.js', import.meta.url)));
+  const current = process.argv.find((arg) => /index\.(?:ts|js|cjs|mjs)$/.test(arg)) || '';
+  const entry = path.resolve(current || process.argv[1] || 'dist-electron/agent/index.cjs');
   const tsx = path.join(path.dirname(entry), '..', 'node_modules', 'tsx', 'dist', 'cli.mjs');
   return entry.endsWith('.ts')
     ? { command: process.execPath, args: [tsx, entry, 'mcp'] }
@@ -612,7 +610,19 @@ function imageExt(type = '') {
 }
 
 function codexBin() {
-  return path.join(path.dirname(require.resolve('@openai/codex/package.json')), 'bin', 'codex.js');
+  const resourcesPath = (process as NodeJS.Process & { resourcesPath?: string }).resourcesPath;
+  const packagedPackageJson = path.join(
+    resourcesPath || '',
+    'node_modules',
+    '@openai',
+    'codex',
+    'package.json',
+  );
+  const codexPackageJson = '@openai/codex/package.json';
+  const packageJson = existsSync(packagedPackageJson)
+    ? packagedPackageJson
+    : require.resolve(codexPackageJson);
+  return path.join(path.dirname(packageJson), 'bin', 'codex.js');
 }
 
 function pipeJsonLines(child: ReturnType<typeof spawn>, emit: AgentEmit, agent: string) {

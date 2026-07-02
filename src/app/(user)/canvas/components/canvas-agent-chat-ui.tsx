@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 
 import { canvasThemes } from '@/lib/canvas-theme';
+import { publicAssetPath } from '@/lib/public-assets';
 import type { LocalUser } from '@/stores/use-user-store';
 
 export type CanvasAgentChatAttachment = { id: string; name: string; url: string };
@@ -518,14 +519,16 @@ function AgentDetailBlock({
 }
 
 function AgentAvatar({ theme }: { theme: (typeof canvasThemes)[keyof typeof canvasThemes] }) {
+  const openAiIcon = publicAssetPath('/icons/openai.svg');
+
   return (
     <span className="grid size-8 shrink-0 place-items-center" role="img" aria-label="OpenAI">
       <span
         className="size-5 opacity-80"
         style={{
           background: theme.node.text,
-          WebkitMask: 'url(/icons/openai.svg) center / contain no-repeat',
-          mask: 'url(/icons/openai.svg) center / contain no-repeat',
+          WebkitMask: `url(${openAiIcon}) center / contain no-repeat`,
+          mask: `url(${openAiIcon}) center / contain no-repeat`,
         }}
       />
     </span>

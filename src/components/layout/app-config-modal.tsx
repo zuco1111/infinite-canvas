@@ -12,6 +12,7 @@ import {
   type AppSyncProgressEvent,
 } from '@/services/app-sync';
 import { testWebdavConnection, WEBDAV_MANIFEST_FILE_NAME } from '@/services/webdav-sync';
+import { AppHelperText, AppNotice, AppSurface } from '@/shared/ui/app-surface';
 import {
   audioFormatOptions,
   audioVoiceOptions,
@@ -95,6 +96,7 @@ const webdavDomainLabels: Record<AppSyncDomainKey, string> = {
   'image-workbench': '生图工作台',
   'video-workbench': '视频创作台',
 };
+const ZUCO_PURCHASE_URL = 'https://api.zuco.ai';
 
 function createWebdavDomainProgress(): Record<AppSyncDomainKey, WebdavDomainProgress> {
   return webdavDomainKeys.reduce(
@@ -185,6 +187,10 @@ export function AppConfigModal() {
       return;
     }
     updateChannels(config.channels.filter((channel) => channel.id !== id));
+  };
+
+  const openZucoPurchasePage = () => {
+    window.open(ZUCO_PURCHASE_URL, '_blank', 'noopener,noreferrer');
   };
 
   const refreshChannelModels = async (channel: ModelChannel) => {
@@ -301,9 +307,7 @@ export function AppConfigModal() {
       title={
         <div>
           <div className="text-lg font-semibold">配置与用户偏好</div>
-          <div className="mt-1 text-xs font-normal text-stone-500">
-            渠道聚合、模型选择和同步偏好
-          </div>
+          <AppHelperText className="mt-1 font-normal">渠道聚合、模型选择和同步偏好</AppHelperText>
         </div>
       }
       open={isConfigOpen}
@@ -326,21 +330,23 @@ export function AppConfigModal() {
             label: '渠道',
             children: (
               <Form layout="vertical" requiredMark={false}>
-                <div className="mb-4 flex flex-wrap items-center justify-between gap-3 rounded-lg border border-stone-200 p-3 dark:border-stone-800">
+                <AppSurface className="mb-4 flex flex-wrap items-center justify-between gap-3">
                   <div className="min-w-0 flex-1">
-                    <div className="flex w-fit max-w-full flex-wrap items-center gap-1.5 rounded-md border border-amber-300 bg-amber-50 px-2.5 py-1.5 text-xs text-amber-900 dark:border-amber-700/60 dark:bg-amber-950/30 dark:text-amber-100">
-                      <CircleAlert className="size-3.5 shrink-0" />
-                      <span className="font-semibold">重要：</span>
-                      <span>新增或拉取模型后，需要到“模型”Tab 选择可选项才会显示。</span>
-                      <Button
-                        type="link"
-                        size="small"
-                        className="h-auto p-0 text-xs font-semibold text-amber-900 dark:text-amber-100"
-                        onClick={() => setActiveTab('models')}
-                      >
-                        去模型设置
-                      </Button>
-                    </div>
+                    <AppNotice
+                      icon={<CircleAlert className="size-3.5 shrink-0" />}
+                      action={
+                        <Button
+                          type="link"
+                          size="small"
+                          className="h-auto p-0 text-xs font-semibold text-current"
+                          onClick={openZucoPurchasePage}
+                        >
+                          立即购买
+                        </Button>
+                      }
+                    >
+                      <span>使用前请先购买API套餐</span>
+                    </AppNotice>
                   </div>
                   <div className="flex shrink-0 gap-2">
                     <Button
@@ -354,22 +360,19 @@ export function AppConfigModal() {
                       新增渠道
                     </Button>
                   </div>
-                </div>
+                </AppSurface>
                 <div className="space-y-3">
                   {config.channels.map((channel) => (
-                    <section
-                      key={channel.id}
-                      className="rounded-lg border border-stone-200 p-3 dark:border-stone-800"
-                    >
+                    <AppSurface key={channel.id} as="section">
                       <div className="mb-3 flex items-center justify-between gap-3">
                         <div className="min-w-0">
                           <div className="truncate text-sm font-semibold">
                             {channel.name || '未命名渠道'}
                           </div>
-                          <div className="mt-1 text-xs text-stone-500">
+                          <AppHelperText className="mt-1">
                             {apiFormatLabel(channel.apiFormat)} · 已保存 {channel.models.length}{' '}
                             个模型
-                          </div>
+                          </AppHelperText>
                         </div>
                         <div className="flex shrink-0 gap-2">
                           <Button
@@ -433,7 +436,7 @@ export function AppConfigModal() {
                           />
                         </Form.Item>
                       </div>
-                    </section>
+                    </AppSurface>
                   ))}
                 </div>
               </Form>
@@ -444,12 +447,12 @@ export function AppConfigModal() {
             label: '模型',
             children: (
               <Form layout="vertical" requiredMark={false}>
-                <div className="mb-4 rounded-lg border border-stone-200 p-3 dark:border-stone-800">
+                <AppSurface className="mb-4">
                   <div className="text-sm font-semibold">默认模型和可选项</div>
-                  <div className="mt-1 text-xs leading-5 text-stone-500">
+                  <AppHelperText className="mt-1">
                     可选项决定各处下拉框展示哪些模型；同名模型会以括号里的渠道名区分。
-                  </div>
-                </div>
+                  </AppHelperText>
+                </AppSurface>
                 <div className="grid gap-4 md:grid-cols-2">
                   {modelGroups.map((group) => (
                     <Form.Item key={group.modelsKey} label={group.optionsLabel} className="mb-0">
@@ -560,23 +563,23 @@ export function AppConfigModal() {
             label: 'WebDAV',
             children: (
               <Form layout="vertical" requiredMark={false}>
-                <section className="rounded-lg border border-stone-200 p-3 dark:border-stone-800">
+                <AppSurface as="section">
                   <div className="mb-3 flex flex-wrap items-start justify-between gap-3">
                     <div>
                       <div className="flex items-center gap-2 text-sm font-semibold">
                         <Cloud className="size-4" />
                         WebDAV 同步
                       </div>
-                      <div className="mt-1 text-xs text-stone-500">
+                      <AppHelperText className="mt-1">
                         同步画布、我的素材、生成记录和本地媒体文件，不包含 AI API Key；服务不支持
                         CORS 时可走 Next.js 转发。
-                      </div>
+                      </AppHelperText>
                     </div>
-                    <div className="text-xs text-stone-500">
+                    <AppHelperText>
                       {webdav.lastSyncedAt
                         ? `上次同步 ${formatWebdavTime(webdav.lastSyncedAt)}`
                         : '尚未同步'}
-                    </div>
+                    </AppHelperText>
                   </div>
                   <div className="grid gap-4 md:grid-cols-2">
                     <Form.Item label="连接方式" className="mb-4 md:col-span-2">
@@ -644,13 +647,13 @@ export function AppConfigModal() {
                       {syncingWebdav ? '同步中' : '立即同步'}
                     </Button>
                     {webdavSyncStatus ? (
-                      <span className="text-xs text-stone-500">{webdavSyncStatus}</span>
+                      <span className="text-xs text-muted-foreground">{webdavSyncStatus}</span>
                     ) : null}
                   </div>
                   {syncingWebdav || webdavSyncStatus ? (
                     <WebdavProgressGrid progress={webdavDomainProgress} />
                   ) : null}
-                </section>
+                </AppSurface>
               </Form>
             ),
           },
@@ -743,15 +746,10 @@ function WebdavProgressGrid({
         const item = progress[key];
         const count = item.total ? `${item.current || 0}/${item.total}` : '';
         return (
-          <div
-            key={key}
-            className="rounded-md border border-stone-200 px-3 py-2 dark:border-stone-800"
-          >
+          <AppSurface key={key} className="rounded-md px-3 py-2">
             <div className="mb-1 flex min-w-0 items-center justify-between gap-3 text-xs">
-              <span className="shrink-0 font-medium text-stone-700 dark:text-stone-200">
-                {item.label}
-              </span>
-              <span className="min-w-0 truncate text-right text-stone-500">
+              <span className="shrink-0 font-medium text-foreground">{item.label}</span>
+              <span className="min-w-0 truncate text-right text-muted-foreground">
                 {item.stage}
                 {count ? ` · ${count}` : ''}
               </span>
@@ -762,7 +760,7 @@ function WebdavProgressGrid({
               status={getWebdavProgressStatus(item)}
               showInfo={false}
             />
-          </div>
+          </AppSurface>
         );
       })}
     </div>

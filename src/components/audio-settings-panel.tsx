@@ -1,8 +1,5 @@
 'use client';
 
-import { type ReactNode } from 'react';
-
-import { ImageSettingsTheme } from '@/components/image-settings-panel';
 import {
   audioFormatOptions,
   audioSpeedLabel,
@@ -12,6 +9,12 @@ import {
   normalizeAudioVoiceValue,
 } from '@/lib/audio-generation';
 import { type CanvasTheme } from '@/lib/canvas-theme';
+import {
+  SettingGroup,
+  SettingsNumberInput,
+  SettingsOptionPill,
+  SettingsPanelTheme,
+} from '@/shared/ui/settings-panel';
 import type { AiConfig } from '@/stores/use-config-store';
 
 const speedOptions = ['0.75', '1', '1.25', '1.5'];
@@ -38,7 +41,7 @@ export function AudioSettingsPanel({
   const speed = normalizeAudioSpeedValue(config.audioSpeed);
 
   return (
-    <ImageSettingsTheme theme={theme}>
+    <SettingsPanelTheme theme={theme}>
       <div
         className={className}
         style={{ color: theme.node.text }}
@@ -48,61 +51,53 @@ export function AudioSettingsPanel({
         <SettingGroup title="声音" color={theme.node.muted}>
           <div className="grid grid-cols-3 gap-2.5">
             {audioVoiceOptions.map((item) => (
-              <OptionPill
+              <SettingsOptionPill
                 key={item.value}
                 selected={voice === item.value}
                 theme={theme}
                 onClick={() => onConfigChange('audioVoice', item.value)}
               >
                 {item.label}
-              </OptionPill>
+              </SettingsOptionPill>
             ))}
           </div>
         </SettingGroup>
         <SettingGroup title="格式" color={theme.node.muted}>
           <div className="grid grid-cols-3 gap-2.5">
             {audioFormatOptions.map((item) => (
-              <OptionPill
+              <SettingsOptionPill
                 key={item.value}
                 selected={format === item.value}
                 theme={theme}
                 onClick={() => onConfigChange('audioFormat', item.value)}
               >
                 {item.label}
-              </OptionPill>
+              </SettingsOptionPill>
             ))}
           </div>
         </SettingGroup>
         <SettingGroup title="语速" color={theme.node.muted}>
           <div className="grid grid-cols-4 gap-2.5">
             {speedOptions.map((value) => (
-              <OptionPill
+              <SettingsOptionPill
                 key={value}
                 selected={speed === value}
                 theme={theme}
                 onClick={() => onConfigChange('audioSpeed', value)}
               >
                 {audioSpeedLabel(value)}
-              </OptionPill>
+              </SettingsOptionPill>
             ))}
           </div>
-          <input
-            type="number"
+          <SettingsNumberInput
+            value={config.audioSpeed || '1'}
             min={0.25}
             max={4}
             step={0.05}
-            className="h-9 w-full rounded-full border bg-transparent px-3 text-center text-sm outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
-            style={{
-              borderColor: theme.node.stroke,
-              color: theme.node.text,
-              WebkitTextFillColor: theme.node.text,
-            }}
-            value={config.audioSpeed || '1'}
-            onChange={(event) => onConfigChange('audioSpeed', event.target.value)}
-            onBlur={(event) =>
-              onConfigChange('audioSpeed', normalizeAudioSpeedValue(event.target.value))
-            }
-            onMouseDown={(event) => event.stopPropagation()}
+            theme={theme}
+            className="w-full"
+            onChange={(value) => onConfigChange('audioSpeed', value)}
+            onBlur={(value) => onConfigChange('audioSpeed', normalizeAudioSpeedValue(value))}
           />
         </SettingGroup>
         <SettingGroup title="声音指令" color={theme.node.muted}>
@@ -116,53 +111,6 @@ export function AudioSettingsPanel({
           />
         </SettingGroup>
       </div>
-    </ImageSettingsTheme>
-  );
-}
-
-function OptionPill({
-  selected,
-  theme,
-  onClick,
-  children,
-}: {
-  selected: boolean;
-  theme: CanvasTheme;
-  onClick: () => void;
-  children: ReactNode;
-}) {
-  return (
-    <button
-      type="button"
-      className="h-9 cursor-pointer rounded-full border px-2 text-sm transition hover:opacity-80"
-      style={{
-        background: 'transparent',
-        borderColor: selected ? theme.node.text : theme.node.stroke,
-        color: theme.node.text,
-      }}
-      onMouseDown={(event) => event.stopPropagation()}
-      onClick={onClick}
-    >
-      {children}
-    </button>
-  );
-}
-
-function SettingGroup({
-  title,
-  color,
-  children,
-}: {
-  title: string;
-  color: string;
-  children: ReactNode;
-}) {
-  return (
-    <div className="space-y-2.5">
-      <div className="text-xs font-medium" style={{ color }}>
-        {title}
-      </div>
-      {children}
-    </div>
+    </SettingsPanelTheme>
   );
 }

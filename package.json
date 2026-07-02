@@ -15,21 +15,38 @@
     "build:electron": "npm-run-all build:electron:main build:electron:preload build:electron:agent",
     "build:electron:main": "esbuild electron/main/index.ts --bundle --platform=node --format=cjs --external:electron --outfile=dist-electron/main/index.cjs",
     "build:electron:preload": "esbuild electron/preload/index.ts --bundle --platform=node --format=cjs --external:electron --outfile=dist-electron/preload/index.cjs",
-    "build:electron:agent": "esbuild electron/agent/index.ts --bundle --platform=node --format=esm --packages=bundle --outfile=dist-electron/agent/index.mjs",
+    "build:electron:agent": "esbuild electron/agent/index.ts --bundle --platform=node --format=cjs --packages=bundle --outfile=dist-electron/agent/index.cjs",
+    "bump:desktop-version": "node scripts/bump-desktop-version.cjs",
+    "prepare:desktop-codex": "node scripts/prepare-desktop-codex.cjs",
+    "package:desktop": "npm-run-all bump:desktop-version package:desktop:no-bump",
+    "package:desktop:no-bump": "npm-run-all prepare:desktop-codex package:desktop:builder",
+    "package:desktop:builder": "electron-builder --config electron-builder.config.cjs",
+    "package:desktop:dir": "npm-run-all prepare:desktop-codex package:desktop:dir:builder",
+    "package:desktop:dir:builder": "electron-builder --config electron-builder.config.cjs --dir",
+    "package:desktop:mac": "npm-run-all bump:desktop-version package:desktop:mac:no-bump",
+    "package:desktop:mac:no-bump": "npm-run-all prepare:desktop-codex package:desktop:mac:builder",
+    "package:desktop:mac:builder": "electron-builder --config electron-builder.config.cjs --mac --x64 --arm64",
+    "package:desktop:win": "npm-run-all bump:desktop-version package:desktop:win:no-bump",
+    "package:desktop:win:no-bump": "npm-run-all prepare:desktop-codex package:desktop:win:builder",
+    "package:desktop:win:builder": "electron-builder --config electron-builder.config.cjs --win --x64",
+    "dist:desktop": "npm-run-all bump:desktop-version build package:desktop:no-bump",
+    "dist:desktop:all": "npm-run-all bump:desktop-version build package:desktop:mac:no-bump package:desktop:win:no-bump",
+    "dist:desktop:dir": "npm-run-all build package:desktop:dir",
+    "dist:desktop:mac": "npm-run-all bump:desktop-version build package:desktop:mac:no-bump",
+    "dist:desktop:win": "npm-run-all bump:desktop-version build package:desktop:win:no-bump",
     "preview": "vite preview --host 127.0.0.1",
     "typecheck": "tsc --noEmit -p tsconfig.app.json && tsc --noEmit -p tsconfig.node.json && tsc --noEmit -p electron/tsconfig.json && tsc -p electron/agent/tsconfig.json",
     "lint": "eslint .",
-    "format": "prettier --write \"*.{cjs,js,json,ts,html}\" \"{src,electron,tests}/**/*.{css,ts,tsx,json}\"",
-    "format:check": "prettier --check \"*.{cjs,js,json,ts,html}\" \"{src,electron,tests}/**/*.{css,ts,tsx,json}\"",
+    "format": "prettier --write \"*.{cjs,js,json,ts,html}\" \"{src,electron,tests,scripts}/**/*.{cjs,css,js,json,ts,tsx}\"",
+    "format:check": "prettier --check \"*.{cjs,js,json,ts,html}\" \"{src,electron,tests,scripts}/**/*.{cjs,css,js,json,ts,tsx}\"",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "check": "npm-run-all format:check lint typecheck test",
     "knip": "knip",
-    "clean": "rimraf dist dist-electron coverage playwright-report test-results"
+    "clean": "rimraf build dist dist-electron release coverage playwright-report test-results"
   },
   "dependencies": {
-    "@ant-design/icons": "^6.3.2",
     "@modelcontextprotocol/sdk": "^1.29.0",
     "@openai/codex": "^0.142.5",
     "@tanstack/react-query": "^5.83.0",
@@ -65,6 +82,7 @@
     "autoprefixer": "^10.4.20",
     "cross-env": "^7.0.3",
     "electron": "^43.0.0",
+    "electron-builder": "^26.15.3",
     "esbuild": "^0.28.1",
     "eslint": "^9.17.0",
     "eslint-plugin-react-hooks": "^5.1.0",
@@ -86,5 +104,9 @@
   "engines": {
     "node": ">=22.0.0",
     "npm": ">=10.0.0"
+  },
+  "optionalDependencies": {
+    "@openai/codex-darwin-x64": "npm:@openai/codex@^0.142.5-darwin-x64",
+    "@openai/codex-win32-x64": "npm:@openai/codex@^0.142.5-win32-x64"
   }
 }

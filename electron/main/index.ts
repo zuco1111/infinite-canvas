@@ -5,7 +5,7 @@ import { readLocalAgentStatus, startLocalAgent, stopLocalAgent } from './local-a
 const appRoot = path.resolve(__dirname, '..', '..');
 const preloadPath = path.join(appRoot, 'dist-electron', 'preload', 'index.cjs');
 const rendererDistPath = path.join(appRoot, 'dist', 'index.html');
-const localAgentEntryPath = path.join(appRoot, 'dist-electron', 'agent', 'index.mjs');
+const localAgentEntryPath = path.join(appRoot, 'dist-electron', 'agent', 'index.cjs');
 const devServerUrl = process.env.VITE_DEV_SERVER_URL;
 
 let mainWindow: BrowserWindow | null = null;

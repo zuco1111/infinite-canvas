@@ -213,6 +213,16 @@ function resolveRequestSize(quality: string | undefined, size: string) {
   throw new Error('图像尺寸格式不支持，请使用 auto、9:16 或 1024x1024');
 }
 
+function isGptImageModel(model: string) {
+  return /^gpt-image(?:-|$)/i.test(model.trim());
+}
+
+function imageResponseOptions(model: string) {
+  return isGptImageModel(model)
+    ? { output_format: IMAGE_OUTPUT_FORMAT }
+    : { response_format: 'b64_json' };
+}
+
 function resolveImageDataUrl(item: Record<string, unknown>) {
   if (typeof item.b64_json === 'string' && item.b64_json) {
     return `data:image/png;base64,${item.b64_json}`;
@@ -788,8 +798,7 @@ export async function requestGeneration(
         n,
         ...(quality ? { quality } : {}),
         ...(requestSize ? { size: requestSize } : {}),
-        response_format: 'b64_json',
-        output_format: IMAGE_OUTPUT_FORMAT,
+        ...imageResponseOptions(requestConfig.model),
       },
       {
         headers: aiHeaders(requestConfig, 'application/json'),
@@ -827,8 +836,9 @@ export async function requestEdit(
   formData.set('model', requestConfig.model);
   formData.set('prompt', withSystemPrompt(requestConfig, requestPrompt));
   formData.set('n', String(n));
-  formData.set('response_format', 'b64_json');
-  formData.set('output_format', IMAGE_OUTPUT_FORMAT);
+  Object.entries(imageResponseOptions(requestConfig.model)).forEach(([key, value]) => {
+    formData.set(key, value);
+  });
   if (quality) {
     formData.set('quality', quality);
   }

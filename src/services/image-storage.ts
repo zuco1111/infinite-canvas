@@ -18,7 +18,7 @@ const store = localforage.createInstance({ name: 'infinite-canvas', storeName: '
 const objectUrls = new Map<string, string>();
 
 export async function uploadImage(input: string | Blob): Promise<UploadedImage> {
-  const blob = typeof input === 'string' ? await (await fetch(input)).blob() : input;
+  const blob = typeof input === 'string' ? await imageSourceToBlob(input) : input;
   const storageKey = `image:${nanoid()}`;
   await store.setItem(storageKey, blob);
   const url = URL.createObjectURL(blob);
@@ -32,6 +32,22 @@ export async function uploadImage(input: string | Blob): Promise<UploadedImage> 
     bytes: blob.size,
     mimeType: blob.type || meta.mimeType,
   };
+}
+
+async function imageSourceToBlob(input: string) {
+  if (input.startsWith('data:')) return dataUrlToBlob(input);
+  return (await fetch(input)).blob();
+}
+
+function dataUrlToBlob(dataUrl: string) {
+  const [header, content] = dataUrl.split(',', 2);
+  const mimeType = header.match(/^data:([^;]+)/)?.[1] || 'image/png';
+  const binary = atob(content || '');
+  const bytes = new Uint8Array(binary.length);
+  for (let index = 0; index < binary.length; index += 1) {
+    bytes[index] = binary.charCodeAt(index);
+  }
+  return new Blob([bytes], { type: mimeType });
 }
 
 export async function resolveImageUrl(storageKey?: string, fallback = '') {

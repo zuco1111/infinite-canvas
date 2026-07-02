@@ -11,8 +11,16 @@
     "src/shared/tokens/canvas.ts",
     "electron/main/index.ts",
     "electron/preload/index.ts",
-    "electron/agent/index.ts"
+    "electron/agent/index.ts",
+    "electron-builder.config.cjs"
   ],
-  "project": ["src/**/*.{ts,tsx}", "electron/**/*.ts", "tests/**/*.ts", "*.config.{cjs,js,ts}"],
+  "project": [
+    "src/**/*.{ts,tsx}",
+    "electron/**/*.ts",
+    "tests/**/*.ts",
+    "scripts/**/*.cjs",
+    "*.config.{cjs,js,ts}"
+  ],
+  "ignoreDependencies": ["@openai/codex"],
   "exclude": ["exports", "types"]
 }

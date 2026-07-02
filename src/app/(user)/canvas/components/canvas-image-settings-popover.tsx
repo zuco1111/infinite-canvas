@@ -5,11 +5,8 @@ import { createPortal } from 'react-dom';
 import { Settings2 } from 'lucide-react';
 import { Button } from 'antd';
 
-import {
-  ImageSettingsPanel,
-  imageQualityLabel,
-  imageSizeLabel,
-} from '@/components/image-settings-panel';
+import { ImageSettingsPanel } from '@/components/image-settings-panel';
+import { imageQualityLabel, imageSizeLabel } from '@/components/image-settings-options';
 import { canvasThemes } from '@/lib/canvas-theme';
 import { useThemeStore } from '@/stores/use-theme-store';
 import type { AiConfig } from '@/stores/use-config-store';

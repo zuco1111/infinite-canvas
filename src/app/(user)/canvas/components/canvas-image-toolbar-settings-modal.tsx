@@ -12,7 +12,6 @@ import {
 import {
   Button,
   Card,
-  Checkbox,
   Form,
   Modal,
   Space,
@@ -24,6 +23,7 @@ import {
 } from 'antd';
 import { Ellipsis, Image as ImageIcon, Settings2 } from 'lucide-react';
 
+import { AppMultiSelectCheckbox } from '@/shared/ui/app-multi-select-checkbox';
 import type { ImageQuickToolId } from './canvas-image-toolbar-tools';
 
 export type ImageToolbarSettingsTool = {
@@ -121,6 +121,10 @@ export function ImageToolSettingsModal({
       const visible = next.has(tool.id);
       if (selected.has(tool.id) !== visible) onToggle(tool.id, visible);
     });
+  };
+  const toggleSelectedTool = (toolId: ImageQuickToolId, checked: boolean) => {
+    const nextIds = checked ? [...selectedIds, toolId] : selectedIds.filter((id) => id !== toolId);
+    updateSelectedTools(nextIds);
   };
 
   useEffect(() => {
@@ -254,20 +258,21 @@ export function ImageToolSettingsModal({
             </Space>
           }
         >
-          <Checkbox.Group
-            value={selectedIds}
-            className="grid w-full gap-3 md:grid-cols-3"
-            onChange={(values) => updateSelectedTools(values as ImageQuickToolId[])}
-          >
+          <div className="grid w-full gap-3 md:grid-cols-3">
             {tools.map((tool) => (
-              <Checkbox key={tool.id} value={tool.id} className="m-0">
+              <AppMultiSelectCheckbox
+                key={tool.id}
+                checked={selectedIds.includes(tool.id)}
+                onCheckedChange={(checked) => toggleSelectedTool(tool.id, checked)}
+                className="m-0"
+              >
                 <span className="inline-flex items-center gap-2">
                   {tool.icon}
                   {tool.label}
                 </span>
-              </Checkbox>
+              </AppMultiSelectCheckbox>
             ))}
-          </Checkbox.Group>
+          </div>
         </Form.Item>
       </Form>
     </Modal>

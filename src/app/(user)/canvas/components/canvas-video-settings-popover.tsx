@@ -5,12 +5,12 @@ import { createPortal } from 'react-dom';
 import { Settings2 } from 'lucide-react';
 import { Button } from 'antd';
 
+import { VideoSettingsPanel } from '@/components/video-settings-panel';
 import {
-  VideoSettingsPanel,
   videoResolutionLabel,
   videoSecondsLabel,
   videoSizeLabel,
-} from '@/components/video-settings-panel';
+} from '@/components/video-settings-options';
 import { canvasThemes } from '@/lib/canvas-theme';
 import { useThemeStore } from '@/stores/use-theme-store';
 import type { AiConfig } from '@/stores/use-config-store';

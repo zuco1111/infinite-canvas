@@ -30,9 +30,15 @@
 
 ### 当前阶段边界
 
-决策：用户已明确批准进入 Phase 3；Phase 3 项目骨架已完成。用户已明确批准按 `docs/IMPLEMENTATION_PLAN.md` 的顺序连续推进整个 Phase 4；Phase 4 已完成。进入 Phase 5 前，需要用户明确批准新的阶段范围。
+决策：用户已明确批准进入 Phase 3；Phase 3 项目骨架已完成。用户已明确批准按 `docs/IMPLEMENTATION_PLAN.md` 的顺序连续推进整个 Phase 4；Phase 4 已完成。用户已于 2026-07-02 明确批准进入 Phase 5；Phase 5 设计 Token 与组件抽取已完成。用户已于 2026-07-02 明确批准 Phase 6 中的设计样式收敛切片；该切片已完成。用户随后明确要求本阶段不是视觉重构，而是在既有视觉基础上选择 canonical 规格替换相同或相似元素，以实现风格统一和组件/Token 收敛；该追加切片已完成。用户已确认因上线优先，Phase 5 记录中的遗留项暂缓，不作为当前阻塞，并批准进入 Phase 6 上线前清理；本轮范围覆盖 hook/Fast Refresh warning、bundle size/ineffective dynamic import、旧来源命名、未使用函数、未使用资源、无效分支、过期注释、废弃样式和历史兼容 fallback 清理。Phase 6 上线前清理已完成。用户已明确要求删除 404 外部提示词来源，并将可访问提示词数据存为本地数据；提示词数据源本地化已完成。用户已明确要求开始 Phase 7；Phase 7 桌面端未签名本地分发包配置与三平台构建验证已完成。
 
 来源：用户确认与项目工作规则。
+
+### 提示词库数据源
+
+决策：提示词库运行时数据库使用本地静态数据 `public/data/local-prompts.json`，不再在运行时抓取外部提示词数据库。外部来源如需更新，应先验证可访问性，移除 404 来源后再写入本地数据。
+
+来源：用户确认。
 
 ### 包管理器
 
@@ -172,10 +178,36 @@
 
 来源：Codex 基于项目清理要求和目标技术栈确定。
 
+### 桌面打包策略
+
+决策：桌面端本地分发包使用 Electron Builder 生成。当前支持 macOS Intel、macOS Apple Silicon 和 Windows x64 的未签名本地分发包。
+
+决策：桌面包内置 Local Agent 和 Codex CLI。打包前通过 `scripts/prepare-desktop-codex.cjs` 准备 Codex 资源，Electron Builder `afterPack` 钩子按目标平台和架构复制对应的 Codex 原生二进制。
+
+决策：正式应用名使用 `Infinite Canvas`，桌面端 appId / bundle identifier 使用 `com.zuco.infinitecanvas`，图标使用现有 `public/zuco-brand.png` 生成的桌面图标资源。
+
+决策：当前暂不启用自动更新。
+
+决策：当前桌面包输出目录为 `release/`，中间 Codex 资源目录为 `build/desktop-codex/`，二者不进入版本控制。
+
+来源：用户批准 Phase 7；用户确认发布信息；本地构建和运行验证。
+
 ## 开放
 
-当前无阻塞 Phase 5 的开放架构决策。
+当前无阻塞本地客户端打包的开放架构决策。
 
-进入 Phase 5 设计 Token 与组件抽取前，仍需用户明确批准具体阶段范围。
+Phase 7 未签名本地分发包配置已获用户明确批准并完成。
+
+### 正式桌面发布
+
+状态：开放，不阻塞本地未签名客户端打包。
+
+待确认：
+
+- 应用作者、版权主体和 Windows 发布者名称。
+- macOS Developer ID 证书、Team ID、notarization 账号和 hardened runtime 配置。
+- Windows 代码签名证书。
+- 是否将 Codex CLI 继续作为自包含资源，或改为首次运行下载/可选组件以降低包体。
+- Windows x64 产物是否已在真实 Windows 设备上完成运行验收。
 
 若后续实现中出现会改变项目范围、功能等效、视觉等效、桌面分发、安全边界、模块契约或数据格式的新问题，必须先记录到本文件，再继续执行相关实现。

@@ -1,6 +1,6 @@
 # 实施切片计划
 
-状态：Phase 4 已完成，等待用户批准 Phase 5 设计 Token 与组件抽取。
+状态：Phase 7 桌面端未签名本地分发包配置与三平台构建验证已完成；正式签名、公证和发布元数据待确认。
 
 日期：2026-07-01
 
@@ -13,7 +13,7 @@
 
 ## 当前结论
 
-Phase 2 目标架构决策已关闭。用户已明确批准进入 Phase 3，Phase 3 项目骨架已完成。用户已明确批准按本文件顺序连续推进整个 Phase 4，Phase 4 已完成。
+Phase 2 目标架构决策已关闭。用户已明确批准进入 Phase 3，Phase 3 项目骨架已完成。用户已明确批准按本文件顺序连续推进整个 Phase 4，Phase 4 已完成。用户已明确批准进入 Phase 5，Phase 5 设计 Token 与组件抽取已完成。用户已明确批准 Phase 6 中的设计样式收敛切片，该切片已完成。用户随后明确要求本阶段不是视觉重构，而是在既有视觉基础上选择 canonical 规格替换相同或相似元素，以实现风格统一和组件/Token 收敛；该追加切片已完成。用户已确认因上线优先，Phase 5 记录中的遗留项暂缓，不作为当前阻塞，并批准进入 Phase 6 上线前清理；该清理切片已完成。用户已批准进入 Phase 7，桌面端未签名本地分发包配置与三平台构建验证已完成。
 
 ## Phase 3：项目骨架
 
@@ -85,4 +85,8 @@ Phase 2 目标架构决策已关闭。用户已明确批准进入 Phase 3，Phas
 
 ## 下一步
 
-等待用户批准 Phase 5：设计 Token 和组件抽取。不得在未批准的情况下进行视觉 redesign 或引入非等效产品行为。
+Phase 5 结果记录见 `docs/PHASE_5_DESIGN_TOKENS.md`。
+Phase 6 设计样式收敛、等值组件/Token 追加收敛和上线前清理结果记录见 `docs/PHASE_6_DESIGN_CONVERGENCE.md`。
+Phase 7 桌面端打包结果记录见 `docs/PHASE_7_DESKTOP_PACKAGING.md`。
+
+当前 Phase 7 未签名本地分发包配置已获批准并完成，覆盖 Windows x64、macOS Intel 和 macOS Apple Silicon 构建产物。不得在未批准的情况下进行功能行为变更、进一步视觉 redesign、旧数据兼容承诺、正式签名/公证、自动更新或商店发布配置。

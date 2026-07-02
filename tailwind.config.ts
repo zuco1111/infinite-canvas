@@ -39,14 +39,6 @@ export default {
           DEFAULT: 'var(--destructive)',
           foreground: 'var(--destructive-foreground)',
         },
-        app: {
-          bg: 'var(--app-bg)',
-          panel: 'var(--app-panel)',
-          border: 'var(--app-border)',
-          text: 'var(--app-text)',
-          muted: 'var(--app-muted)',
-          accent: 'var(--app-accent)',
-        },
       },
       borderRadius: {
         sm: 'calc(var(--radius) - 4px)',

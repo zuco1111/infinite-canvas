@@ -35,7 +35,7 @@ export function PromptDetailDialog({
                   className="aspect-[4/3] w-full rounded-lg object-cover"
                 />
                 {prompt.preview ? (
-                  <pre className="max-h-60 overflow-auto whitespace-pre-wrap rounded-lg bg-stone-100 p-3 text-xs leading-5 text-stone-600 dark:bg-stone-900 dark:text-stone-300">
+                  <pre className="max-h-60 overflow-auto whitespace-pre-wrap rounded-lg bg-muted p-3 text-xs leading-5 text-muted-foreground">
                     {prompt.preview}
                   </pre>
                 ) : null}
@@ -48,10 +48,10 @@ export function PromptDetailDialog({
                     </Tag>
                   ))}
                 </div>
-                <p className="mt-4 whitespace-pre-wrap text-sm leading-7 text-stone-800 dark:text-stone-300">
+                <p className="mt-4 whitespace-pre-wrap text-sm leading-7 text-foreground">
                   {prompt.prompt}
                 </p>
-                <div className="mt-4 text-xs text-stone-500 dark:text-stone-400">
+                <div className="mt-4 text-xs text-muted-foreground">
                   创建：{formatPromptDate(prompt.createdAt)} · 更新：
                   {formatPromptDate(prompt.updatedAt)}
                 </div>

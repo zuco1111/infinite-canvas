@@ -2,10 +2,10 @@
 
 import { Check, Search } from 'lucide-react';
 import { type UIEvent, useEffect, useState } from 'react';
-import { App, Empty, Input, Modal, Spin, Tag } from 'antd';
+import { App, Empty, Input, Modal, Spin } from 'antd';
 
 import { ALL_PROMPTS_OPTION } from '@/services/api/prompts';
-import { cn } from '@/lib/utils';
+import { CatalogCheckableFilterGroup } from '@/shared/ui/catalog-page';
 import { PromptCard } from './prompt-card';
 import { usePromptList } from './use-prompt-list';
 
@@ -67,49 +67,27 @@ export function PromptSelectDialog({
         <div className="mx-auto max-w-2xl">
           <Input
             size="large"
-            prefix={<Search className="size-4 text-stone-400" />}
+            prefix={<Search className="size-4 text-muted-foreground" />}
             value={keyword}
             onChange={(event) => setKeyword(event.target.value)}
             placeholder="按标题查询"
           />
         </div>
         <div className="mt-5 grid gap-3">
-          <div className="grid gap-2 sm:grid-cols-[56px_minmax(0,1fr)] sm:items-start">
-            <div className="pt-2 text-xs font-medium text-stone-500 dark:text-stone-400">分类</div>
-            <div className="flex flex-wrap gap-2">
-              {promptCategories.map((category) => (
-                <Tag.CheckableTag
-                  key={category}
-                  checked={selectedCategory === category}
-                  className={cn('prompt-filter-tag', selectedCategory === category && 'is-active')}
-                  onChange={() => setSelectedCategory(category)}
-                >
-                  {category}
-                </Tag.CheckableTag>
-              ))}
-            </div>
-          </div>
-          <div className="grid gap-2 sm:grid-cols-[56px_minmax(0,1fr)] sm:items-start">
-            <div className="pt-2 text-xs font-medium text-stone-500 dark:text-stone-400">标签</div>
-            <div className="flex flex-wrap gap-2">
-              {promptTags.map((tag) => {
-                const active =
-                  tag === ALL_PROMPTS_OPTION
-                    ? selectedTags.length === 0
-                    : selectedTags.includes(tag);
-                return (
-                  <Tag.CheckableTag
-                    key={tag}
-                    checked={active}
-                    className={cn('prompt-filter-tag', active && 'is-active')}
-                    onChange={() => toggleTag(tag)}
-                  >
-                    {tag}
-                  </Tag.CheckableTag>
-                );
-              })}
-            </div>
-          </div>
+          <CatalogCheckableFilterGroup
+            label="分类"
+            options={promptCategories}
+            isChecked={(category) => selectedCategory === category}
+            onChange={setSelectedCategory}
+          />
+          <CatalogCheckableFilterGroup
+            label="标签"
+            options={promptTags}
+            isChecked={(tag) =>
+              tag === ALL_PROMPTS_OPTION ? selectedTags.length === 0 : selectedTags.includes(tag)
+            }
+            onChange={toggleTag}
+          />
         </div>
         <div
           className="thin-scrollbar mt-6 max-h-[520px] overflow-y-auto pr-2"
