@@ -150,7 +150,8 @@ export function CanvasConfigComposer({
       >
         {!value.trim() ? (
           <div
-            className="pointer-events-none absolute left-3 top-2 text-sm leading-7"
+            aria-hidden="true"
+            className="pointer-events-none absolute left-3 top-2 z-0 text-sm leading-7"
             style={{ color: theme.node.placeholder }}
           >
             输入提示词，按 @ 引用连接的图片或文本
@@ -160,8 +161,8 @@ export function CanvasConfigComposer({
           ref={editorRef}
           contentEditable
           suppressContentEditableWarning
-          className="thin-scrollbar min-h-28 w-full overflow-y-auto whitespace-pre-wrap break-words px-3 py-2 text-sm leading-7 outline-none"
-          style={{ color: theme.node.text }}
+          className="thin-scrollbar relative z-10 min-h-28 w-full overflow-y-auto whitespace-pre-wrap break-words px-3 py-2 text-sm leading-7 outline-none"
+          style={{ color: theme.node.text, caretColor: theme.node.text }}
           onInput={() => {
             if (!composingRef.current) syncFromEditor();
           }}

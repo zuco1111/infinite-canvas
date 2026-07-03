@@ -111,11 +111,19 @@ export const CanvasResourceMentionTextarea = forwardRef<HTMLTextAreaElement, Pro
     };
 
     const showOverlay = Boolean(activeLabels.length && !hasSelection);
+    const textColor = style?.color || theme.node.text;
     const mergedStyle = {
       ...(style || {}),
-      color: showOverlay ? 'transparent' : style?.color,
-      caretColor: style?.color || theme.node.text,
-      ...(showOverlay ? { background: 'transparent', backgroundColor: 'transparent' } : {}),
+      ...(showOverlay ? { position: 'relative', zIndex: 1 } : {}),
+      caretColor: textColor,
+      ...(showOverlay
+        ? {
+            color: 'transparent',
+            WebkitTextFillColor: 'transparent',
+            background: 'transparent',
+            backgroundColor: 'transparent',
+          }
+        : {}),
     } as CSSProperties;
     const menu =
       mention && candidates.length && textareaRef.current ? (
@@ -132,9 +140,10 @@ export const CanvasResourceMentionTextarea = forwardRef<HTMLTextAreaElement, Pro
       <div className={`relative h-full w-full ${containerClassName || ''}`}>
         {showOverlay ? (
           <div
+            aria-hidden="true"
             ref={overlayRef}
             className={`${className || ''} pointer-events-none absolute inset-0 overflow-hidden whitespace-pre-wrap break-words`}
-            style={{ ...style, color: theme.node.text }}
+            style={{ ...style, zIndex: 0, color: theme.node.text }}
           >
             <MentionHighlightText
               value={value || props.placeholder?.toString() || ''}
