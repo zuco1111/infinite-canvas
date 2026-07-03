@@ -1,6 +1,6 @@
 # Phase 7 桌面端打包
 
-状态：未签名本地分发包配置与三平台构建验证已完成；正式应用名、appId、图标和自动更新策略已确认。
+状态：本地客户端分发包配置与三平台构建验证已完成；正式应用名、appId、图标和自动更新策略已确认。
 
 日期：2026-07-02
 
@@ -66,8 +66,9 @@ GitHub 推送规则：
 
 - 源码提交推送到 `main`，版本节点使用与 `package.json` 一致的 `vX.Y.Z` tag。
 - `release/` 中的客户端桌面分发产物不得提交到 git，应上传到对应 tag 的 GitHub Release 作为附件。
-- 当用户要求推送 GitHub 且 `release/` 中存在当前版本的 macOS 与 Windows 客户端产物时，默认创建或更新对应 GitHub Release 并上传这些附件。
-- 上传前必须确认附件文件名版本与当前 tag 一致；缺少当前版本产物时，先按本文件的打包规则生成，或明确告知用户当前无法上传客户端附件。
+- 当用户要求推送 GitHub 且 `release/` 中存在当前版本的 macOS 与 Windows 客户端产物时，默认创建或更新对应 GitHub Release，但只上传当前版本的 `mac-arm64.dmg`、`mac-x64.dmg` 和 `win-x64.exe` 三类客户端安装包。
+- 不得上传 `.zip`、blockmap、latest 元数据或其他辅助产物，除非用户明确要求。
+- 上传前必须确认附件文件名版本与当前 tag 一致，且附件范围严格限定为当前版本的 `mac-arm64.dmg`、`mac-x64.dmg` 和 `win-x64.exe`；缺少任一必需产物时，先按本文件的打包规则生成，或明确告知用户当前无法上传客户端附件。
 
 ## 验证结果
 
@@ -114,8 +115,8 @@ GitHub 推送规则：
 执行结果：
 
 - 执行 `npm run dist:desktop:mac`，桌面版本号按约定自动从 `0.1.0` 递增到 `0.1.1`，并同步更新 `package.json` 与 `package-lock.json`。
-- 重新生成 macOS Intel 和 macOS Apple Silicon 未签名本地分发包。
-- 为补齐同一批 `0.1.1` 验收产物，随后执行 `npm run build && npm run package:desktop:win:no-bump`，使用当前 `0.1.1` 版本重新生成 Windows x64 未签名本地分发包，避免补包时再次递增为 `0.1.2` 导致同批版本不一致。
+- 重新生成 macOS Intel 和 macOS Apple Silicon 本地客户端分发包。
+- 为补齐同一批 `0.1.1` 验收产物，随后执行 `npm run build && npm run package:desktop:win:no-bump`，使用当前 `0.1.1` 版本重新生成 Windows x64 本地客户端分发包，避免补包时再次递增为 `0.1.2` 导致同批版本不一致。
 - 已确认 `release/mac/Infinite Canvas.app` 与 `release/mac-arm64/Infinite Canvas.app` 的 `CFBundleIdentifier` 为 `com.zuco.infinitecanvas`，`CFBundleName` 为 `Infinite Canvas`，`CFBundleShortVersionString` 与 `CFBundleVersion` 均为 `0.1.1`。
 - 已确认 `release/win-unpacked/resources/app.asar` 存在。
 
@@ -130,9 +131,9 @@ GitHub 推送规则：
 
 ## 已知限制
 
-- 当前产物是未签名本地分发包。
-- macOS code signing 已显式跳过，未做 notarization。
-- Windows 未配置正式代码签名证书。
+- 当前产物用于本地客户端分发和验收。
+- macOS 正式发布配置待确认。
+- Windows 正式发布配置待确认。
 - 当前图标使用现有 Zuco 品牌图生成，尚未单独进行桌面端图标视觉优化。
 - 应用作者、版权主体和 Windows 发布者名称尚未确认。
 - 自动更新已确认暂不启用。

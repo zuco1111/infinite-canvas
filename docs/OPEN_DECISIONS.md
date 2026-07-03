@@ -30,7 +30,7 @@
 
 ### 当前阶段边界
 
-决策：用户已明确批准进入 Phase 3；Phase 3 项目骨架已完成。用户已明确批准按 `docs/IMPLEMENTATION_PLAN.md` 的顺序连续推进整个 Phase 4；Phase 4 已完成。用户已于 2026-07-02 明确批准进入 Phase 5；Phase 5 设计 Token 与组件抽取已完成。用户已于 2026-07-02 明确批准 Phase 6 中的设计样式收敛切片；该切片已完成。用户随后明确要求本阶段不是视觉重构，而是在既有视觉基础上选择 canonical 规格替换相同或相似元素，以实现风格统一和组件/Token 收敛；该追加切片已完成。用户已确认因上线优先，Phase 5 记录中的遗留项暂缓，不作为当前阻塞，并批准进入 Phase 6 上线前清理；本轮范围覆盖 hook/Fast Refresh warning、bundle size/ineffective dynamic import、旧来源命名、未使用函数、未使用资源、无效分支、过期注释、废弃样式和历史兼容 fallback 清理。Phase 6 上线前清理已完成。用户已明确要求删除 404 外部提示词来源，并将可访问提示词数据存为本地数据；提示词数据源本地化已完成。用户已明确要求开始 Phase 7；Phase 7 桌面端未签名本地分发包配置与三平台构建验证已完成。
+决策：用户已明确批准进入 Phase 3；Phase 3 项目骨架已完成。用户已明确批准按 `docs/IMPLEMENTATION_PLAN.md` 的顺序连续推进整个 Phase 4；Phase 4 已完成。用户已于 2026-07-02 明确批准进入 Phase 5；Phase 5 设计 Token 与组件抽取已完成。用户已于 2026-07-02 明确批准 Phase 6 中的设计样式收敛切片；该切片已完成。用户随后明确要求本阶段不是视觉重构，而是在既有视觉基础上选择 canonical 规格替换相同或相似元素，以实现风格统一和组件/Token 收敛；该追加切片已完成。用户已确认因上线优先，Phase 5 记录中的遗留项暂缓，不作为当前阻塞，并批准进入 Phase 6 上线前清理；本轮范围覆盖 hook/Fast Refresh warning、bundle size/ineffective dynamic import、旧来源命名、未使用函数、未使用资源、无效分支、过期注释、废弃样式和历史兼容 fallback 清理。Phase 6 上线前清理已完成。用户已明确要求删除 404 外部提示词来源，并将可访问提示词数据存为本地数据；提示词数据源本地化已完成。用户已明确要求开始 Phase 7；Phase 7 桌面端本地客户端分发包配置与三平台构建验证已完成。
 
 来源：用户确认与项目工作规则。
 
@@ -180,7 +180,7 @@
 
 ### 桌面打包策略
 
-决策：桌面端本地分发包使用 Electron Builder 生成。当前支持 macOS Intel、macOS Apple Silicon 和 Windows x64 的未签名本地分发包。
+决策：桌面端本地客户端分发包使用 Electron Builder 生成。当前支持 macOS Intel、macOS Apple Silicon 和 Windows x64 的客户端分发包。
 
 决策：桌面包内置 Local Agent 和 Codex CLI。打包前通过 `scripts/prepare-desktop-codex.cjs` 准备 Codex 资源，Electron Builder `afterPack` 钩子按目标平台和架构复制对应的 Codex 原生二进制。
 
@@ -196,11 +196,11 @@
 
 当前无阻塞本地客户端打包的开放架构决策。
 
-Phase 7 未签名本地分发包配置已获用户明确批准并完成。
+Phase 7 本地客户端分发包配置已获用户明确批准并完成。
 
 ### 正式桌面发布
 
-状态：开放，不阻塞本地未签名客户端打包。
+状态：开放，不阻塞本地客户端打包。
 
 待确认：
 

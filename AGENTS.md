@@ -10,7 +10,7 @@
 
 旧项目中的历史 `AGENTS.md` 和项目约束不继承。本仓库只遵守本文件和用户在当前重构项目中确认过的规则。
 
-当前阶段：**Phase 7 桌面端未签名本地分发包配置与三平台构建验证已完成；正式签名、公证和发布元数据待确认**。
+当前阶段：**Phase 7 桌面端本地客户端分发包配置与三平台构建验证已完成；正式发布配置待确认**。
 
 ## 已确认项目目标
 
@@ -46,7 +46,7 @@
 - Phase 7 桌面端打包配置、三平台构建验证与正式发布待确认项已记录在 `docs/PHASE_7_DESKTOP_PACKAGING.md`。
 - 用户已确认因上线优先，Phase 5 记录中的遗留项暂缓，不作为当前 Phase 6 上线前清理阻塞项。
 - 用户已批准并完成 Phase 6 上线前清理，范围覆盖 hook/Fast Refresh warning、bundle size/ineffective dynamic import、旧来源命名、未使用函数、未使用资源、无效分支、过期注释、废弃样式和历史兼容 fallback 清理。
-- 用户已批准并完成 Phase 7 桌面端未签名本地分发包配置，范围覆盖 Windows x64、macOS Intel 和 macOS Apple Silicon 构建产物。
+- 用户已批准并完成 Phase 7 桌面端本地客户端分发包配置，范围覆盖 Windows x64、macOS Intel 和 macOS Apple Silicon 构建产物。
 - 当前无阻塞本地客户端打包的开放架构决策；正式签名、公证、应用图标、发布者信息和自动更新属于正式发布前待确认项。
 
 ## 文档地图
@@ -107,14 +107,14 @@
 - 桌面端 renderer 通过 `file://` 加载生产产物，Vite 生产构建必须保持相对资源 base；页面侧引用 `public/` 静态资源时应使用 `src/lib/public-assets.ts` 的 `publicAssetPath()`，不得直接写根路径 `/...`。
 - 桌面端 `file://` 环境必须使用 hash 路由（例如 `index.html#/canvas`），不得依赖 `history.pushState('/canvas')` 形式的根路径导航；Windows 会将 `/canvas` 解析为盘符根路径并导致入口点击无响应。
 - 应用内路由入口必须通过共享路由层统一处理：普通文本链接使用 `next/link` shim，Ant Design 按钮式路由入口使用 `src/shared/router/route-button.tsx` 的 `RouteButton`，程序化跳转使用 `next/navigation` shim；不得在页面侧直接给 Ant Design `Button` 写 `href` 或给原生 `a` 写根路径 `href="/..."`，ESLint 已自动拦截这些写法。
-- 当前桌面产物为未签名本地分发包，且暂不启用自动更新；不得在未确认正式证书、发布者和真机验收前声称已完成正式发布配置。
+- 当前桌面产物为本地客户端分发包，且暂不启用自动更新；不得在未确认正式证书、发布者和真机验收前声称已完成正式发布配置。
 
 ## GitHub 推送约定
 
 - 推送项目到 GitHub 时，源码提交推送到 `main`，版本节点必须创建并推送 `vX.Y.Z` tag，tag 版本必须与 `package.json` 和 `package-lock.json` 一致。
 - 客户端桌面分发产物不得提交到 git；应从 `release/` 目录上传到对应版本的 GitHub Release 作为附件。
-- 当用户要求“推送 GitHub”且当前版本存在匹配的桌面分发产物时，默认同时创建或更新对应 GitHub Release，并上传该版本的 macOS 与 Windows 客户端产物。
-- 上传 GitHub Release 前必须确认附件文件名版本与当前 tag 一致；若 `release/` 中缺少当前版本产物，先按桌面打包约定生成或向用户说明无法上传。
+- 当用户要求“推送 GitHub”且当前版本存在匹配的桌面分发产物时，默认同时创建或更新对应 GitHub Release，但只上传当前版本的 `mac-arm64.dmg`、`mac-x64.dmg` 和 `win-x64.exe` 三类客户端安装包；不得上传 `.zip`、blockmap、latest 元数据或其他辅助产物，除非用户明确要求。
+- 上传 GitHub Release 前必须确认附件文件名版本与当前 tag 一致，且附件范围严格限定为当前版本的 `mac-arm64.dmg`、`mac-x64.dmg` 和 `win-x64.exe`；若 `release/` 中缺少这些必需产物，先按桌面打包约定生成或向用户说明无法上传。
 
 ## 重构约束
 
@@ -138,7 +138,7 @@
 - Phase 4 逐功能迁移已完成并验证。
 - Phase 5 设计 Token 与组件抽取已完成并验证。
 - Phase 6 设计样式收敛与等值组件/Token 追加收敛切片已完成并验证。
-- Phase 7 桌面端未签名本地分发包配置已完成并验证。
+- Phase 7 桌面端本地客户端分发包配置已完成并验证。
 - 用户明确批准具体阶段范围；正式签名、公证、自动更新和商店发布尚未获批准。
 
 ## 验证预期
