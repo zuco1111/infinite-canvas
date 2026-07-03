@@ -2690,48 +2690,41 @@ function InfiniteCanvasPage() {
       const sourceTextContent =
         sourceNode?.type === CanvasNodeType.Text ? sourceNode.metadata?.content?.trim() || '' : '';
       const editingTextNode = mode === 'text' && Boolean(sourceTextContent);
-      const generationContext = await hydrateNodeGenerationContext(
-        buildNodeGenerationContext(
-          nodeId,
-          nodesRef.current,
-          connectionsRef.current,
-          editingTextNode
-            ? `请根据要求修改以下文本。\n\n原文：\n${sourceTextContent}\n\n修改要求：\n${prompt}`
-            : prompt,
-        ),
-      );
-      const effectivePrompt = generationContext.prompt.trim();
-      if (runController.signal.aborted) {
-        finishGenerationRequest(nodeId, runController);
-        setRunningNodeId(null);
-        return;
-      }
-      const markSourceStatus = sourceNode?.type !== CanvasNodeType.Image && !editingTextNode;
-      const statusPrompt = sourceNode?.type === CanvasNodeType.Config ? effectivePrompt : prompt;
-      if (!effectivePrompt && (mode === 'text' || mode === 'audio')) {
-        finishGenerationRequest(nodeId, runController);
-        setRunningNodeId(null);
-        return;
-      }
       let pendingChildIds: string[] = [];
-      if (markSourceStatus)
-        setNodes((prev) =>
-          prev.map((node) =>
-            node.id === nodeId
-              ? {
-                  ...node,
-                  metadata: {
-                    ...node.metadata,
-                    prompt: statusPrompt,
-                    status: NODE_STATUS_LOADING,
-                    errorDetails: undefined,
-                  },
-                }
-              : node,
-          ),
-        );
+      const markSourceStatus = sourceNode?.type !== CanvasNodeType.Image && !editingTextNode;
 
       try {
+        const generationContext = await hydrateNodeGenerationContext(
+          buildNodeGenerationContext(
+            nodeId,
+            nodesRef.current,
+            connectionsRef.current,
+            editingTextNode
+              ? `请根据要求修改以下文本。\n\n原文：\n${sourceTextContent}\n\n修改要求：\n${prompt}`
+              : prompt,
+          ),
+        );
+        const effectivePrompt = generationContext.prompt.trim();
+        if (runController.signal.aborted) return;
+        const statusPrompt = sourceNode?.type === CanvasNodeType.Config ? effectivePrompt : prompt;
+        if (!effectivePrompt && (mode === 'text' || mode === 'audio')) return;
+        if (markSourceStatus)
+          setNodes((prev) =>
+            prev.map((node) =>
+              node.id === nodeId
+                ? {
+                    ...node,
+                    metadata: {
+                      ...node.metadata,
+                      prompt: statusPrompt,
+                      status: NODE_STATUS_LOADING,
+                      errorDetails: undefined,
+                    },
+                  }
+                : node,
+            ),
+          );
+
         if (mode === 'image') {
           const count = getGenerationCount(generationConfig.count);
           const isConfigNode = sourceNode?.type === CanvasNodeType.Config;

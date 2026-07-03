@@ -135,6 +135,7 @@ const IMAGE_MAX_PIXELS = 8294400;
 const IMAGE_MAX_EDGE = 3840;
 const IMAGE_MAX_RATIO = 3;
 const IMAGE_OUTPUT_FORMAT = 'png';
+export const IMAGE_REQUEST_TIMEOUT_MS = 5 * 60 * 1000;
 
 function normalizeQuality(quality: string) {
   const value = quality.trim().toLowerCase();
@@ -223,6 +224,10 @@ function imageResponseOptions(model: string) {
     : { response_format: 'b64_json' };
 }
 
+function imageEditFileFieldName(model: string) {
+  return isGptImageModel(model) ? 'image[]' : 'image';
+}
+
 function resolveImageDataUrl(item: Record<string, unknown>) {
   if (typeof item.b64_json === 'string' && item.b64_json) {
     return `data:image/png;base64,${item.b64_json}`;
@@ -253,6 +258,7 @@ function parseImagePayload(payload: ImageApiResponse) {
 function readAxiosError(error: unknown, fallback: string) {
   if (axios.isCancel(error)) return '请求已取消';
   if (axios.isAxiosError<{ error?: { message?: string }; msg?: string; code?: number }>(error)) {
+    if (isAxiosTimeout(error)) return `${fallback}：请求超时，请稍后重试`;
     const responseData = error.response?.data;
     return (
       responseData?.msg ||
@@ -264,9 +270,17 @@ function readAxiosError(error: unknown, fallback: string) {
   return error instanceof Error ? error.message : fallback;
 }
 
+function isAxiosTimeout(error: { code?: string; message?: string }) {
+  return (
+    error.code === 'ECONNABORTED' ||
+    error.code === 'ETIMEDOUT' ||
+    Boolean(error.message?.toLowerCase().includes('timeout'))
+  );
+}
+
 function readStatusError(status: number | undefined, fallback: string) {
-  if (status === 401 || status === 403) return '鉴权失败，请检查 API Key、套餐权限或模型权限';
-  if (status === 429) return '请求被限流或额度不足，请稍后重试';
+  if (status === 401 || status === 403) return '鉴权失败，请检查 API Key 或模型权限';
+  if (status === 429) return '请求被限流，请稍后重试';
   return status ? `${fallback}：${status}` : fallback;
 }
 
@@ -744,7 +758,7 @@ async function requestGeminiImagesOnce(
       }),
       contents: [{ role: 'user', parts }],
     },
-    { headers: geminiHeaders(config), signal: options?.signal },
+    { headers: geminiHeaders(config), signal: options?.signal, timeout: IMAGE_REQUEST_TIMEOUT_MS },
   );
   return parseGeminiImagePayload(response.data);
 }
@@ -784,7 +798,7 @@ export async function requestGeneration(
     try {
       return await requestGeminiImages(requestConfig, prompt, [], n, options);
     } catch (error) {
-      throw new Error(readAxiosError(error, '请求失败'));
+      throw new Error(readAxiosError(error, '图片生成失败'));
     }
   }
   const quality = normalizeQuality(config.quality);
@@ -803,12 +817,13 @@ export async function requestGeneration(
       {
         headers: aiHeaders(requestConfig, 'application/json'),
         signal: options?.signal,
+        timeout: IMAGE_REQUEST_TIMEOUT_MS,
       },
     );
     const images = parseImagePayload(response.data);
     return images;
   } catch (error) {
-    throw new Error(readAxiosError(error, '请求失败'));
+    throw new Error(readAxiosError(error, '图片生成失败'));
   }
 }
 
@@ -827,7 +842,7 @@ export async function requestEdit(
     try {
       return await requestGeminiImages(requestConfig, requestPrompt, references, n, options);
     } catch (error) {
-      throw new Error(readAxiosError(error, '请求失败'));
+      throw new Error(readAxiosError(error, '图片编辑失败'));
     }
   }
   const quality = normalizeQuality(config.quality);
@@ -850,19 +865,24 @@ export async function requestEdit(
       dataUrlToFile({ ...image, dataUrl: await imageToDataUrl(image) }),
     ),
   );
-  files.forEach((file) => formData.append('image', file));
+  const imageFieldName = imageEditFileFieldName(requestConfig.model);
+  files.forEach((file) => formData.append(imageFieldName, file));
   if (mask) formData.set('mask', dataUrlToFile(mask));
 
   try {
     const response = await axios.post<ImageApiResponse>(
       aiApiUrl(requestConfig, '/images/edits'),
       formData,
-      { headers: aiHeaders(requestConfig), signal: options?.signal },
+      {
+        headers: aiHeaders(requestConfig),
+        signal: options?.signal,
+        timeout: IMAGE_REQUEST_TIMEOUT_MS,
+      },
     );
     const images = parseImagePayload(response.data);
     return images;
   } catch (error) {
-    throw new Error(readAxiosError(error, '请求失败'));
+    throw new Error(readAxiosError(error, '图片编辑失败'));
   }
 }
 

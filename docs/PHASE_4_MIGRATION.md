@@ -88,6 +88,26 @@
 
 Phase 4 验证时，提示词库曾通过运行时远程数据源完成烟测，返回 877 条提示词。后续 Phase 6 已按上线要求移除 404 外部提示词来源，并将可访问提示词数据写入 `public/data/local-prompts.json`，当前提示词数据库不再运行时抓取外部来源。
 
+## 验收后修复记录
+
+### 2026-07-03 图片编辑请求 Loading 修复
+
+用户验收反馈：`gpt-image-2` 可以生成图片，但在画布中编辑已有图片时会一直处于 Loading，等待 20 分钟仍无结果。
+
+修复范围：
+
+- `gpt-image-2` 等 GPT Image 模型的图片编辑请求改为使用 multipart 文件字段 `image[]`；非 GPT 图片模型继续使用旧字段 `image`，避免影响旧模型兼容。
+- 图片生成、图片编辑和 Gemini 图片请求增加 5 分钟请求超时，超时后返回明确的“图片生成失败/图片编辑失败：请求超时，请稍后重试”，避免节点永久处于 Loading。
+- 新增图片 API 单元测试，覆盖 GPT Image 编辑字段、旧模型编辑字段、生成请求超时配置和编辑请求超时错误。
+
+验证结果：
+
+- `npm test -- src/services/api/image.test.ts` 通过。
+- `npx prettier --check src/services/api/image.ts src/services/api/image.test.ts` 通过。
+- `npx tsc --noEmit -p tsconfig.app.json` 通过。
+- `npm run check` 通过。
+- `npm run build` 通过；Electron agent bundle 仍输出既有 3.3mb 体积提示。
+
 ## 已知迁移遗留
 
 - Phase 4 验证时 `npm run lint` 通过但曾输出 React hook dependency 与 Fast Refresh warning；这些 warning 来自旧项目实现迁移，未阻断检查。

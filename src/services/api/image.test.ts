@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { defaultConfig, encodeChannelModel, type AiConfig } from '@/stores/use-config-store';
 
-import { requestGeneration } from './image';
+import { IMAGE_REQUEST_TIMEOUT_MS, requestEdit, requestGeneration } from './image';
 
 vi.mock('axios', () => ({
   default: {
@@ -53,9 +53,10 @@ describe('image api requests', () => {
     await requestGeneration(imageConfig('gpt-image-2'), 'test prompt');
 
     expect(mockedAxios.post).toHaveBeenCalledTimes(1);
-    const [, body] = mockedAxios.post.mock.calls[0];
+    const [, body, options] = mockedAxios.post.mock.calls[0];
     expect(body).toMatchObject({ model: 'gpt-image-2', output_format: 'png' });
     expect(body).not.toHaveProperty('response_format');
+    expect(options).toMatchObject({ timeout: IMAGE_REQUEST_TIMEOUT_MS });
   });
 
   it('keeps response_format for legacy image generation models', async () => {
@@ -66,4 +67,54 @@ describe('image api requests', () => {
     expect(body).toMatchObject({ model: 'dall-e-3', response_format: 'b64_json' });
     expect(body).not.toHaveProperty('output_format');
   });
+
+  it('uses image array field for GPT image edits', async () => {
+    await requestEdit(imageConfig('gpt-image-2'), 'edit prompt', [referenceImage()]);
+
+    expect(mockedAxios.post).toHaveBeenCalledTimes(1);
+    const [, body, options] = mockedAxios.post.mock.calls[0];
+    expect(body).toBeInstanceOf(FormData);
+    const formData = body as FormData;
+    expect(formData.get('model')).toBe('gpt-image-2');
+    expect(formData.get('output_format')).toBe('png');
+    expect(formData.get('response_format')).toBeNull();
+    expect(formData.getAll('image[]')).toHaveLength(1);
+    expect(formData.has('image')).toBe(false);
+    expect(options).toMatchObject({ timeout: IMAGE_REQUEST_TIMEOUT_MS });
+  });
+
+  it('keeps legacy image field for non-GPT image edits', async () => {
+    await requestEdit(imageConfig('dall-e-2'), 'edit prompt', [referenceImage()]);
+
+    expect(mockedAxios.post).toHaveBeenCalledTimes(1);
+    const [, body] = mockedAxios.post.mock.calls[0];
+    expect(body).toBeInstanceOf(FormData);
+    const formData = body as FormData;
+    expect(formData.get('model')).toBe('dall-e-2');
+    expect(formData.get('response_format')).toBe('b64_json');
+    expect(formData.get('output_format')).toBeNull();
+    expect(formData.getAll('image')).toHaveLength(1);
+    expect(formData.has('image[]')).toBe(false);
+  });
+
+  it('reports stalled image edit requests as timeouts', async () => {
+    mockedAxios.post.mockRejectedValueOnce({
+      code: 'ECONNABORTED',
+      message: `timeout of ${IMAGE_REQUEST_TIMEOUT_MS}ms exceeded`,
+    });
+    mockedAxios.isAxiosError.mockReturnValueOnce(true);
+
+    await expect(
+      requestEdit(imageConfig('gpt-image-2'), 'edit prompt', [referenceImage()]),
+    ).rejects.toThrow('图片编辑失败：请求超时，请稍后重试');
+  });
 });
+
+function referenceImage() {
+  return {
+    id: 'ref-1',
+    name: 'reference.png',
+    type: 'image/png',
+    dataUrl: 'data:image/png;base64,aW1hZ2U=',
+  };
+}

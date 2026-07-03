@@ -11,8 +11,6 @@ import {
   useEffectiveConfig,
   type AiConfig,
 } from '@/stores/use-config-store';
-import { requestCreditCost } from '@/constant/credits';
-import { CreditSymbol } from '@/shared/ui/credit-symbol';
 import { canvasThemes } from '@/lib/canvas-theme';
 import { useThemeStore } from '@/stores/use-theme-store';
 import { CanvasImageSettingsPopover } from './canvas-image-settings-popover';
@@ -59,11 +57,6 @@ export function CanvasNodePromptPanel({
   const hasImageContent = node.type === CanvasNodeType.Image && Boolean(node.metadata?.content);
   const isEditingExistingContent = hasTextContent || hasImageContent;
   const [prompt, setPrompt] = useState(isEditingExistingContent ? '' : node.metadata?.prompt || '');
-  const credits = requestCreditCost({
-    channelMode: config.channelMode,
-    model: config.model,
-    count: mode === 'image' ? config.count : 1,
-  });
 
   useEffect(() => {
     setPrompt(isEditingExistingContent ? '' : node.metadata?.prompt || '');
@@ -193,13 +186,7 @@ export function CanvasNodePromptPanel({
                 <span className="text-xs font-medium">停止</span>
               </>
             ) : (
-              <>
-                <span className="inline-flex items-center gap-1 text-xs font-medium tabular-nums">
-                  <CreditSymbol />
-                  {credits.toLocaleString()}
-                </span>
-                <ArrowUp className="size-4" />
-              </>
+              <ArrowUp className="size-4" />
             )}
           </span>
         </Button>

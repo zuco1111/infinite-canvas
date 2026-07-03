@@ -16,6 +16,7 @@ export type UploadedImage = {
 
 const store = localforage.createInstance({ name: 'infinite-canvas', storeName: 'image_files' });
 const objectUrls = new Map<string, string>();
+const RESOURCE_PROXY_PATH = '/__resource-proxy';
 
 export async function uploadImage(input: string | Blob): Promise<UploadedImage> {
   const blob = typeof input === 'string' ? await imageSourceToBlob(input) : input;
@@ -36,7 +37,7 @@ export async function uploadImage(input: string | Blob): Promise<UploadedImage> 
 
 async function imageSourceToBlob(input: string) {
   if (input.startsWith('data:')) return dataUrlToBlob(input);
-  return (await fetch(input)).blob();
+  return fetchImageBlob(input);
 }
 
 function dataUrlToBlob(dataUrl: string) {
@@ -77,9 +78,45 @@ export async function imageToDataUrl(image: {
   dataUrl?: string;
   storageKey?: string;
 }) {
-  const url = image.dataUrl || (await resolveImageUrl(image.storageKey, image.url || ''));
-  if (!url || url.startsWith('data:')) return url;
-  return blobToDataUrl(await (await fetch(url)).blob());
+  if (image.dataUrl?.startsWith('data:')) return image.dataUrl;
+
+  if (image.storageKey) {
+    const blob = await getImageBlob(image.storageKey);
+    if (blob) return blobToDataUrl(blob);
+  }
+
+  const storedUrl = await resolveImageUrl(image.storageKey, image.url || '');
+  const url = image.dataUrl || storedUrl;
+  if (!url) return url;
+
+  try {
+    return blobToDataUrl(await fetchImageBlob(url));
+  } catch (error) {
+    if (!storedUrl || storedUrl === url) throw error;
+    return blobToDataUrl(await fetchImageBlob(storedUrl));
+  }
+}
+
+async function fetchImageBlob(url: string) {
+  const response = await fetch(proxiedImageUrl(url));
+  if (!response.ok) throw new Error(`读取图片失败：${response.status}`);
+  return response.blob();
+}
+
+function proxiedImageUrl(url: string) {
+  if (!shouldProxyImageUrl(url)) return url;
+  return `${RESOURCE_PROXY_PATH}?target=${encodeURIComponent(url)}`;
+}
+
+function shouldProxyImageUrl(url: string) {
+  if (typeof window === 'undefined' || !import.meta.env.DEV) return false;
+  try {
+    const parsed = new URL(url, window.location.href);
+    if (parsed.origin === window.location.origin) return false;
+    return parsed.protocol === 'http:' || parsed.protocol === 'https:';
+  } catch {
+    return false;
+  }
 }
 
 export async function deleteStoredImages(keys: Iterable<string>) {

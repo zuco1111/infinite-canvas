@@ -96,7 +96,7 @@ const webdavDomainLabels: Record<AppSyncDomainKey, string> = {
   'image-workbench': '生图工作台',
   'video-workbench': '视频创作台',
 };
-const ZUCO_PURCHASE_URL = 'https://api.zuco.ai';
+const ZUCO_CONSOLE_URL = 'https://api.zuco.ai';
 
 function createWebdavDomainProgress(): Record<AppSyncDomainKey, WebdavDomainProgress> {
   return webdavDomainKeys.reduce(
@@ -189,8 +189,8 @@ export function AppConfigModal() {
     updateChannels(config.channels.filter((channel) => channel.id !== id));
   };
 
-  const openZucoPurchasePage = () => {
-    window.open(ZUCO_PURCHASE_URL, '_blank', 'noopener,noreferrer');
+  const openZucoConsolePage = () => {
+    window.open(ZUCO_CONSOLE_URL, '_blank', 'noopener,noreferrer');
   };
 
   const refreshChannelModels = async (channel: ModelChannel) => {
@@ -339,13 +339,13 @@ export function AppConfigModal() {
                           type="link"
                           size="small"
                           className="h-auto p-0 text-xs font-semibold text-current"
-                          onClick={openZucoPurchasePage}
+                          onClick={openZucoConsolePage}
                         >
-                          立即购买
+                          打开控制台
                         </Button>
                       }
                     >
-                      <span>使用前请先购买API套餐</span>
+                      <span>使用前请先配置可用 API 渠道</span>
                     </AppNotice>
                   </div>
                   <div className="flex shrink-0 gap-2">

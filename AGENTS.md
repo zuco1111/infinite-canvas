@@ -88,6 +88,10 @@
 - 提示词库运行时数据库使用本地静态数据 `public/data/local-prompts.json`。
 - 不得在未确认的情况下重新引入运行时外部提示词数据库抓取；外部来源数据如需更新，应先离线验证可访问性，移除 404 来源后再写入本地提示词数据文件。
 
+## 生成用量展示约定
+
+- 当前业务不包含生成用量计量体系；生成入口、模型配置和错误文案不得展示用量扣减、余额、购买套餐或闪电用量标识，除非用户后续明确批准。
+
 ## 桌面打包约定
 
 - 桌面端打包使用 Electron Builder，配置入口为 `electron-builder.config.cjs`。
@@ -98,6 +102,7 @@
 - 只有在用户明确说明不更新版本号时，才允许使用 `SKIP_VERSION_BUMP=1` 或 `DESKTOP_VERSION_BUMP=none` 跳过自动递增。
 - macOS 与 Windows 需要作为同一批版本同时出包时，必须使用 `npm run dist:desktop:all`，确保只递增一次版本号后生成多平台产物；不得连续单独执行 `dist:desktop:mac` 和 `dist:desktop:win` 造成同一批产物版本不一致。
 - `npm run dist:desktop:dir` 仅用于本地目录包烟测，不视为正式分发出包，默认不递增版本号。
+- 每次正式桌面分发打包前必须删除 `release/` 中旧版本的 `Infinite Canvas-*` 分发包，只保留当前 `package.json` 版本对应的包；该清理由 `scripts/clean-old-desktop-packages.cjs` 统一执行，并已串入正式打包脚本。
 - 打包前必须通过 `scripts/prepare-desktop-codex.cjs` 准备 Codex CLI 资源；npm 打包脚本已自动串联该步骤。
 - 桌面端 renderer 通过 `file://` 加载生产产物，Vite 生产构建必须保持相对资源 base；页面侧引用 `public/` 静态资源时应使用 `src/lib/public-assets.ts` 的 `publicAssetPath()`，不得直接写根路径 `/...`。
 - 桌面端 `file://` 环境必须使用 hash 路由（例如 `index.html#/canvas`），不得依赖 `history.pushState('/canvas')` 形式的根路径导航；Windows 会将 `/canvas` 解析为盘符根路径并导致入口点击无响应。

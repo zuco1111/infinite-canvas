@@ -25,6 +25,7 @@
 - 新增 `build-resources/icon.icns`、`build-resources/icon.ico` 和 `build-resources/icon.png`，由现有 `public/zuco-brand.png` 生成。
 - 新增 `scripts/prepare-desktop-codex.cjs`，在打包前准备 `@openai/codex` 入口包和三平台 Codex 原生二进制包。
 - 新增 `scripts/bump-desktop-version.cjs`，在桌面分发打包前自动递增应用版本号，并同步写入 `package.json` 与 `package-lock.json`。
+- 新增 `scripts/clean-old-desktop-packages.cjs`，在正式桌面分发打包前删除 `release/` 中旧版本的 `Infinite Canvas-*` 分发包，只保留当前 `package.json` 版本对应的包，避免 release 目录长期残留多批版本。
 - Electron Builder `afterPack` 按当前目标平台和架构只复制对应 Codex 原生包：
   - macOS Intel：`@openai/codex-darwin-x64`
   - macOS Apple Silicon：`@openai/codex-darwin-arm64`
@@ -43,6 +44,7 @@
 ## npm 脚本
 
 - `npm run bump:desktop-version`：递增桌面分发版本号，默认 patch 递增，例如 `0.1.0` -> `0.1.1`。
+- `npm run clean:desktop-old-packages`：删除 `release/` 中旧版本的桌面分发包，保留当前 `package.json` 版本。
 - `npm run dist:desktop:dir`：构建当前平台目录包，用于快速烟测。
 - `npm run dist:desktop:mac`：先自动递增版本号，再构建 macOS Intel 和 macOS Apple Silicon 的 dmg/zip。
 - `npm run dist:desktop:win`：先自动递增版本号，再构建 Windows x64 的 NSIS 安装器和 zip。
@@ -58,6 +60,7 @@
 - 如需指定版本，可使用 `DESKTOP_VERSION=x.y.z`。
 - 只有在用户明确说明不更新版本号时，才允许使用 `SKIP_VERSION_BUMP=1` 或 `DESKTOP_VERSION_BUMP=none`。
 - `npm run dist:desktop:dir` 仅用于本地目录包烟测，默认不递增版本号。
+- 正式分发打包入口会自动执行 `clean:desktop-old-packages`；目录包烟测入口 `npm run dist:desktop:dir` 不清理历史分发包。
 
 ## 验证结果
 
@@ -96,6 +99,27 @@
 - Windows x64 zip：约 257MB。
 
 说明：包体大小主要来自 Electron runtime 和自包含 Codex 原生二进制。当前每个目标包只携带自身平台架构需要的 Codex 原生包。
+
+### 2026-07-03 图片编辑修复后三平台客户端重包
+
+用户要求：图片编辑 Loading 修复后重新打包客户端用于本地验收。
+
+执行结果：
+
+- 执行 `npm run dist:desktop:mac`，桌面版本号按约定自动从 `0.1.0` 递增到 `0.1.1`，并同步更新 `package.json` 与 `package-lock.json`。
+- 重新生成 macOS Intel 和 macOS Apple Silicon 未签名本地分发包。
+- 为补齐同一批 `0.1.1` 验收产物，随后执行 `npm run build && npm run package:desktop:win:no-bump`，使用当前 `0.1.1` 版本重新生成 Windows x64 未签名本地分发包，避免补包时再次递增为 `0.1.2` 导致同批版本不一致。
+- 已确认 `release/mac/Infinite Canvas.app` 与 `release/mac-arm64/Infinite Canvas.app` 的 `CFBundleIdentifier` 为 `com.zuco.infinitecanvas`，`CFBundleName` 为 `Infinite Canvas`，`CFBundleShortVersionString` 与 `CFBundleVersion` 均为 `0.1.1`。
+- 已确认 `release/win-unpacked/resources/app.asar` 存在。
+
+新增产物：
+
+- `release/Infinite Canvas-0.1.1-mac-arm64.dmg`，约 209MB。
+- `release/Infinite Canvas-0.1.1-mac-arm64.zip`，约 209MB。
+- `release/Infinite Canvas-0.1.1-mac-x64.dmg`，约 224MB。
+- `release/Infinite Canvas-0.1.1-mac-x64.zip`，约 224MB。
+- `release/Infinite Canvas-0.1.1-win-x64.exe`，约 173MB。
+- `release/Infinite Canvas-0.1.1-win-x64.zip`，约 247MB。
 
 ## 已知限制
 

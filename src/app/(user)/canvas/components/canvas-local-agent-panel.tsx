@@ -17,7 +17,7 @@ import {
   History,
   KeyRound,
   Link2,
-  PlugZap,
+  Plug,
   Plus,
   RefreshCw,
   RotateCcw,
@@ -783,7 +783,7 @@ export function CanvasLocalAgentPanel({
         value={activeTab}
         theme={theme}
         items={[
-          { value: 'setup', label: '连接', icon: <PlugZap className="size-3.5" /> },
+          { value: 'setup', label: '连接', icon: <Plug className="size-3.5" /> },
           { value: 'chat', label: '对话' },
           {
             value: 'history',
@@ -1147,7 +1147,7 @@ function AgentConnectView({
             <Button
               className="!h-8 !px-3"
               type={enabled ? 'default' : 'primary'}
-              icon={<PlugZap className="size-4" />}
+              icon={<Plug className="size-4" />}
               onClick={onToggleEnabled}
             >
               {enabled ? '断开' : '连接'}
