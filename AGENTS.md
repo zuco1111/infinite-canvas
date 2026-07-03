@@ -109,6 +109,13 @@
 - 应用内路由入口必须通过共享路由层统一处理：普通文本链接使用 `next/link` shim，Ant Design 按钮式路由入口使用 `src/shared/router/route-button.tsx` 的 `RouteButton`，程序化跳转使用 `next/navigation` shim；不得在页面侧直接给 Ant Design `Button` 写 `href` 或给原生 `a` 写根路径 `href="/..."`，ESLint 已自动拦截这些写法。
 - 当前桌面产物为未签名本地分发包，且暂不启用自动更新；不得在未确认正式证书、发布者和真机验收前声称已完成正式发布配置。
 
+## GitHub 推送约定
+
+- 推送项目到 GitHub 时，源码提交推送到 `main`，版本节点必须创建并推送 `vX.Y.Z` tag，tag 版本必须与 `package.json` 和 `package-lock.json` 一致。
+- 客户端桌面分发产物不得提交到 git；应从 `release/` 目录上传到对应版本的 GitHub Release 作为附件。
+- 当用户要求“推送 GitHub”且当前版本存在匹配的桌面分发产物时，默认同时创建或更新对应 GitHub Release，并上传该版本的 macOS 与 Windows 客户端产物。
+- 上传 GitHub Release 前必须确认附件文件名版本与当前 tag 一致；若 `release/` 中缺少当前版本产物，先按桌面打包约定生成或向用户说明无法上传。
+
 ## 重构约束
 
 - 在用户批准变更前，既有功能必须保持等效。

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { canvasThemes, type CanvasBackgroundMode } from '@/lib/canvas-theme';
 import { useThemeStore } from '@/stores/use-theme-store';
@@ -11,6 +11,7 @@ type InfiniteCanvasProps = {
   viewport: ViewportTransform;
   backgroundMode?: CanvasBackgroundMode;
   onViewportChange: (viewport: ViewportTransform) => void;
+  onPanStateChange?: (isPanning: boolean) => void;
   onCanvasMouseDown?: (event: React.PointerEvent<HTMLDivElement>) => void;
   onCanvasDeselect?: () => void;
   onContextMenu?: (event: React.MouseEvent) => void;
@@ -23,6 +24,7 @@ export function InfiniteCanvas({
   viewport,
   backgroundMode = 'lines',
   onViewportChange,
+  onPanStateChange,
   onCanvasMouseDown,
   onCanvasDeselect,
   onContextMenu,
@@ -41,6 +43,8 @@ export function InfiniteCanvas({
   const scaleRef = useRef(viewport.k);
   const frameRef = useRef<number | null>(null);
   const nextViewportRef = useRef<ViewportTransform | null>(null);
+  const layerRef = useRef<HTMLDivElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
   const [isSpacePressed, setIsSpacePressed] = useState(false);
 
   useEffect(() => {
@@ -52,6 +56,18 @@ export function InfiniteCanvas({
       if (frameRef.current) cancelAnimationFrame(frameRef.current);
     },
     [],
+  );
+
+  const applyViewportPreview = useCallback(
+    (next: ViewportTransform) => {
+      if (layerRef.current)
+        layerRef.current.style.transform = `translate(${next.x}px, ${next.y}px) scale(${next.k})`;
+      if (!gridRef.current || backgroundMode === 'blank') return;
+      const gridSize = 48 * next.k;
+      gridRef.current.style.backgroundSize = `${gridSize}px ${gridSize}px`;
+      gridRef.current.style.backgroundPosition = `${next.x % gridSize}px ${next.y % gridSize}px`;
+    },
+    [backgroundMode],
   );
 
   useEffect(() => {
@@ -125,6 +141,7 @@ export function InfiniteCanvas({
         initialY: viewport.y,
         hasMoved: false,
       };
+      onPanStateChange?.(true);
       document.body.style.cursor = 'grabbing';
       return;
     }
@@ -152,7 +169,7 @@ export function InfiniteCanvas({
       if (frameRef.current) return;
       frameRef.current = requestAnimationFrame(() => {
         frameRef.current = null;
-        if (nextViewportRef.current) onViewportChange(nextViewportRef.current);
+        if (nextViewportRef.current) applyViewportPreview(nextViewportRef.current);
       });
     };
 
@@ -161,8 +178,18 @@ export function InfiniteCanvas({
 
       if (!panState.current.hasMoved) {
         onCanvasDeselect?.();
+        applyViewportPreview({
+          x: panState.current.initialX,
+          y: panState.current.initialY,
+          k: scaleRef.current,
+        });
       }
       panState.current.isPanning = false;
+      if (panState.current.hasMoved && nextViewportRef.current) {
+        onViewportChange(nextViewportRef.current);
+      }
+      nextViewportRef.current = null;
+      onPanStateChange?.(false);
       document.body.style.cursor = 'default';
     };
 
@@ -172,7 +199,7 @@ export function InfiniteCanvas({
       window.removeEventListener('pointermove', handlePointerMove);
       window.removeEventListener('pointerup', handlePointerUp);
     };
-  }, [onCanvasDeselect, onViewportChange]);
+  }, [applyViewportPreview, onCanvasDeselect, onPanStateChange, onViewportChange]);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -194,8 +221,9 @@ export function InfiniteCanvas({
       onDragOver={(event) => event.preventDefault()}
       onDrop={onDrop}
     >
-      <CanvasGrid viewport={viewport} mode={backgroundMode} />
+      <CanvasGrid viewport={viewport} mode={backgroundMode} gridRef={gridRef} />
       <div
+        ref={layerRef}
         className="absolute origin-top-left"
         style={{
           transform: `translate(${viewport.x}px, ${viewport.y}px) scale(${viewport.k})`,
@@ -210,9 +238,11 @@ export function InfiniteCanvas({
 function CanvasGrid({
   viewport,
   mode,
+  gridRef,
 }: {
   viewport: ViewportTransform;
   mode: CanvasBackgroundMode;
+  gridRef: React.RefObject<HTMLDivElement>;
 }) {
   const theme = canvasThemes[useThemeStore((state) => state.theme)];
   if (mode === 'blank') return null;
@@ -228,6 +258,7 @@ function CanvasGrid({
 
   return (
     <div
+      ref={gridRef}
       className="pointer-events-none absolute inset-0 opacity-40"
       style={{
         backgroundImage,

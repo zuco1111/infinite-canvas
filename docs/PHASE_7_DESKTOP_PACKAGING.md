@@ -62,6 +62,13 @@
 - `npm run dist:desktop:dir` 仅用于本地目录包烟测，默认不递增版本号。
 - 正式分发打包入口会自动执行 `clean:desktop-old-packages`；目录包烟测入口 `npm run dist:desktop:dir` 不清理历史分发包。
 
+GitHub 推送规则：
+
+- 源码提交推送到 `main`，版本节点使用与 `package.json` 一致的 `vX.Y.Z` tag。
+- `release/` 中的客户端桌面分发产物不得提交到 git，应上传到对应 tag 的 GitHub Release 作为附件。
+- 当用户要求推送 GitHub 且 `release/` 中存在当前版本的 macOS 与 Windows 客户端产物时，默认创建或更新对应 GitHub Release 并上传这些附件。
+- 上传前必须确认附件文件名版本与当前 tag 一致；缺少当前版本产物时，先按本文件的打包规则生成，或明确告知用户当前无法上传客户端附件。
+
 ## 验证结果
 
 已执行并通过：

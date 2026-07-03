@@ -48,6 +48,7 @@ import { fitNodeSize, nodeSizeFromRatio } from '../utils/canvas-node-size';
 import { App, Button, Dropdown, Modal } from 'antd';
 import { NODE_DEFAULT_SIZE, getNodeSpec } from '../constants';
 import { ActiveConnectionPath, ConnectionPath } from '../components/canvas-connections';
+import { getConnectionPathD } from '../utils/canvas-connection-path';
 import { CanvasConfigComposer } from '../components/canvas-config-composer';
 import { CanvasConfigNodePanel } from '../components/canvas-config-node-panel';
 import {
@@ -164,6 +165,7 @@ const NODE_STATUS_IDLE = 'idle' as const;
 const NODE_STATUS_LOADING = 'loading' as const;
 const NODE_STATUS_SUCCESS = 'success' as const;
 const NODE_STATUS_ERROR = 'error' as const;
+const EMPTY_MENTION_REFERENCES: ReturnType<typeof buildNodeMentionReferences> = [];
 const IMAGE_PROMPT_REVERSE_PRESET = `请根据参考图片反推一段适合用于 AI 生图的提示词。
 
 要求：
@@ -400,6 +402,7 @@ function InfiniteCanvasPage() {
   const rafRef = useRef<number | null>(null);
   const toolbarHideTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const nodeDraggingRef = useRef(false);
+  const canvasPanningRef = useRef(false);
   const dragRef = useRef<{
     isDraggingNode: boolean;
     hasMoved: boolean;
@@ -1522,46 +1525,88 @@ function InfiniteCanvasPage() {
     setIsNodeDragging(true);
   }, []);
 
-  const finishNodeDrag = useCallback((clientX?: number, clientY?: number) => {
-    if (rafRef.current) {
-      cancelAnimationFrame(rafRef.current);
-      rafRef.current = null;
-    }
-    if (!dragRef.current.isDraggingNode) return;
+  const applyNodeDragPreview = useCallback(
+    (initialPositionById: Map<string, Position>, dx: number, dy: number) => {
+      const movedNodeById = new Map<string, CanvasNodeData>();
+      initialPositionById.forEach((initial, id) => {
+        const node = nodeByIdRef.current.get(id);
+        if (!node) return;
+        const position = { x: initial.x + dx, y: initial.y + dy };
+        movedNodeById.set(id, { ...node, position });
+        const nodeElement = document.querySelector<HTMLElement>(
+          `[data-node-id="${cssSelectorEscape(id)}"]`,
+        );
+        if (nodeElement)
+          nodeElement.style.transform = `translate(${position.x}px, ${position.y}px)`;
+      });
 
-    const wasClick = !dragRef.current.hasMoved && dragRef.current.initialSelectedNodes.length === 1;
-    const clickedNodeId = dragRef.current.initialSelectedNodes[0]?.id;
-    const currentViewport = viewportRef.current;
-    const dx = clientX == null ? 0 : (clientX - dragRef.current.startX) / currentViewport.k;
-    const dy = clientY == null ? 0 : (clientY - dragRef.current.startY) / currentViewport.k;
-    const initialPositionById = dragRef.current.initialSelectedNodeById;
+      if (!movedNodeById.size) return;
+      connectionsRef.current.forEach((connection) => {
+        if (!movedNodeById.has(connection.fromNodeId) && !movedNodeById.has(connection.toNodeId))
+          return;
+        const from =
+          movedNodeById.get(connection.fromNodeId) ||
+          nodeByIdRef.current.get(connection.fromNodeId);
+        const to =
+          movedNodeById.get(connection.toNodeId) || nodeByIdRef.current.get(connection.toNodeId);
+        if (!from || !to) return;
+        const pathD = getConnectionPathD(from, to);
+        const hitPath = document.querySelector<SVGPathElement>(
+          `[data-connection-id="${cssSelectorEscape(connection.id)}"]`,
+        );
+        hitPath?.setAttribute('d', pathD);
+        const visualPath = hitPath?.nextElementSibling;
+        if (visualPath instanceof SVGPathElement) visualPath.setAttribute('d', pathD);
+      });
+    },
+    [],
+  );
 
-    historyPausedRef.current = false;
-    nodeDraggingRef.current = false;
-    setIsNodeDragging(false);
-    if (dragRef.current.hasMoved && clientX != null && clientY != null) {
-      setNodes((prev) =>
-        prev.map((node) => {
-          const initial = initialPositionById.get(node.id);
-          if (!initial) return node;
-          return { ...node, position: { x: initial.x + dx, y: initial.y + dy } };
-        }),
-      );
-    }
-
-    dragRef.current.isDraggingNode = false;
-    dragRef.current.hasMoved = false;
-    dragRef.current.initialSelectedNodes = [];
-    dragRef.current.initialSelectedNodeById = new Map();
-    if (wasClick && clickedNodeId) {
-      const clickedNode = nodesRef.current.find((node) => node.id === clickedNodeId);
-      if (clickedNode?.type === CanvasNodeType.Text) {
-        setDialogNodeId((current) => (current === clickedNodeId ? current : null));
-      } else {
-        setDialogNodeId(clickedNodeId);
+  const finishNodeDrag = useCallback(
+    (clientX?: number, clientY?: number) => {
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
       }
-    }
-  }, []);
+      if (!dragRef.current.isDraggingNode) return;
+
+      const wasClick =
+        !dragRef.current.hasMoved && dragRef.current.initialSelectedNodes.length === 1;
+      const clickedNodeId = dragRef.current.initialSelectedNodes[0]?.id;
+      const currentViewport = viewportRef.current;
+      const dx = clientX == null ? 0 : (clientX - dragRef.current.startX) / currentViewport.k;
+      const dy = clientY == null ? 0 : (clientY - dragRef.current.startY) / currentViewport.k;
+      const initialPositionById = dragRef.current.initialSelectedNodeById;
+
+      historyPausedRef.current = false;
+      nodeDraggingRef.current = false;
+      setIsNodeDragging(false);
+      if (clientX == null || clientY == null) applyNodeDragPreview(initialPositionById, 0, 0);
+      if (dragRef.current.hasMoved && clientX != null && clientY != null) {
+        setNodes((prev) =>
+          prev.map((node) => {
+            const initial = initialPositionById.get(node.id);
+            if (!initial) return node;
+            return { ...node, position: { x: initial.x + dx, y: initial.y + dy } };
+          }),
+        );
+      }
+
+      dragRef.current.isDraggingNode = false;
+      dragRef.current.hasMoved = false;
+      dragRef.current.initialSelectedNodes = [];
+      dragRef.current.initialSelectedNodeById = new Map();
+      if (wasClick && clickedNodeId) {
+        const clickedNode = nodesRef.current.find((node) => node.id === clickedNodeId);
+        if (clickedNode?.type === CanvasNodeType.Text) {
+          setDialogNodeId((current) => (current === clickedNodeId ? current : null));
+        } else {
+          setDialogNodeId(clickedNodeId);
+        }
+      }
+    },
+    [applyNodeDragPreview],
+  );
 
   const handleGlobalMouseMove = useCallback(
     (event: MouseEvent) => {
@@ -1580,14 +1625,7 @@ function InfiniteCanvasPage() {
 
         if (rafRef.current) cancelAnimationFrame(rafRef.current);
         rafRef.current = requestAnimationFrame(() => {
-          setNodes((prev) =>
-            prev.map((node) => {
-              const initial = initialPositionById.get(node.id);
-              return initial
-                ? { ...node, position: { x: initial.x + dx, y: initial.y + dy } }
-                : node;
-            }),
-          );
+          applyNodeDragPreview(initialPositionById, dx, dy);
           rafRef.current = null;
         });
         return;
@@ -1604,7 +1642,7 @@ function InfiniteCanvasPage() {
         setMouseWorld(screenToCanvas(event.clientX, event.clientY));
       }
     },
-    [getConnectionDropTarget, screenToCanvas],
+    [applyNodeDragPreview, getConnectionDropTarget, screenToCanvas],
   );
 
   const handleGlobalPointerMove = useCallback(
@@ -3814,6 +3852,108 @@ function InfiniteCanvasPage() {
     [insertAssistantImage, insertAssistantText, screenToCanvas, size.height, size.width],
   );
 
+  const renderCanvasNodePanel = useCallback(
+    (panelNode: CanvasNodeData) =>
+      panelNode.type === CanvasNodeType.Config ? (
+        <CanvasConfigComposer
+          value={panelNode.metadata?.composerContent ?? panelNode.metadata?.prompt ?? ''}
+          inputs={configInputsById.get(panelNode.id) || []}
+          onChange={(composerContent) => handleConfigNodeChange(panelNode.id, { composerContent })}
+          onClose={() => setDialogNodeId(null)}
+        />
+      ) : (
+        <CanvasNodePromptPanel
+          node={panelNode}
+          isRunning={runningNodeId === panelNode.id}
+          mentionReferences={
+            mentionReferencesByNodeId.get(panelNode.id) || EMPTY_MENTION_REFERENCES
+          }
+          onPromptChange={handleNodePromptChange}
+          onConfigChange={handleConfigNodeChange}
+          onGenerate={handleGenerateNode}
+          onStop={confirmStopGeneration}
+          onImageSettingsOpenChange={(open) => {
+            setNodeImageSettingsOpen(open);
+            if (open) setToolbarNodeId(null);
+          }}
+        />
+      ),
+    [
+      configInputsById,
+      confirmStopGeneration,
+      handleConfigNodeChange,
+      handleGenerateNode,
+      handleNodePromptChange,
+      mentionReferencesByNodeId,
+      runningNodeId,
+    ],
+  );
+
+  const renderCanvasNodeContent = useCallback(
+    (contentNode: CanvasNodeData) => (
+      <CanvasConfigNodePanel
+        node={contentNode}
+        isRunning={runningNodeId === contentNode.id}
+        inputSummary={getInputSummary(configInputsById.get(contentNode.id) || [])}
+        onConfigChange={handleConfigNodeChange}
+        onComposerToggle={() =>
+          setDialogNodeId((current) => (current === contentNode.id ? null : contentNode.id))
+        }
+        onStop={confirmStopGeneration}
+        onGenerate={(nodeId) => {
+          const target = nodesRef.current.find((item) => item.id === nodeId);
+          void handleGenerateNode(
+            nodeId,
+            target?.metadata?.generationMode || 'image',
+            target?.metadata?.composerContent ?? target?.metadata?.prompt ?? '',
+          );
+        }}
+      />
+    ),
+    [
+      configInputsById,
+      confirmStopGeneration,
+      handleConfigNodeChange,
+      handleGenerateNode,
+      runningNodeId,
+    ],
+  );
+
+  const handleCanvasNodeHoverStart = useCallback(
+    (nodeId: string) => {
+      if (nodeDraggingRef.current || canvasPanningRef.current) return;
+      setHoveredNodeId(nodeId);
+      keepNodeToolbar(nodeId);
+    },
+    [keepNodeToolbar],
+  );
+
+  const handleCanvasNodeHoverEnd = useCallback(
+    (nodeId: string) => {
+      if (canvasPanningRef.current) return;
+      setHoveredNodeId((current) => (current === nodeId ? null : current));
+      hideNodeToolbar();
+    },
+    [hideNodeToolbar],
+  );
+
+  const handleCanvasPanStateChange = useCallback((isPanning: boolean) => {
+    canvasPanningRef.current = isPanning;
+    if (!isPanning) return;
+    if (toolbarHideTimerRef.current) {
+      clearTimeout(toolbarHideTimerRef.current);
+      toolbarHideTimerRef.current = null;
+    }
+    setHoveredNodeId(null);
+    setToolbarNodeId(null);
+  }, []);
+
+  const handleCanvasNodeContextMenu = useCallback((event: ReactMouseEvent, id: string) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setContextMenu({ type: 'node', x: event.clientX, y: event.clientY, nodeId: id });
+  }, []);
+
   const assistantOpen = assistantMounted && !assistantCollapsed;
   const closeAgent = () => {
     if (!assistantMounted || assistantClosing) return;
@@ -3869,6 +4009,7 @@ function InfiniteCanvasPage() {
           viewport={viewport}
           backgroundMode={backgroundMode}
           onViewportChange={handleViewportChange}
+          onPanStateChange={handleCanvasPanStateChange}
           onCanvasMouseDown={handleCanvasMouseDown}
           onCanvasDeselect={deselectCanvas}
           onContextMenu={preventCanvasContextMenu}
@@ -3954,65 +4095,12 @@ function InfiniteCanvasPage() {
               batchMotion={batchMotionById.get(node.id)}
               showImageInfo={showImageInfo}
               resourceLabel={resourceReferenceByNodeId.get(node.id)}
-              mentionReferences={mentionReferencesByNodeId.get(node.id) || []}
-              renderPanel={(panelNode) =>
-                panelNode.type === CanvasNodeType.Config ? (
-                  <CanvasConfigComposer
-                    value={panelNode.metadata?.composerContent ?? panelNode.metadata?.prompt ?? ''}
-                    inputs={configInputsById.get(panelNode.id) || []}
-                    onChange={(composerContent) =>
-                      handleConfigNodeChange(panelNode.id, { composerContent })
-                    }
-                    onClose={() => setDialogNodeId(null)}
-                  />
-                ) : (
-                  <CanvasNodePromptPanel
-                    node={panelNode}
-                    isRunning={runningNodeId === panelNode.id}
-                    mentionReferences={mentionReferencesByNodeId.get(panelNode.id) || []}
-                    onPromptChange={handleNodePromptChange}
-                    onConfigChange={handleConfigNodeChange}
-                    onGenerate={handleGenerateNode}
-                    onStop={confirmStopGeneration}
-                    onImageSettingsOpenChange={(open) => {
-                      setNodeImageSettingsOpen(open);
-                      if (open) setToolbarNodeId(null);
-                    }}
-                  />
-                )
-              }
-              renderNodeContent={(contentNode) => (
-                <CanvasConfigNodePanel
-                  node={contentNode}
-                  isRunning={runningNodeId === contentNode.id}
-                  inputSummary={getInputSummary(configInputsById.get(contentNode.id) || [])}
-                  onConfigChange={handleConfigNodeChange}
-                  onComposerToggle={() =>
-                    setDialogNodeId((current) =>
-                      current === contentNode.id ? null : contentNode.id,
-                    )
-                  }
-                  onStop={confirmStopGeneration}
-                  onGenerate={(nodeId) => {
-                    const target = nodesRef.current.find((item) => item.id === nodeId);
-                    void handleGenerateNode(
-                      nodeId,
-                      target?.metadata?.generationMode || 'image',
-                      target?.metadata?.composerContent ?? target?.metadata?.prompt ?? '',
-                    );
-                  }}
-                />
-              )}
+              mentionReferences={mentionReferencesByNodeId.get(node.id) || EMPTY_MENTION_REFERENCES}
+              renderPanel={renderCanvasNodePanel}
+              renderNodeContent={renderCanvasNodeContent}
               onMouseDown={handleNodeMouseDown}
-              onHoverStart={(nodeId) => {
-                if (nodeDraggingRef.current) return;
-                setHoveredNodeId(nodeId);
-                keepNodeToolbar(nodeId);
-              }}
-              onHoverEnd={(nodeId) => {
-                setHoveredNodeId((current) => (current === nodeId ? null : current));
-                hideNodeToolbar();
-              }}
+              onHoverStart={handleCanvasNodeHoverStart}
+              onHoverEnd={handleCanvasNodeHoverEnd}
               onConnectStart={handleConnectStart}
               onResize={handleNodeResize}
               onContentChange={handleNodeContentChange}
@@ -4021,11 +4109,7 @@ function InfiniteCanvasPage() {
               onRetry={(node) => void handleRetryNode(node)}
               onGenerateImage={generateImageFromTextNode}
               onViewImage={(node) => setPreviewNodeId(node.id)}
-              onContextMenu={(event, id) => {
-                event.preventDefault();
-                event.stopPropagation();
-                setContextMenu({ type: 'node', x: event.clientX, y: event.clientY, nodeId: id });
-              }}
+              onContextMenu={handleCanvasNodeContextMenu}
             />
           ))}
 
@@ -4571,6 +4655,11 @@ function audioExtension(mimeType?: string) {
   if (mimeType?.includes('flac')) return 'flac';
   if (mimeType?.includes('pcm')) return 'pcm';
   return 'mp3';
+}
+
+function cssSelectorEscape(value: string) {
+  if (typeof CSS !== 'undefined' && typeof CSS.escape === 'function') return CSS.escape(value);
+  return value.replace(/["\\]/g, '\\$&');
 }
 
 function imageMetadata(image: UploadedImage): CanvasNodeMetadata {
