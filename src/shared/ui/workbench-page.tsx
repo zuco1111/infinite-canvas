@@ -3,7 +3,7 @@ import { Button, Empty, Tag, Typography } from 'antd';
 import type { LucideIcon } from 'lucide-react';
 import { ArrowLeft, ArrowRight, LoaderCircle } from 'lucide-react';
 
-import { cn } from '@/lib/utils';
+import { cn } from '@/shared/ui/cn';
 
 type MediaAspect = 'square' | 'video';
 

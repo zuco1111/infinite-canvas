@@ -1,40 +1,42 @@
 import { lazy, Suspense } from 'react';
+import type { ComponentType, LazyExoticComponent } from 'react';
 
-import UserLayout from '../(user)/layout';
+import UserLayout from '../shell/UserLayout';
 import { featureRegistry } from '../feature-registry';
+import type { RouteContribution } from '../feature-registry';
 import { useClientPathname } from '../../shared/router/client-router-state';
+import { resolveRouteContribution } from './route-resolution';
 
-const AssetsPage = lazy(() => import('../(user)/assets/page'));
-const CanvasPage = lazy(() => import('../(user)/canvas/page'));
-const CanvasClientPage = lazy(() => import('../(user)/canvas/[id]/canvas-client-page'));
-const HomePage = lazy(() => import('../(user)/page'));
-const ImagePage = lazy(() => import('../(user)/image/page'));
-const PromptsPage = lazy(() => import('../(user)/prompts/page'));
-const VideoPage = lazy(() => import('../(user)/video/page'));
+const HomePage = lazy(() => import('../shell/HomePage'));
+const enabledFeatureRoutes = featureRegistry.listRoutes().map(createRenderableRoute);
+
+type RenderableRoute = RouteContribution & {
+  Component: LazyExoticComponent<ComponentType>;
+};
 
 export function AppRoutes() {
   const pathname = useClientPathname();
+  const RouteComponent = resolveRoute(pathname, enabledFeatureRoutes) ?? HomePage;
 
   return (
     <UserLayout>
       <Suspense fallback={<RouteFallback />}>
-        {resolveRoute(pathname, enabledRoutePatterns())}
+        <RouteComponent />
       </Suspense>
     </UserLayout>
   );
 }
 
-function resolveRoute(pathname: string, routePatterns: Set<string>) {
-  if (pathname === '/' || pathname === '') return <HomePage />;
-  if (routePatterns.has('/canvas') && pathname === '/canvas') return <CanvasPage />;
-  if (routePatterns.has('/canvas/:id') && /^\/canvas\/[^/]+$/.test(pathname)) {
-    return <CanvasClientPage />;
-  }
-  if (routePatterns.has('/image') && pathname === '/image') return <ImagePage />;
-  if (routePatterns.has('/video') && pathname === '/video') return <VideoPage />;
-  if (routePatterns.has('/prompts') && pathname === '/prompts') return <PromptsPage />;
-  if (routePatterns.has('/assets') && pathname === '/assets') return <AssetsPage />;
-  return <HomePage />;
+function createRenderableRoute(route: RouteContribution): RenderableRoute {
+  return {
+    ...route,
+    Component: lazy(route.loadComponent),
+  };
+}
+
+function resolveRoute(pathname: string, routes: readonly RenderableRoute[]) {
+  if (pathname === '/' || pathname === '') return HomePage;
+  return resolveRouteContribution(pathname, routes)?.Component ?? null;
 }
 
 function RouteFallback() {
@@ -43,8 +45,4 @@ function RouteFallback() {
       加载中...
     </main>
   );
-}
-
-function enabledRoutePatterns() {
-  return new Set(featureRegistry.listRoutes().map((route) => route.path));
 }

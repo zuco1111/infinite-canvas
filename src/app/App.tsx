@@ -5,13 +5,13 @@ import { useEffect } from 'react';
 
 import { AppRoutes } from './routes/AppRoutes';
 import { queryClient } from './providers/query-client';
-import { ClientRootInit } from '../components/layout/client-root-init';
-import { getAntThemeConfig } from '../lib/app-theme';
-import { useThemeStore } from '../stores/use-theme-store';
+import { ClientRootInit } from './shell/components/client-root-init';
+import { getAntThemeConfig } from './theme/app-theme';
+import { useAppTheme } from '../features/settings';
 import { ClientRouterProvider } from '../shared/router/client-router';
 
 export function App() {
-  const currentTheme = useThemeStore((state) => state.theme);
+  const currentTheme = useAppTheme();
   const dark = currentTheme === 'dark';
 
   useEffect(() => {

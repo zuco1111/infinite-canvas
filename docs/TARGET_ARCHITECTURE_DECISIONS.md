@@ -4,6 +4,8 @@
 
 日期：2026-07-01
 
+更新说明：Phase 8 已将本文件中的功能模块化、manifest、public API、repository 和可复用能力方向细化为可执行重构计划，当前实现规则以 `docs/PHASE_8_MODULAR_ARCHITECTURE.md` 为准。
+
 依据：
 
 - `docs/SOURCE_AUDIT_REPORT.md`

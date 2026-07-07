@@ -39,6 +39,9 @@
 - `src/shared/router/client-router-state.ts` 提供统一路由解析和链接生成函数，覆盖 Web、macOS `file://` 和 Windows `file://` 场景，并通过单元测试固化跨端路径行为。
 - `next/link` shim 会自动把内部链接渲染为当前平台安全的 `href`；按钮式路由入口使用 `src/shared/router/route-button.tsx` 的 `RouteButton`。
 - ESLint 已禁止页面侧直接给 Ant Design `Button` 写 `href`，也禁止原生 `a` 直接写根路径 `href="/..."`，避免新增入口绕开共享路由层。
+- 本地 Web/preview 的远端 AI 请求和远程图片资源读取走 Vite 本地代理，代理会过滤浏览器 `sec-*`、`user-agent` 等 fetch metadata/client hint 请求头，避免 OpenAI 兼容服务因浏览器头拒绝请求。
+- 桌面 `file://` 环境通过 Electron 主进程注册 `infinite-canvas://ai-proxy` 和 `infinite-canvas://resource-proxy`，renderer 侧远端 AI 请求和远程图片资源读取使用该自定义协议代理；`index.html` CSP 已允许 `connect-src infinite-canvas:`。
+- 正式 Web 部署默认不把用户 API Key 转发到未知代理；如部署方提供可信同源代理，可通过 `VITE_AI_PROXY_PATH` 和 `VITE_RESOURCE_PROXY_PATH` 指定代理路径，客户端只接受同源代理路径或同源绝对 URL。
 - `release/` 和 `build/` 已加入忽略列表；`npm run clean` 会清理桌面中间资源和产物。
 
 ## npm 脚本
@@ -89,6 +92,8 @@ GitHub 推送规则：
 - 使用 Playwright 验证画布库“新建画布”可切换到 `#/canvas/:id`，覆盖页面内 `router.push('/canvas/:id')` 场景。
 - 使用打包后的 macOS Apple Silicon `.app` 启动并停止内置 Local Agent，状态从 `running: true` 正常回到 `running: false`。
 - 使用包内 Codex CLI 执行 `--version`，返回 `codex-cli 0.142.5`。
+- 2026-07-07 使用 Playwright 启动 Electron 生产构建，验证 renderer runtime 为 `electron`，并通过 `infinite-canvas://ai-proxy` 请求 `https://api.zuco.ai/v1/models` 成功返回 200 和 `gpt-image-2` 模型。
+- 2026-07-07 使用生产 preview + Vite 本地代理，在生图工作台以 `https://api.zuco.ai/`、`gpt-image-2` 完成一次真实图片生成和一次带参考图图片编辑；`/images/generations` 与 `/images/edits` 均返回 200。
 
 已生成产物：
 

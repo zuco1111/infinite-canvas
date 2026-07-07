@@ -1,23 +1,28 @@
-import type { FeatureManifest } from '../../app/feature-registry/feature-manifest';
-
-export const canvasFeatureManifest = {
-  id: 'canvas',
-  title: '我的画布',
-  routes: [
-    { path: '/canvas', title: '画布库' },
-    { path: '/canvas/:id', title: '无限画布' },
-  ],
-  nodeTypes: [
-    { id: 'text', title: '文本节点' },
-    { id: 'image', title: '图片节点' },
-    { id: 'video', title: '视频节点' },
-    { id: 'audio', title: '音频节点' },
-    { id: 'config', title: '配置节点' },
-  ],
-  storageDomains: [{ id: 'canvas', title: '画布项目' }],
-  dependencies: ['settings'],
-} satisfies FeatureManifest;
-
+export { canvasFeatureManifest } from './manifest';
+export { hydrateCanvasProjects } from './stores/use-canvas-store';
+export {
+  canvasProjectRepository,
+  type CanvasProjectRepository,
+} from './repositories/canvas-project-repository';
+export type { CanvasProject } from './domain/canvas-project';
+export {
+  applyCanvasAgentOps,
+  summarizeCanvasAgentOps,
+  type CanvasAgentOp,
+  type CanvasAgentSnapshot,
+} from './utils/canvas-agent-ops';
+export { NODE_DEFAULT_SIZE, getNodeSpec } from './constants';
+export { CanvasNodeType } from './types';
+export type {
+  CanvasAssistantMessage,
+  CanvasAssistantReference,
+  CanvasAssistantSession,
+  CanvasConnection as RuntimeCanvasConnection,
+  CanvasGenerationMode,
+  CanvasNodeData,
+  CanvasNodeMetadata,
+  ViewportTransform,
+} from './types';
 export type { CanvasCommand, CanvasHistory, CanvasSelection } from './contracts/canvas-command';
 export type {
   CanvasBackground,

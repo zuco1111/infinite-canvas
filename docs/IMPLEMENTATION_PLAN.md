@@ -1,8 +1,8 @@
 # 实施切片计划
 
-状态：Phase 7 桌面端本地客户端分发包配置与三平台构建验证已完成；正式发布配置待确认。
+状态：Phase 8 模块化架构与功能复用重构已完成；阶段 7 完整验证与收尾已完成。
 
-日期：2026-07-01
+日期：2026-07-07
 
 依据：
 
@@ -13,7 +13,7 @@
 
 ## 当前结论
 
-Phase 2 目标架构决策已关闭。用户已明确批准进入 Phase 3，Phase 3 项目骨架已完成。用户已明确批准按本文件顺序连续推进整个 Phase 4，Phase 4 已完成。用户已明确批准进入 Phase 5，Phase 5 设计 Token 与组件抽取已完成。用户已明确批准 Phase 6 中的设计样式收敛切片，该切片已完成。用户随后明确要求本阶段不是视觉重构，而是在既有视觉基础上选择 canonical 规格替换相同或相似元素，以实现风格统一和组件/Token 收敛；该追加切片已完成。用户已确认因上线优先，Phase 5 记录中的遗留项暂缓，不作为当前阻塞，并批准进入 Phase 6 上线前清理；该清理切片已完成。用户已批准进入 Phase 7，桌面端本地客户端分发包配置与三平台构建验证已完成。
+Phase 2 目标架构决策已关闭。用户已明确批准进入 Phase 3，Phase 3 项目骨架已完成。用户已明确批准按本文件顺序连续推进整个 Phase 4，Phase 4 已完成。用户已明确批准进入 Phase 5，Phase 5 设计 Token 与组件抽取已完成。用户已明确批准 Phase 6 中的设计样式收敛切片，该切片已完成。用户随后明确要求本阶段不是视觉重构，而是在既有视觉基础上选择 canonical 规格替换相同或相似元素，以实现风格统一和组件/Token 收敛；该追加切片已完成。用户已确认因上线优先，Phase 5 记录中的遗留项暂缓，不作为当前阻塞，并批准进入 Phase 6 上线前清理；该清理切片已完成。用户已批准进入 Phase 7，桌面端本地客户端分发包配置与三平台构建验证已完成。用户已批准进入 Phase 8，范围为代码层功能热插拔、模块化架构、状态层/repository 重构和可复用能力抽取；Phase 8 阶段 0 文档方案制定、阶段 1 Feature Manifest 接管路由与入口、阶段 2 目录归属重组、阶段 3 Feature Public API 与边界规则、阶段 4 状态层与 Repository 重构、阶段 5 可复用功能抽取、阶段 6 Canvas 巨页核心等值拆解和阶段 7 完整验证与收尾均已完成。
 
 ## Phase 3：项目骨架
 
@@ -83,10 +83,54 @@ Phase 2 目标架构决策已关闭。用户已明确批准进入 Phase 3，Phas
 17. 桌面打包：验证 Windows x64、macOS Intel 和 macOS Apple Silicon 的打包路径。
 18. 等效验收与清理：按基线截图和行为清单检查，清除旧命名、废弃样式、未使用代码和资源。
 
+## Phase 8：模块化架构与功能复用重构
+
+目标：
+
+- 在代码层实现功能热插拔，方便快速接入新功能，也方便删除已有功能。
+- 将 app 层收敛为应用壳、provider、路由装配、feature registry 和平台级初始化。
+- 将业务实现迁入 `features/*`，每个 feature 拥有自己的 manifest、页面、组件、store、domain service、repository、测试和 public API。
+- 将 `shared/*` 收敛为真正跨领域、无单一业务归属的基础能力。
+- 建立 feature public API 和 import boundary 规则，防止跨 feature 直接读取内部实现。
+- 重写状态层和 repository，让 store 聚焦 UI/session state，让持久化和跨功能数据访问进入 repository/domain service。
+- 抽取生成工作台、素材选择、媒体引用、generation task runner、settings/model channel 和 blob/media storage adapter 等可复用能力。
+- 保持功能行为和视觉输出不变。
+
+状态：阶段 7 完整验证与收尾已完成，Phase 8 模块化架构与功能复用重构已达到当前确认目标。结果记录见 `docs/PHASE_8_MODULAR_ARCHITECTURE.md`。
+
+非目标：
+
+- 不实现第三方插件市场、动态外部插件加载、插件权限沙箱、插件签名或运行时开关 UI。
+- 不实现已打开页面中的动态卸载能力。
+- 不进行视觉 redesign。
+- 不承诺兼容旧项目数据或本仓库当前本地持久化数据。
+
+建议顺序：
+
+1. 文档与目标冻结：完成 Phase 8 文档、规则和决策同步。
+2. Feature Manifest 接管路由与入口：manifest 贡献 route loader，AppRoutes 从 registry 装配启用页面。
+3. 目录归属重组：已完成。业务实现已从 app 页面目录和旧横向目录迁入对应 feature、shared 与 app shell。
+4. Feature Public API 与边界规则：已完成。建立 `src/features/<feature-id>/index.ts`、独立 `manifest.ts`、`src/shared/features` 契约层和 `npm run check:boundaries` import boundary 检查。
+5. 状态层与 Repository 重构：已完成。重写 canvas、assets、settings、generation logs 的持久化边界；统一 BlobStore 与资源引用收集；sync 改为依赖 repository/domain service；feature public API 禁止导出 raw store hook。
+6. 可复用功能抽取：已完成。抽取 generation workbench、asset picker、media reference、task runner 和 model field 等稳定重复能力，并保持视觉结构不变。
+7. Canvas 巨页拆解：核心等值拆解已完成。已抽取 workspace 组件、helper、session/history/viewport/media/keyboard/image-node-action hooks 和 generation/assets/assistant/local-agent bridges。
+8. 完整验证与收尾：已完成。Canvas selection/drag/connection/基础 node actions 控制层已收敛到长期 hook；feature contribution 禁用矩阵、后台任务 manifest 契约、Stage 7 E2E 截图和桌面 hash route 烟测已补齐。
+
+验收标准：
+
+- 禁用 feature 后，不注册其路由、命令、面板和后台任务。
+- 禁用 feature 不删除数据。
+- feature 之间只能通过 public API、shared contract、port、repository、command 或事件机制协作。
+- `app` 不承载业务领域实现。
+- 主要数据域可以独立测试。
+- 功能行为无有意变化。
+- 视觉输出无有意变化。
+
 ## 下一步
 
 Phase 5 结果记录见 `docs/PHASE_5_DESIGN_TOKENS.md`。
 Phase 6 设计样式收敛、等值组件/Token 追加收敛和上线前清理结果记录见 `docs/PHASE_6_DESIGN_CONVERGENCE.md`。
 Phase 7 桌面端打包结果记录见 `docs/PHASE_7_DESKTOP_PACKAGING.md`。
+Phase 8 模块化架构与功能复用重构方案见 `docs/PHASE_8_MODULAR_ARCHITECTURE.md`。
 
-当前 Phase 7 本地客户端分发包配置已获批准并完成，覆盖 Windows x64、macOS Intel 和 macOS Apple Silicon 构建产物。不得在未批准的情况下进行功能行为变更、进一步视觉 redesign、旧数据兼容承诺、正式签名/公证、自动更新或商店发布配置。
+当前 Phase 8 阶段 7 完整验证与收尾已完成，Phase 8 模块化架构与功能复用重构已达到当前确认目标。后续如继续演进，应作为新阶段或独立切片确认；仍不得在未批准情况下引入功能行为变更、视觉 redesign、第三方插件系统、运行时开关 UI、正式签名/公证、自动更新或商店发布配置。

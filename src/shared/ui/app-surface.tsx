@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-import { cn } from '@/lib/utils';
+import { cn } from '@/shared/ui/cn';
 
 type AppSurfaceTone = 'default' | 'muted' | 'warning' | 'danger' | 'success';
 

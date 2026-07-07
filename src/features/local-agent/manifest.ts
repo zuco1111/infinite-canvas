@@ -1,4 +1,4 @@
-import type { FeatureManifest } from '../../app/feature-registry/feature-manifest';
+import type { FeatureManifest } from '@/shared/features';
 
 export const localAgentFeatureManifest = {
   id: 'local-agent',

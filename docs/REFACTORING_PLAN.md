@@ -17,6 +17,9 @@
 - 后续需要支持桌面端分发。
 - 桌面目标平台为 Windows x64、macOS Intel 和 macOS Apple Silicon。
 - 不需要兼容旧项目已有数据、文件格式、本地缓存或历史项目数据。
+- Phase 8 不需要兼容本仓库当前本地持久化数据。
+- Phase 8 只实现代码层功能热插拔，不实现第三方插件系统、动态外部插件加载、运行时开关 UI 或已打开页面中的动态卸载能力。
+- Phase 8 必须保持功能行为和视觉输出不变。
 - 旧项目如存在问题，先记录为后续修复项，不在等效重构阶段自动修复。
 - Phase 3 已获用户明确批准并完成。
 - Phase 4 已获用户明确批准并完成。
@@ -24,6 +27,8 @@
 - Phase 6 设计样式收敛切片已获用户明确批准并完成。
 - 用户已确认因上线优先，Phase 5 记录中的遗留项暂缓，不作为当前阻塞。
 - Phase 6 上线前清理已获用户明确批准并完成，范围覆盖 hook/Fast Refresh warning、bundle size/ineffective dynamic import、旧来源命名和未使用/废弃内容清理。
+- Phase 7 桌面端本地客户端分发包配置与三平台构建验证已获用户明确批准并完成。
+- Phase 8 模块化架构与功能复用重构已获用户明确批准，阶段 0 文档方案制定、阶段 1 Feature Manifest 接管路由与入口、阶段 2 目录归属重组、阶段 3 Feature Public API 与边界规则、阶段 4 状态层与 Repository 重构、阶段 5 可复用功能抽取、阶段 6 Canvas 巨页核心等值拆解和阶段 7 完整验证与收尾已完成。
 
 ## 推荐阶段
 
@@ -200,6 +205,45 @@
 
 - 桌面端打包配置、产物、验证结果和正式发布待确认项见 `docs/PHASE_7_DESKTOP_PACKAGING.md`。
 
+### Phase 8：模块化架构与功能复用重构
+
+状态：阶段 7 完整验证与收尾已完成，Phase 8 模块化架构与功能复用重构已达到当前确认目标。
+
+目标：
+
+- 在代码层实现功能热插拔，方便快速接入新功能，也方便删除已有功能。
+- 将 `app` 收敛为应用壳、provider、路由装配、feature registry 和平台级初始化。
+- 将业务实现迁入 `features/*`，每个 feature 拥有自己的 manifest、页面、组件、store、domain service、repository、测试和 public API。
+- 将 `shared/*` 收敛为真正跨领域、无单一业务归属的基础能力。
+- 建立 feature public API 和 import boundary 规则，防止跨 feature 直接读取内部实现。
+- 重写状态层和 repository，使 store 聚焦 UI/session state，使持久化和跨功能数据访问进入 repository/domain service。
+- 抽取 generation workbench、素材选择、媒体引用、generation task runner、settings/model channel 和 blob/media storage adapter 等可复用能力。
+- 保持功能行为和视觉输出不变。
+
+非目标：
+
+- 不实现第三方插件市场、动态外部插件加载、插件权限沙箱、插件签名或运行时开关 UI。
+- 不实现已打开页面中的动态卸载能力。
+- 不进行视觉 redesign。
+- 不承诺兼容旧项目数据或本仓库当前本地持久化数据。
+
+验收标准：
+
+- 禁用 feature 后，不注册其路由、命令、面板和后台任务。
+- 禁用 feature 不删除数据。
+- feature 之间只能通过 public API、shared contract、port、repository、command 或事件机制协作。
+- `app` 不承载业务领域实现。
+- 主要数据域可以独立测试。
+- 功能行为无有意变化。
+- 视觉输出无有意变化。
+
+结果记录：
+
+- Phase 8 目标、架构边界、实施计划和验证策略见 `docs/PHASE_8_MODULAR_ARCHITECTURE.md`。
+- 阶段 5 已完成 generation workbench、媒体引用、素材选择窄 API、task runner 和 model field 等稳定复用能力抽取，并通过 `npm run check`、`npm run build`、`npm run knip`、`npm run test:e2e` 和 image/video 工作台截图验证。
+- 阶段 6 已完成 Canvas 巨页核心等值拆解，覆盖 workspace 组件、画布 helper、session/history/viewport/media/keyboard/image-node-action hooks、generation/assets/assistant/local-agent bridges 和 `/canvas/:id` 关键路径 E2E，并通过 `npm run check`、`npm run build`、`npm run knip`、`npm run test:e2e` 和 Canvas 工作区截图验证。
+- 阶段 7 已完成 Canvas 控制层终版整理、真实 feature contribution 禁用矩阵、后台任务 manifest 契约、Stage 7 关键页面截图、桌面 `file://` hash route 烟测和文档收尾，并通过 `npm run check`、`npm run build`、`npm run knip`、`npm run test:e2e` 和 `npm run smoke:desktop-hash-routes` 验证。
+
 ## 实施护栏
 
-除非用户明确批准，否则不得扩大到功能行为变更、进一步视觉 redesign、旧数据兼容承诺、正式签名/公证、自动更新或商店发布配置。
+除非用户明确批准，否则不得扩大到功能行为变更、进一步视觉 redesign、旧数据兼容承诺、第三方插件系统、运行时开关 UI、正式签名/公证、自动更新或商店发布配置。

@@ -1,4 +1,4 @@
-import { cn } from '@/lib/utils';
+import { cn } from '@/shared/ui/cn';
 
 export const workbenchTagClassName =
   'm-0 flex h-6 items-center rounded-md px-1.5 text-xs leading-none';

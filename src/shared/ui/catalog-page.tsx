@@ -1,7 +1,7 @@
 import type { ReactNode, UIEventHandler } from 'react';
 import { Card, Tag } from 'antd';
 
-import { cn } from '@/lib/utils';
+import { cn } from '@/shared/ui/cn';
 
 type CatalogGridTone = 'soft' | 'medium' | 'strong';
 

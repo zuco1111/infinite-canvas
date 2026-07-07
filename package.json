@@ -1,6 +1,6 @@
 {
   "name": "infinite-canvas-refactor",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "private": true,
   "description": "React, Vite, and Electron skeleton for the Infinite Canvas refactor.",
   "type": "module",
@@ -38,12 +38,14 @@
     "preview": "vite preview --host 127.0.0.1",
     "typecheck": "tsc --noEmit -p tsconfig.app.json && tsc --noEmit -p tsconfig.node.json && tsc --noEmit -p electron/tsconfig.json && tsc -p electron/agent/tsconfig.json",
     "lint": "eslint .",
+    "check:boundaries": "node scripts/check-feature-boundaries.cjs",
     "format": "prettier --write \"*.{cjs,js,json,ts,html}\" \"{src,electron,tests,scripts}/**/*.{cjs,css,js,json,ts,tsx}\"",
     "format:check": "prettier --check \"*.{cjs,js,json,ts,html}\" \"{src,electron,tests,scripts}/**/*.{cjs,css,js,json,ts,tsx}\"",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
-    "check": "npm-run-all format:check lint typecheck test",
+    "smoke:desktop-hash-routes": "node scripts/smoke-desktop-hash-routes.cjs",
+    "check": "npm-run-all format:check lint check:boundaries typecheck test",
     "knip": "knip",
     "clean": "rimraf build dist dist-electron release coverage playwright-report test-results"
   },

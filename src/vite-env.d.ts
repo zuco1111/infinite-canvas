@@ -1,5 +1,10 @@
 /// <reference types="vite/client" />
 
+interface ImportMetaEnv {
+  readonly VITE_AI_PROXY_PATH?: string;
+  readonly VITE_RESOURCE_PROXY_PATH?: string;
+}
+
 type InfiniteCanvasPlatformBridge = {
   runtime: 'electron';
   getAppVersion: () => Promise<string>;

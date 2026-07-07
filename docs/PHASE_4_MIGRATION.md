@@ -63,7 +63,7 @@
 
 功能 manifest 声明路由、节点类型、命令、设置面板、存储 domain 和依赖。导航和 route switch 会根据 `featureRegistry.listRoutes()` 过滤入口。
 
-说明：当前迁移优先保持旧功能等效，尚未完成按 feature 做物理级代码分包；构建时禁用功能已经能隐藏 registry 路由入口，但后续 Phase 5/6 仍需继续拆分跨功能直接 import。
+说明：当前迁移优先保持旧功能等效，尚未完成按 feature 做物理级代码分包；构建时禁用功能已经能隐藏 registry 路由入口。后续 Phase 8 已承接物理级 feature 分包、route loader、public API 和跨功能直接 import 收敛。
 
 ## 验证结果
 
@@ -122,5 +122,5 @@ Phase 4 验证时，提示词库曾通过运行时远程数据源完成烟测，
 ## 下一步建议
 
 - Phase 5：等值设计 Token 与组件抽取，继续保持视觉一致。
-- Phase 6：按 feature 物理拆分直接 import、收敛 hooks warning、降低 bundle size；其中上线前 warning 与 renderer chunk 清理已完成。
+- Phase 6：收敛 hooks warning、降低 bundle size；其中上线前 warning 与 renderer chunk 清理已完成。按 feature 物理拆分直接 import 的工作已由 Phase 8 承接。
 - Phase 7：补桌面安装包配置并分别验证 Windows x64、macOS Intel 和 macOS Apple Silicon。

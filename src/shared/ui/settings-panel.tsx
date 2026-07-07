@@ -3,8 +3,8 @@
 import { type ReactNode } from 'react';
 import { ConfigProvider } from 'antd';
 
-import { type CanvasTheme } from '@/lib/canvas-theme';
-import { cn } from '@/lib/utils';
+import { type CanvasTheme } from '@/shared/tokens/canvas-theme';
+import { cn } from '@/shared/ui/cn';
 
 export function SettingsPanelTheme({
   theme,

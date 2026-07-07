@@ -129,7 +129,15 @@ function proxyRequestHeaders(headers: IncomingHttpHeaders) {
     'content-length',
     'host',
     'origin',
+    'priority',
     'referer',
+    'sec-ch-ua',
+    'sec-ch-ua-mobile',
+    'sec-ch-ua-platform',
+    'sec-fetch-dest',
+    'sec-fetch-mode',
+    'sec-fetch-site',
+    'user-agent',
   ]);
   Object.entries(headers).forEach(([key, value]) => {
     if (!value || skippedHeaders.has(key.toLowerCase())) return;
@@ -192,6 +200,40 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: true,
+    chunkSizeWarningLimit: 1000,
+    rolldownOptions: {
+      output: {
+        codeSplitting: {
+          groups: [
+            {
+              name: 'vendor-react',
+              test: /node_modules[\\/](react|react-dom|scheduler)[\\/]/,
+              priority: 40,
+            },
+            {
+              name: 'vendor-antd',
+              test: /node_modules[\\/](antd|@ant-design|rc-[^\\/]+|@rc-component|stylis)[\\/]/,
+              priority: 30,
+            },
+            {
+              name: 'vendor-icons',
+              test: /node_modules[\\/]lucide-react[\\/]/,
+              priority: 20,
+            },
+            {
+              name: 'vendor-network',
+              test: /node_modules[\\/](axios|file-saver)[\\/]/,
+              priority: 20,
+            },
+            {
+              name: 'vendor-storage',
+              test: /node_modules[\\/](localforage|fflate)[\\/]/,
+              priority: 20,
+            },
+          ],
+        },
+      },
+    },
   },
   test: {
     css: true,

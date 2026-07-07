@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { Check } from 'lucide-react';
 
-import { cn } from '@/lib/utils';
+import { cn } from '@/shared/ui/cn';
 
 type AppMultiSelectCheckboxProps = {
   checked: boolean;

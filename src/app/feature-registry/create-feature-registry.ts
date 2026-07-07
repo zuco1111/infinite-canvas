@@ -1,9 +1,24 @@
-import type { FeatureManifest, RouteContribution } from './feature-manifest';
+import type {
+  BackgroundTaskContribution,
+  FeatureManifest,
+  NodeTypeContribution,
+  RouteContribution,
+  SettingsContribution,
+  StorageDomainContribution,
+  ToolbarContribution,
+} from '@/shared/features';
+import type { CommandContribution } from '@/shared/commands/command-contract';
 
 export type FeatureRegistry = {
   listAll: () => FeatureManifest[];
   listEnabled: () => FeatureManifest[];
   listRoutes: () => RouteContribution[];
+  listToolbarItems: () => ToolbarContribution[];
+  listNodeTypes: () => NodeTypeContribution[];
+  listCommands: () => CommandContribution[];
+  listStorageDomains: () => StorageDomainContribution[];
+  listSettingsPanels: () => SettingsContribution[];
+  listBackgroundTasks: () => BackgroundTaskContribution[];
   get: (featureId: string) => FeatureManifest | undefined;
 };
 
@@ -35,6 +50,13 @@ export function createFeatureRegistry(
     listAll: () => [...allManifests],
     listEnabled: () => [...enabledManifests],
     listRoutes: () => enabledManifests.flatMap((manifest) => manifest.routes ?? []),
+    listToolbarItems: () => enabledManifests.flatMap((manifest) => manifest.toolbarItems ?? []),
+    listNodeTypes: () => enabledManifests.flatMap((manifest) => manifest.nodeTypes ?? []),
+    listCommands: () => enabledManifests.flatMap((manifest) => manifest.commands ?? []),
+    listStorageDomains: () => enabledManifests.flatMap((manifest) => manifest.storageDomains ?? []),
+    listSettingsPanels: () => enabledManifests.flatMap((manifest) => manifest.settingsPanels ?? []),
+    listBackgroundTasks: () =>
+      enabledManifests.flatMap((manifest) => manifest.backgroundTasks ?? []),
     get: (featureId) => manifestsById.get(featureId),
   };
 }
