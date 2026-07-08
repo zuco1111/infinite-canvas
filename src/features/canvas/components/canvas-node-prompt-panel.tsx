@@ -57,6 +57,7 @@ export function CanvasNodePromptPanel({
   const hasImageContent = node.type === CanvasNodeType.Image && Boolean(node.metadata?.content);
   const isEditingExistingContent = hasTextContent || hasImageContent;
   const [prompt, setPrompt] = useState(isEditingExistingContent ? '' : node.metadata?.prompt || '');
+  const modelPickerClassName = 'max-w-[190px] flex-1';
 
   useEffect(() => {
     setPrompt(isEditingExistingContent ? '' : node.metadata?.prompt || '');
@@ -76,6 +77,7 @@ export function CanvasNodePromptPanel({
 
   return (
     <div
+      data-canvas-no-zoom
       className="rounded-2xl border p-3 shadow-2xl backdrop-blur"
       style={{
         background: theme.toolbar.panel,
@@ -100,12 +102,13 @@ export function CanvasNodePromptPanel({
         placeholder={promptPlaceholder(mode, hasImageContent, hasTextContent)}
       />
 
-      <div className="mt-2 flex min-w-0 items-center justify-between gap-2">
-        <div className="flex min-w-0 items-center gap-2">
+      <div className="mt-2 flex min-w-0 flex-wrap items-center justify-end gap-2">
+        <div className="flex min-w-0 flex-1 flex-wrap items-center gap-2">
           <CanvasPromptLibrary onSelect={updatePrompt} />
           {mode === 'image' ? (
             <>
               <ModelPicker
+                className={modelPickerClassName}
                 config={config}
                 value={config.model}
                 onChange={(model) => onConfigChange(node.id, { model })}
@@ -115,7 +118,7 @@ export function CanvasNodePromptPanel({
               <CanvasImageSettingsPopover
                 config={config}
                 placement="topLeft"
-                buttonClassName="!h-10 !max-w-[170px] !justify-start !rounded-full !px-3"
+                buttonClassName="!h-8 !max-w-[170px] !justify-start !rounded-full !px-3"
                 onConfigChange={(key, value) =>
                   onConfigChange(
                     node.id,
@@ -129,6 +132,7 @@ export function CanvasNodePromptPanel({
           ) : mode === 'video' ? (
             <>
               <ModelPicker
+                className={modelPickerClassName}
                 config={config}
                 value={config.model}
                 onChange={(model) => onConfigChange(node.id, { model })}
@@ -137,7 +141,7 @@ export function CanvasNodePromptPanel({
               />
               <CanvasVideoSettingsPopover
                 config={config}
-                buttonClassName="!h-10 !max-w-[170px] !justify-start !rounded-full !px-3"
+                buttonClassName="!h-8 !max-w-[170px] !justify-start !rounded-full !px-3"
                 onConfigChange={(key, value) =>
                   onConfigChange(node.id, videoConfigPatch(key, value))
                 }
@@ -146,6 +150,7 @@ export function CanvasNodePromptPanel({
           ) : mode === 'audio' ? (
             <>
               <ModelPicker
+                className={modelPickerClassName}
                 config={config}
                 value={config.model}
                 onChange={(model) => onConfigChange(node.id, { model })}
@@ -154,7 +159,7 @@ export function CanvasNodePromptPanel({
               />
               <CanvasAudioSettingsPopover
                 config={config}
-                buttonClassName="!h-10 !max-w-[170px] !justify-start !rounded-full !px-3"
+                buttonClassName="!h-8 !max-w-[170px] !justify-start !rounded-full !px-3"
                 onConfigChange={(key, value) =>
                   onConfigChange(node.id, audioConfigPatch(key, value))
                 }
@@ -162,6 +167,7 @@ export function CanvasNodePromptPanel({
             </>
           ) : (
             <ModelPicker
+              className={modelPickerClassName}
               config={config}
               value={config.model}
               onChange={(model) => onConfigChange(node.id, { model })}
@@ -172,7 +178,7 @@ export function CanvasNodePromptPanel({
         </div>
         <Button
           type="primary"
-          className="!h-10 !min-w-16 shrink-0 !rounded-full !px-3"
+          className="!h-8 !min-w-16 shrink-0 !rounded-full !px-3"
           danger={isRunning}
           disabled={!isRunning && !prompt.trim()}
           onClick={() => (isRunning ? onStop(node.id) : submit())}

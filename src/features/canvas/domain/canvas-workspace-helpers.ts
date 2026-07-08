@@ -1,7 +1,7 @@
 import { defaultConfig, type AiConfig } from '@/features/settings';
 import { resolveMediaUrl, type UploadedFile } from '@/shared/storage/file-storage';
 import { resolveImageUrl, uploadImage, type UploadedImage } from '@/shared/storage/image-storage';
-import type { ReferenceImage } from '@/types/image';
+import type { ReferenceImage } from '@/shared/media/reference-types';
 import { NODE_DEFAULT_SIZE, getNodeSpec } from '../constants';
 import type { CanvasImageAngleParams } from '../components/canvas-node-angle-dialog';
 import type { NodeGenerationInput } from '../components/canvas-node-generation';
@@ -128,7 +128,7 @@ export function buildAudioGenerationMetadata(config: AiConfig): CanvasNodeMetada
   };
 }
 
-export function referenceUrl(image: ReferenceImage) {
+function referenceUrl(image: ReferenceImage) {
   return (
     image.storageKey ||
     image.url ||
@@ -265,7 +265,7 @@ export function getConnectionTargetAnchor(node: CanvasNodeData, current: Connect
   };
 }
 
-export function getCanvasNodeById(nodes: CanvasNodeLookup, id: string) {
+function getCanvasNodeById(nodes: CanvasNodeLookup, id: string) {
   return Array.isArray(nodes) ? nodes.find((node) => node.id === id) : nodes.get(id);
 }
 

@@ -5,6 +5,8 @@ interface ImportMetaEnv {
   readonly VITE_RESOURCE_PROXY_PATH?: string;
 }
 
+declare const __APP_VERSION__: string;
+
 type InfiniteCanvasPlatformBridge = {
   runtime: 'electron';
   getAppVersion: () => Promise<string>;

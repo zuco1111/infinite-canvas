@@ -33,7 +33,7 @@ export const toolNames = [
 ] as const;
 export type ToolName = (typeof toolNames)[number];
 
-export const canvasOpSchema = z.discriminatedUnion('type', [
+const canvasOpSchema = z.discriminatedUnion('type', [
   z
     .object({
       type: z.literal('add_node'),

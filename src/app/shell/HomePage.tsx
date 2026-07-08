@@ -22,7 +22,7 @@ function Highlighter({
     <span className="relative inline-block px-1">
       {action === 'highlight' ? (
         <span
-          className="absolute inset-x-0 bottom-0 top-1 rounded-sm opacity-45"
+          className="absolute inset-x-0 top-1/2 h-[1.35em] -translate-y-1/2 rounded-sm opacity-45"
           style={{ backgroundColor: color }}
         />
       ) : (
@@ -36,6 +36,8 @@ function Highlighter({
   );
 }
 
+const PROMPT_SHOWCASE_LIMIT = 12;
+
 export default function IndexPage() {
   const { message } = App.useApp();
   const [primaryTool] = navigationTools;
@@ -44,10 +46,16 @@ export default function IndexPage() {
   const [previewOpen, setPreviewOpen] = useState(false);
 
   useEffect(() => {
-    void fetchPrompts({ pageSize: 12 })
+    void fetchPrompts({ pageSize: PROMPT_SHOWCASE_LIMIT })
       .then((data) => setPromptShowcase(data.items))
       .catch((error) => message.error(error instanceof Error ? error.message : '获取提示词失败'));
   }, [message]);
+
+  useEffect(() => {
+    if (previewIndex >= promptShowcase.length) {
+      setPreviewIndex(Math.max(0, promptShowcase.length - 1));
+    }
+  }, [previewIndex, promptShowcase.length]);
 
   return (
     <main className="relative h-full overflow-y-auto bg-background bg-[radial-gradient(var(--border)_1px,transparent_1px)] [background-size:16px_16px] text-foreground">
@@ -128,7 +136,7 @@ export default function IndexPage() {
                     {item.tags.slice(0, 2).map((tag) => (
                       <Tag
                         key={tag}
-                        className="m-0 bg-white/15 text-[11px] text-white backdrop-blur"
+                        className="m-0 !border-0 bg-white/15 text-[11px] text-white backdrop-blur"
                       >
                         {tag}
                       </Tag>

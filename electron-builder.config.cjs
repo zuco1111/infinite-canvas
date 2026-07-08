@@ -14,6 +14,7 @@ const codexPackages = {
 module.exports = {
   appId: 'com.zuco.infinitecanvas',
   productName: 'Infinite Canvas',
+  copyright: 'Copyright © 2026 Zuco',
   artifactName: '${productName}-${version}-${os}-${arch}.${ext}',
   directories: {
     buildResources: 'build-resources',

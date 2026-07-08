@@ -2,8 +2,8 @@ import { nanoid } from 'nanoid';
 
 import { uploadMediaFile } from '@/shared/storage/file-storage';
 import { uploadImage } from '@/shared/storage/image-storage';
-import type { ReferenceImage } from '@/types/image';
-import type { ReferenceAudio, ReferenceVideo } from '@/types/media';
+import type { ReferenceImage } from '@/shared/media/reference-types';
+import type { ReferenceAudio, ReferenceVideo } from '@/shared/media/reference-types';
 
 export type ReferenceUploadLimits = {
   images: number;

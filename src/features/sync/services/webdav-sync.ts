@@ -13,10 +13,6 @@ export async function testWebdavConnection(config: WebdavSyncConfig) {
   await throwWebdavError(response, 'WebDAV 连接测试失败');
 }
 
-export async function downloadWebdavSyncFile(config: WebdavSyncConfig) {
-  return downloadWebdavFile(config, WEBDAV_MANIFEST_FILE_NAME);
-}
-
 export async function downloadWebdavFile(config: WebdavSyncConfig, path: string) {
   await ensureWebdavDirectory(config);
   const response = await webdavFetch(config, path, { method: 'GET' });
@@ -24,10 +20,6 @@ export async function downloadWebdavFile(config: WebdavSyncConfig, path: string)
   if (!response.ok) await throwWebdavError(response, '读取 WebDAV 同步文件失败');
   const file = await withTimeout(response.blob(), '读取 WebDAV 同步文件超时');
   return file.size ? file : null;
-}
-
-export async function uploadWebdavSyncFile(config: WebdavSyncConfig, file: Blob) {
-  return uploadWebdavFile(config, WEBDAV_MANIFEST_FILE_NAME, file, 'application/json');
 }
 
 export async function uploadWebdavFile(
@@ -60,7 +52,7 @@ async function ensureWebdavSubdirectory(config: WebdavSyncConfig, path: string) 
 
 async function ensureWebdavDirectoryPath(config: WebdavSyncConfig, directory: string) {
   const parts = normalizePath(directory).split('/').filter(Boolean);
-  const cacheKey = `${config.proxyMode}:${config.url}:${parts.join('/')}`;
+  const cacheKey = `${config.url}:${parts.join('/')}`;
   if (ensuredDirectories.has(cacheKey)) return;
   let path = '';
   for (const part of parts) {
@@ -96,13 +88,6 @@ async function webdavFetch(config: WebdavSyncConfig, path: string, init: Request
   const timer = window.setTimeout(() => controller.abort(), WEBDAV_REQUEST_TIMEOUT_MS);
   try {
     const url = buildWebdavUrl(config, path);
-    if (config.proxyMode === 'nextjs')
-      return await fetch('/webdav-proxy', {
-        method: 'POST',
-        headers: proxyHeaders(url, init.method || 'GET', headers),
-        body: proxyBody(init),
-        signal: controller.signal,
-      });
     return await fetch(url, { ...init, headers, signal: controller.signal });
   } catch (error) {
     if (error instanceof Error && error.name === 'AbortError')
@@ -113,32 +98,6 @@ async function webdavFetch(config: WebdavSyncConfig, path: string, init: Request
   } finally {
     window.clearTimeout(timer);
   }
-}
-
-function proxyHeaders(target: string, method: string, headers: Headers) {
-  const proxyHeaders = new Headers({
-    'x-webdav-target': target,
-    'x-webdav-method': method,
-  });
-  copyProxyHeader(headers, proxyHeaders, 'Authorization', 'x-webdav-authorization');
-  copyProxyHeader(headers, proxyHeaders, 'Depth', 'x-webdav-depth');
-  copyProxyHeader(headers, proxyHeaders, 'Destination', 'x-webdav-destination');
-  copyProxyHeader(headers, proxyHeaders, 'Overwrite', 'x-webdav-overwrite');
-  copyProxyHeader(headers, proxyHeaders, 'Content-Type', 'x-webdav-content-type');
-  const contentType = headers.get('Content-Type');
-  if (contentType) proxyHeaders.set('Content-Type', contentType);
-  return proxyHeaders;
-}
-
-function copyProxyHeader(from: Headers, to: Headers, source: string, target: string) {
-  const value = from.get(source);
-  if (value) to.set(target, value);
-}
-
-function proxyBody(init: RequestInit) {
-  const method = (init.method || 'GET').toUpperCase();
-  if (method === 'GET' || method === 'HEAD') return undefined;
-  return init.body || undefined;
 }
 
 function buildWebdavUrl(config: WebdavSyncConfig, path: string) {

@@ -6,6 +6,7 @@ import { Button, Tag } from 'antd';
 
 import { formatPromptDate, type Prompt } from '../api/prompts-api';
 import { CatalogItemCard } from '@/shared/ui/catalog-page';
+import { resolvePromptCoverUrl } from '../domain/prompt-cover';
 
 export function PromptCard({
   item,
@@ -24,10 +25,14 @@ export function PromptCard({
   actionType?: 'text' | 'primary';
   extraAction?: ReactNode;
 }) {
+  const coverUrl = resolvePromptCoverUrl(item);
+
   return (
     <CatalogItemCard
       media={
-        <img src={item.coverUrl} alt={item.title} className="aspect-[4/3] w-full object-cover" />
+        coverUrl ? (
+          <img src={coverUrl} alt={item.title} className="aspect-[4/3] w-full object-cover" />
+        ) : undefined
       }
       body={
         <>

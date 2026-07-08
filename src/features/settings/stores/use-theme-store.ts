@@ -22,7 +22,7 @@ export const useThemeStore = create<ThemeStore>()((set) => ({
   },
 }));
 
-export function hydrateThemeSettings() {
+function hydrateThemeSettings() {
   if (themeHydrationPromise) return themeHydrationPromise;
   themeHydrationPromise = settingsRepository.read().then((settings) => {
     if (themeDirty) {

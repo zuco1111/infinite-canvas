@@ -1,5 +1,4 @@
 export { settingsFeatureManifest } from './manifest';
-export { settingsRepository, type SettingsRepository } from './repositories/settings-repository';
 export { AppConfigModal } from './components/app-config-modal';
 export { ModelPicker } from './components/model-picker';
 export { UserStatusActions } from './components/user-status-actions';
@@ -16,19 +15,14 @@ export {
 export {
   buildApiUrl,
   createModelChannel,
-  defaultBaseUrlForApiFormat,
   defaultConfig,
-  defaultWebdavSyncConfig,
   encodeChannelModel,
-  filterModelsByCapability,
   modelOptionLabel,
   modelOptionName,
-  modelOptionsFromChannels,
   normalizeModelOptionValue,
   resolveModelChannel,
   resolveModelRequestConfig,
   selectableModelsByCapability,
-  hydrateConfigSettings,
   useEffectiveConfig,
   type AiConfig,
   type ApiCallFormat,
@@ -36,5 +30,5 @@ export {
   type ModelChannel,
   type WebdavSyncConfig,
 } from './stores/use-config-store';
-export { hydrateThemeSettings, type ThemeName } from './stores/use-theme-store';
+export type { ThemeName } from './stores/use-theme-store';
 export type { LocalUser } from './stores/use-user-store';

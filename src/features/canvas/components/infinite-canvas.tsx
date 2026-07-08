@@ -19,6 +19,13 @@ type InfiniteCanvasProps = {
   children: React.ReactNode;
 };
 
+const CANVAS_WHEEL_BYPASS_SELECTOR =
+  '[data-canvas-no-zoom],.ant-modal,.ant-popover,.ant-dropdown,.ant-select-dropdown,.ant-picker-dropdown';
+
+function shouldBypassCanvasWheel(target: EventTarget | null) {
+  return target instanceof Element && Boolean(target.closest(CANVAS_WHEEL_BYPASS_SELECTOR));
+}
+
 export function InfiniteCanvas({
   containerRef,
   viewport,
@@ -91,13 +98,7 @@ export function InfiniteCanvas({
   }, []);
 
   const handleWheel = (event: React.WheelEvent<HTMLDivElement>) => {
-    const target = event.target instanceof Element ? event.target : null;
-    if (
-      target?.closest(
-        '[data-canvas-no-zoom],.ant-modal,.ant-popover,.ant-dropdown,.ant-select-dropdown,.ant-picker-dropdown',
-      )
-    )
-      return;
+    if (shouldBypassCanvasWheel(event.target)) return;
 
     const delta = -event.deltaY;
     const factor = Math.pow(1.1, delta / 100);
@@ -205,7 +206,10 @@ export function InfiniteCanvas({
     const container = containerRef.current;
     if (!container) return;
 
-    const preventWheelScroll = (event: WheelEvent) => event.preventDefault();
+    const preventWheelScroll = (event: WheelEvent) => {
+      if (shouldBypassCanvasWheel(event.target)) return;
+      event.preventDefault();
+    };
     container.addEventListener('wheel', preventWheelScroll, { passive: false });
     return () => container.removeEventListener('wheel', preventWheelScroll);
   }, [containerRef]);

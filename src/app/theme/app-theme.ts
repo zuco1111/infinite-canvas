@@ -70,9 +70,15 @@ export function getAntThemeConfig(dark: boolean): ThemeConfig {
         headerBg: color.card,
       },
       Select: {
+        activeBorderColor: color.ring,
+        activeOutlineColor: 'transparent',
+        hoverBorderColor: color.ring,
+        multipleItemBg: color.mutedSurface,
+        multipleItemBorderColor: color.input,
         optionActiveBg: color.mutedSurface,
         optionSelectedBg: color.subtleSurface,
         optionSelectedColor: color.foreground,
+        optionSelectedFontWeight: 600,
       },
       Table: {
         rowSelectedBg: color.tableSelectedBg,

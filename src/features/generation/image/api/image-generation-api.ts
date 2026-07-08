@@ -10,7 +10,7 @@ import { nanoid } from 'nanoid';
 import { dataUrlToFile } from '@/shared/media/image-utils';
 import { buildImageReferencePromptText } from '../domain/image-reference-prompt';
 import { imageToDataUrl } from '@/shared/storage/image-storage';
-import type { ReferenceImage } from '@/types/image';
+import type { ReferenceImage } from '@/shared/media/reference-types';
 
 export type AiTextMessage = {
   role: 'system' | 'user' | 'assistant';
@@ -87,6 +87,12 @@ type ResponseStreamState = {
 
 type ImageApiResponse = {
   data?: Array<Record<string, unknown>>;
+  error?: { message?: string };
+  code?: number;
+  msg?: string;
+};
+type ModelListPayload = {
+  data?: Array<{ id?: string }>;
   error?: { message?: string };
   code?: number;
   msg?: string;
@@ -961,33 +967,36 @@ export async function requestToolResponse(
   }
 }
 
-export async function fetchImageModels(config: Pick<AiConfig, 'baseUrl' | 'apiKey' | 'apiFormat'>) {
+async function fetchImageModels(config: Pick<AiConfig, 'baseUrl' | 'apiKey' | 'apiFormat'>) {
   try {
     if (config.apiFormat === 'gemini') {
-      const response = await axios.get<GeminiPayload>(
-        geminiApiUrl({ ...defaultGeminiConfig, ...config }),
-        { headers: geminiHeaders({ ...defaultGeminiConfig, ...config }) },
-      );
-      validateGeminiPayload(response.data);
-      return (response.data.models || [])
+      const response = await fetch(geminiApiUrl({ ...defaultGeminiConfig, ...config }), {
+        headers: geminiHeaders({ ...defaultGeminiConfig, ...config }),
+      });
+      if (!response.ok) throw new Error(await readFetchError(response, '读取模型失败'));
+      const payload = (await response.json()) as GeminiPayload;
+      validateGeminiPayload(payload);
+      return (payload.models || [])
         .map((model) => model.name?.replace(/^models\//, ''))
         .filter((id): id is string => Boolean(id))
         .sort((a, b) => a.localeCompare(b));
     }
-    const response = await axios.get<{
-      data?: Array<{ id?: string }>;
-      error?: { message?: string };
-    }>(buildApiUrl(config.baseUrl, '/models'), {
+    const response = await fetch(buildApiUrl(config.baseUrl, '/models'), {
       headers: {
-        Authorization: `Bearer ${config.apiKey}`,
+        Authorization: `Bearer ${config.apiKey.trim()}`,
       },
     });
-    return (response.data.data || [])
+    if (!response.ok) throw new Error(await readFetchError(response, '读取模型失败'));
+    const payload = (await response.json()) as ModelListPayload;
+    if (typeof payload.code === 'number' && payload.code !== 0)
+      throw new Error(payload.msg || '读取模型失败');
+    if (payload.error?.message) throw new Error(payload.error.message);
+    return (payload.data || [])
       .map((model) => model.id)
       .filter((id): id is string => Boolean(id))
       .sort((a, b) => a.localeCompare(b));
   } catch (error) {
-    throw new Error(readAxiosError(error, '读取模型失败'));
+    throw new Error(error instanceof Error ? error.message : '读取模型失败');
   }
 }
 

@@ -196,7 +196,7 @@ export function AgentPendingToolCard({
   );
 }
 
-export function AgentToolCard({
+function AgentToolCard({
   title,
   text,
   detail,

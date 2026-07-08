@@ -22,7 +22,7 @@
 ## 实现内容
 
 - 新增 `electron-builder.config.cjs`，配置 macOS dmg/zip、Windows NSIS/zip、asar、输出目录和 afterPack 钩子。
-- 新增 `build-resources/icon.icns`、`build-resources/icon.ico` 和 `build-resources/icon.png`，由现有 `public/zuco-brand.png` 生成。
+- 新增 `build-resources/icon.icns` 和 `build-resources/icon.ico`，由现有 `public/zuco-brand.png` 生成。
 - 新增 `scripts/prepare-desktop-codex.cjs`，在打包前准备 `@openai/codex` 入口包和三平台 Codex 原生二进制包。
 - 新增 `scripts/bump-desktop-version.cjs`，在桌面分发打包前自动递增应用版本号，并同步写入 `package.json` 与 `package-lock.json`。
 - 新增 `scripts/clean-old-desktop-packages.cjs`，在正式桌面分发打包前删除 `release/` 中旧版本的 `Infinite Canvas-*` 分发包，只保留当前 `package.json` 版本对应的包，避免 release 目录长期残留多批版本。
@@ -34,7 +34,7 @@
 - Electron 主进程的本地 agent 入口改为 `dist-electron/agent/index.cjs`。
 - 打包后 agent 通过 `process.resourcesPath` 查找包内 Codex CLI；开发/未打包场景回退到本地 `node_modules`。
 - Vite 生产构建使用相对资源 base，避免打包后 `file://` 加载 `/assets/...` 绝对路径导致客户端黑屏。
-- 新增 `src/lib/public-assets.ts` 的 `publicAssetPath()`，用于在桌面包中正确定位 `public/` 下的品牌图和模型图标。
+- 新增 `src/shared/platform/public-assets.ts` 的 `publicAssetPath()`，用于在桌面包中正确定位 `public/` 下的品牌图和模型图标。
 - 桌面端 `file://` 环境下客户端路由改为 hash 路由，例如 `index.html#/canvas`，避免 Windows 将 `/canvas` 解析为 `file:///C:/canvas` 后入口点击无响应；Web/开发环境仍保留普通路径路由。
 - `src/shared/router/client-router-state.ts` 提供统一路由解析和链接生成函数，覆盖 Web、macOS `file://` 和 Windows `file://` 场景，并通过单元测试固化跨端路径行为。
 - `next/link` shim 会自动把内部链接渲染为当前平台安全的 `href`；按钮式路由入口使用 `src/shared/router/route-button.tsx` 的 `RouteButton`。
@@ -140,7 +140,7 @@ GitHub 推送规则：
 - macOS 正式发布配置待确认。
 - Windows 正式发布配置待确认。
 - 当前图标使用现有 Zuco 品牌图生成，尚未单独进行桌面端图标视觉优化。
-- 应用作者、版权主体和 Windows 发布者名称尚未确认。
+- 应用作者、版权主体、用户可见署名和目标 Windows 发布者名称已于 2026-07-08 确认统一使用 `Zuco`；系统安装界面的正式发布者显示仍取决于 Windows 代码签名证书。
 - 自动更新已确认暂不启用。
 - Windows x64 产物已在 macOS 上完成交叉构建，但尚未在真实 Windows 设备上运行验收。
 - Electron Builder 构建时仍会输出生产依赖扫描和 duplicate dependency references 噪声；最终 app.asar 已验证只包含 `dist`、`dist-electron` 和 `package.json`，Codex CLI 资源通过 afterPack 单独复制。
@@ -148,6 +148,6 @@ GitHub 推送规则：
 ## 后续正式发布前待确认
 
 - macOS Developer ID 证书、Team ID、notarization 账号和 hardened runtime 配置。
-- Windows 代码签名证书和发布者名称。
+- Windows 代码签名证书。
 - 是否需要减少包体，例如将 Codex CLI 改为首次运行下载或可选组件。
 - Windows x64 真实设备安装和运行验收。

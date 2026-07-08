@@ -49,7 +49,6 @@ export type AiConfig = {
 };
 
 export type WebdavSyncConfig = {
-  proxyMode: 'direct' | 'nextjs';
   url: string;
   username: string;
   password: string;
@@ -57,7 +56,6 @@ export type WebdavSyncConfig = {
   lastSyncedAt: string;
 };
 
-export const CONFIG_STORE_KEY = 'infinite-canvas:ai_config_store';
 export type ModelCapability = 'image' | 'video' | 'text' | 'audio';
 const CHANNEL_MODEL_SEPARATOR = '::';
 const ZUCO_BASE_URL = 'https://api.zuco.ai/';
@@ -108,8 +106,7 @@ export const defaultConfig: AiConfig = {
   canvasImageCount: '3',
 };
 
-export const defaultWebdavSyncConfig: WebdavSyncConfig = {
-  proxyMode: 'direct',
+const defaultWebdavSyncConfig: WebdavSyncConfig = {
   url: '',
   username: '',
   password: '',
@@ -181,7 +178,7 @@ function isTextModelName(model: string) {
   return !isImageModelName(model) && !isVideoModelName(model) && !isAudioModelName(model);
 }
 
-export function modelMatchesCapability(model: string, capability?: ModelCapability) {
+function modelMatchesCapability(model: string, capability?: ModelCapability) {
   if (!capability) return true;
   if (capability === 'image') return isImageModelName(model);
   if (capability === 'video') return isVideoModelName(model);
@@ -241,7 +238,7 @@ export const useConfigStore = create<ConfigStore>()((set, get) => ({
   clearPromptContinue: () => set({ shouldPromptContinue: false }),
 }));
 
-export function hydrateConfigSettings() {
+function hydrateConfigSettings() {
   if (settingsHydrationPromise) return settingsHydrationPromise;
   settingsHydrationPromise = settingsRepository.read().then((settings) => {
     if (settingsDirty) {
@@ -349,11 +346,11 @@ export function encodeChannelModel(channelId: string, model: string) {
   return `${channelId}${CHANNEL_MODEL_SEPARATOR}${model.trim()}`;
 }
 
-export function isChannelModelValue(value: string) {
+function isChannelModelValue(value: string) {
   return value.includes(CHANNEL_MODEL_SEPARATOR);
 }
 
-export function decodeChannelModel(value: string) {
+function decodeChannelModel(value: string) {
   const index = value.indexOf(CHANNEL_MODEL_SEPARATOR);
   if (index < 0) return null;
   return {

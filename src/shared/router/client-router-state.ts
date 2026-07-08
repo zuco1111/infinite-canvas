@@ -67,7 +67,7 @@ export function useClientHref(href: string) {
   return hrefToClientHref(href);
 }
 
-export function currentRouterEnvironment(): RouterEnvironment {
+function currentRouterEnvironment(): RouterEnvironment {
   return {
     protocol: window.location.protocol,
     origin: window.location.origin,

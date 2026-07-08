@@ -1,10 +1,10 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
-import { Empty, Input, Modal, Pagination, Tag } from 'antd';
+import { Empty, Input, Modal, Tag } from 'antd';
 import { Search } from 'lucide-react';
 
-import { CatalogCheckableTagList } from '@/shared/ui/catalog-page';
+import { CatalogCheckableTagList, CatalogPagination } from '@/shared/ui/catalog-page';
 import type { Asset } from '../domain/asset';
 import { useAssetStore } from '../stores/use-asset-store';
 
@@ -212,16 +212,14 @@ function MyAssetsTab({
       )}
 
       {filtered.length > PAGE_SIZE && (
-        <div className="flex justify-center">
-          <Pagination
-            size="small"
-            current={page}
-            pageSize={PAGE_SIZE}
-            total={filtered.length}
-            onChange={setPage}
-            showSizeChanger={false}
-          />
-        </div>
+        <CatalogPagination
+          size="small"
+          current={page}
+          pageSize={PAGE_SIZE}
+          total={filtered.length}
+          onChange={setPage}
+          showSizeChanger={false}
+        />
       )}
     </div>
   );

@@ -5,7 +5,6 @@ import { Keyboard, Settings2 } from 'lucide-react';
 
 import { canvasThemes } from '@/shared/tokens/canvas-theme';
 import { AnimatedThemeToggler } from '@/shared/ui/animated-theme-toggler';
-import { ZucoLink } from '@/shared/ui/zuco-link';
 import { useConfigStore } from '../stores/use-config-store';
 import { useThemeStore } from '../stores/use-theme-store';
 
@@ -31,6 +30,14 @@ export function UserStatusActions({
 
   return (
     <div className="inline-flex shrink-0 items-center gap-1">
+      <AnimatedThemeToggler
+        theme={theme}
+        onThemeChange={setTheme}
+        className={naturalIconClass}
+        style={iconStyle}
+        aria-label={theme === 'dark' ? '切换到浅色主题' : '切换到深色主题'}
+        title={theme === 'dark' ? '切换到浅色主题' : '切换到深色主题'}
+      />
       {showConfig ? (
         <button
           type="button"
@@ -43,15 +50,6 @@ export function UserStatusActions({
           <Settings2 className="size-4" />
         </button>
       ) : null}
-      <AnimatedThemeToggler
-        theme={theme}
-        onThemeChange={setTheme}
-        className={naturalIconClass}
-        style={iconStyle}
-        aria-label={theme === 'dark' ? '切换到浅色主题' : '切换到深色主题'}
-        title={theme === 'dark' ? '切换到浅色主题' : '切换到深色主题'}
-      />
-      <ZucoLink className="size-7" />
       {onOpenShortcuts ? (
         <button
           type="button"

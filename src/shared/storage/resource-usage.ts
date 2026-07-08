@@ -1,5 +1,4 @@
-export const resourceStorageKeyPattern =
-  /^(image|video|audio|file|video-reference|audio-reference):/;
+const resourceStorageKeyPattern = /^(image|video|audio|file|video-reference|audio-reference):/;
 
 export type ResourceUsageCollector = {
   id: string;

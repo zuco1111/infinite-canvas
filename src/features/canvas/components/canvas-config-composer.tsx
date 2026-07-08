@@ -22,7 +22,7 @@ type MentionState = {
   query: string;
 };
 
-export const CONFIG_REFERENCE_PATTERN = /@\[node:([^\]]+)\]/g;
+const CONFIG_REFERENCE_PATTERN = /@\[node:([^\]]+)\]/g;
 
 export function CanvasConfigComposer({
   value,

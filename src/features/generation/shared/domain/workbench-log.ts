@@ -2,8 +2,8 @@ import { nanoid } from 'nanoid';
 
 import { resolveMediaUrl } from '@/shared/storage/file-storage';
 import { resolveImageUrl } from '@/shared/storage/image-storage';
-import type { ReferenceImage } from '@/types/image';
-import type { ReferenceAudio, ReferenceVideo } from '@/types/media';
+import type { ReferenceImage } from '@/shared/media/reference-types';
+import type { ReferenceAudio, ReferenceVideo } from '@/shared/media/reference-types';
 
 export type WorkbenchLogBase<TConfig, TStatus extends string> = {
   id: string;
@@ -43,7 +43,7 @@ export function createWorkbenchLogBase<TConfig, TStatus extends string>({
   };
 }
 
-export function buildWorkbenchLogTitle(prompt: string) {
+function buildWorkbenchLogTitle(prompt: string) {
   return prompt.slice(0, 12) || '未命名';
 }
 
@@ -117,7 +117,7 @@ export async function hydrateStoredMediaItem<TMedia extends { storageKey?: strin
   };
 }
 
-export async function hydrateStoredMediaItems<TMedia extends { storageKey?: string; url: string }>(
+async function hydrateStoredMediaItems<TMedia extends { storageKey?: string; url: string }>(
   items: TMedia[] = [],
 ) {
   return Promise.all(items.map(hydrateStoredMediaItem)) as Promise<TMedia[]>;
@@ -130,7 +130,7 @@ export function serializeStoredMediaItem<TMedia extends { storageKey?: string; u
   return item.storageKey ? { ...item, url: '' } : item;
 }
 
-export function serializeStoredMediaItems<TMedia extends { storageKey?: string; url: string }>(
+function serializeStoredMediaItems<TMedia extends { storageKey?: string; url: string }>(
   items: TMedia[] = [],
 ) {
   return items.map(serializeStoredMediaItem) as TMedia[];

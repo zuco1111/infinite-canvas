@@ -2,14 +2,11 @@
 
 import { readImageMeta } from '@/shared/media/image-utils';
 import {
-  cleanupUnusedResourceBlobs,
   createResourceStorageKey,
   getResourceBlob,
   putResourceBlob,
-  removeResourceBlobs,
   resolveResourceBlobUrl,
 } from './blob-store';
-import { collectResourceStorageKeys } from './resource-usage';
 import { maybeProxyRemoteUrl } from '@/shared/platform/remote-proxy';
 
 export type UploadedImage = {
@@ -96,19 +93,6 @@ async function fetchImageBlob(url: string) {
 
 function proxiedImageUrl(url: string) {
   return maybeProxyRemoteUrl(url, 'resource');
-}
-
-export async function deleteStoredImages(keys: Iterable<string>) {
-  await removeResourceBlobs(keys);
-}
-
-export async function cleanupUnusedImages(usedData: unknown) {
-  await cleanupUnusedResourceBlobs(collectImageStorageKeys(usedData));
-}
-
-export function collectImageStorageKeys(value: unknown, keys = new Set<string>()) {
-  const allKeys = collectResourceStorageKeys(value, keys);
-  return new Set(Array.from(allKeys).filter((key) => key.startsWith('image:')));
 }
 
 function blobToDataUrl(blob: Blob) {

@@ -67,7 +67,7 @@ export const IMAGE_QUICK_TOOLS_STORAGE_KEY = 'canvas-image-quick-tools-v6';
 
 const defaultBaseToolIds: ImageQuickToolId[] = ['info', 'delete', 'saveAsset', 'download', 'edit'];
 
-export const imageToolDefinitions: ImageToolDefinition[] = [
+const imageToolDefinitions: ImageToolDefinition[] = [
   {
     id: 'copyPrompt',
     defaultVisible: true,
@@ -187,7 +187,7 @@ export function buildImageToolbarTools(node: CanvasNodeData, handlers: ImageTool
   }));
 }
 
-export function normalizeImageQuickToolIds(value: unknown[]) {
+function normalizeImageQuickToolIds(value: unknown[]) {
   const allIds: ImageQuickToolId[] = [
     ...defaultBaseToolIds,
     ...imageToolDefinitions.map((tool) => tool.id),

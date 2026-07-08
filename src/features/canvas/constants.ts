@@ -16,7 +16,7 @@ export const NODE_DEFAULT_SIZE = {
   [CanvasNodeType.Audio]: { width: 340, height: 120, title: 'Audio' },
 } satisfies Record<CanvasNodeType, { width: number; height: number; title: string }>;
 
-export const NODE_SPECS = {
+const NODE_SPECS = {
   [CanvasNodeType.Image]: {
     ...NODE_DEFAULT_SIZE[CanvasNodeType.Image],
     metadata: { content: '', status: 'idle' },

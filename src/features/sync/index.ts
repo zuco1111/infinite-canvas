@@ -6,9 +6,4 @@ export {
   type AppSyncProgressEvent,
   type AppSyncResult,
 } from './services/app-sync';
-export {
-  downloadWebdavFile,
-  testWebdavConnection,
-  uploadWebdavFile,
-  WEBDAV_MANIFEST_FILE_NAME,
-} from './services/webdav-sync';
+export { testWebdavConnection, WEBDAV_MANIFEST_FILE_NAME } from './services/webdav-sync';

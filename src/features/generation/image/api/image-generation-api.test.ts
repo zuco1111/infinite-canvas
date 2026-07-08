@@ -3,7 +3,12 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { defaultConfig, encodeChannelModel, type AiConfig } from '@/features/settings';
 
-import { IMAGE_REQUEST_TIMEOUT_MS, requestEdit, requestGeneration } from './image-generation-api';
+import {
+  fetchChannelModels,
+  IMAGE_REQUEST_TIMEOUT_MS,
+  requestEdit,
+  requestGeneration,
+} from './image-generation-api';
 
 vi.mock('axios', () => ({
   default: {
@@ -59,7 +64,7 @@ describe('image api requests', () => {
     expect(options).toMatchObject({ timeout: IMAGE_REQUEST_TIMEOUT_MS });
   });
 
-  it('keeps response_format for legacy image generation models', async () => {
+  it('keeps response_format for non-GPT image generation models', async () => {
     await requestGeneration(imageConfig('dall-e-3'), 'test prompt');
 
     expect(mockedAxios.post).toHaveBeenCalledTimes(1);
@@ -83,7 +88,7 @@ describe('image api requests', () => {
     expect(options).toMatchObject({ timeout: IMAGE_REQUEST_TIMEOUT_MS });
   });
 
-  it('keeps legacy image field for non-GPT image edits', async () => {
+  it('keeps image field for non-GPT image edits', async () => {
     await requestEdit(imageConfig('dall-e-2'), 'edit prompt', [referenceImage()]);
 
     expect(mockedAxios.post).toHaveBeenCalledTimes(1);
@@ -107,6 +112,38 @@ describe('image api requests', () => {
     await expect(
       requestEdit(imageConfig('gpt-image-2'), 'edit prompt', [referenceImage()]),
     ).rejects.toThrow('图片编辑失败：请求超时，请稍后重试');
+  });
+
+  it('fetches OpenAI-compatible channel models through the remote proxy', async () => {
+    const fetchMock = vi.fn().mockResolvedValue(
+      new Response(JSON.stringify({ data: [{ id: 'gpt-image-2' }, { id: 'gpt-image-1.5' }] }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      }),
+    );
+    vi.stubGlobal('fetch', fetchMock);
+
+    await expect(
+      fetchChannelModels({
+        id: 'default',
+        name: '默认渠道',
+        baseUrl: 'https://api.example.com/',
+        apiKey: ' test-key ',
+        apiFormat: 'openai',
+        models: [],
+      }),
+    ).resolves.toEqual(['gpt-image-1.5', 'gpt-image-2']);
+
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    const [url, options] = fetchMock.mock.calls[0];
+    const requestUrl = new URL(String(url), window.location.origin);
+    expect(requestUrl.pathname).toBe('/__ai-proxy');
+    expect(requestUrl.searchParams.get('target')).toBe('https://api.example.com/v1/models');
+    expect(options).toMatchObject({
+      headers: {
+        Authorization: 'Bearer test-key',
+      },
+    });
   });
 });
 

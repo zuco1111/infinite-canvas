@@ -19,8 +19,8 @@ import {
   resolveModelRequestConfig,
   type AiConfig,
 } from '@/features/settings';
-import type { ReferenceImage } from '@/types/image';
-import type { ReferenceAudio, ReferenceVideo } from '@/types/media';
+import type { ReferenceImage } from '@/shared/media/reference-types';
+import type { ReferenceAudio, ReferenceVideo } from '@/shared/media/reference-types';
 import { runPollingWorkbenchTask } from '../../shared/domain/workbench-task-runner';
 
 type VideoResponse = { id: string; status?: string; error?: { message?: string } };

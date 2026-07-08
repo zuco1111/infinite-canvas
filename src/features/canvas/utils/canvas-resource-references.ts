@@ -38,7 +38,7 @@ export function buildNodeMentionReferences(
   return labelResourceNodes(getMentionResourceNodes(node.id, nodes, connections), true);
 }
 
-export function getMentionResourceNodes(
+function getMentionResourceNodes(
   nodeId: string,
   nodes: CanvasNodeData[],
   connections: CanvasConnection[],

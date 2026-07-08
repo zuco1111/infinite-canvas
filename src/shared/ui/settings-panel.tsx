@@ -60,7 +60,7 @@ export function SettingGroup({
   );
 }
 
-export function SettingTitle({ children, color }: { children: string; color: string }) {
+function SettingTitle({ children, color }: { children: string; color: string }) {
   return (
     <div className="text-xs font-medium" style={{ color }}>
       {children}

@@ -1,4 +1,4 @@
-import type { ReferenceImage } from '@/types/image';
+import type { ReferenceImage } from '@/shared/media/reference-types';
 
 export function formatBytes(bytes: number) {
   if (!Number.isFinite(bytes) || bytes <= 0) {

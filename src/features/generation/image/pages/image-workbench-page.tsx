@@ -68,7 +68,7 @@ import {
   workbenchTagClassName,
   workbenchTagToneClassName,
 } from '@/shared/ui/workbench-style';
-import type { ReferenceImage } from '@/types/image';
+import type { ReferenceImage } from '@/shared/media/reference-types';
 import { imageGenerationLogRepository } from '../../shared/repositories/generation-log-repository';
 import {
   createPendingWorkbenchResults,

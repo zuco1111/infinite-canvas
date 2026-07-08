@@ -5,7 +5,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 
 import { ALL_PROMPTS_OPTION, fetchPrompts } from '../api/prompts-api';
 
-export const PROMPT_PAGE_SIZE = 20;
+const PROMPT_PAGE_SIZE = 20;
 
 export function usePromptList({
   keyword,

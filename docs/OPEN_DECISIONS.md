@@ -256,7 +256,7 @@
 
 决策：桌面包内置 Local Agent 和 Codex CLI。打包前通过 `scripts/prepare-desktop-codex.cjs` 准备 Codex 资源，Electron Builder `afterPack` 钩子按目标平台和架构复制对应的 Codex 原生二进制。
 
-决策：正式应用名使用 `Infinite Canvas`，桌面端 appId / bundle identifier 使用 `com.zuco.infinitecanvas`，图标使用现有 `public/zuco-brand.png` 生成的桌面图标资源。
+决策：正式应用名使用 `Infinite Canvas`，桌面端 appId / bundle identifier 使用 `com.zuco.infinitecanvas`，图标使用现有 `public/zuco-brand.png` 生成的 macOS 与 Windows 桌面图标资源。应用作者、版权主体、用户可见署名和目标 Windows 发布者名称统一使用 `Zuco`。
 
 决策：当前暂不启用自动更新。
 
@@ -286,9 +286,8 @@ Phase 7 本地客户端分发包配置已获用户明确批准并完成。
 
 待确认：
 
-- 应用作者、版权主体和 Windows 发布者名称。
 - macOS Developer ID 证书、Team ID、notarization 账号和 hardened runtime 配置。
-- Windows 代码签名证书。
+- Windows 代码签名证书；未完成代码签名前不得声称系统安装界面已显示正式发布者。
 - 是否将 Codex CLI 继续作为自包含资源，或改为首次运行下载/可选组件以降低包体。
 - Windows x64 产物是否已在真实 Windows 设备上完成运行验收。
 

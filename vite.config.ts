@@ -1,4 +1,5 @@
 import react from '@vitejs/plugin-react';
+import fs from 'node:fs';
 import type { IncomingHttpHeaders, IncomingMessage, ServerResponse } from 'node:http';
 import { fileURLToPath, URL } from 'node:url';
 import type { Plugin, PreviewServer, ViteDevServer } from 'vite';
@@ -6,6 +7,9 @@ import { defineConfig } from 'vitest/config';
 
 const AI_PROXY_PATH = '/__ai-proxy';
 const RESOURCE_PROXY_PATH = '/__resource-proxy';
+const packageJson = JSON.parse(
+  fs.readFileSync(fileURLToPath(new URL('./package.json', import.meta.url)), 'utf8'),
+) as { version?: string };
 
 function localAiProxyPlugin(): Plugin {
   const attachProxy = (
@@ -177,6 +181,9 @@ function writeProxyError(res: ServerResponse, statusCode: number, message: strin
 
 export default defineConfig({
   base: './',
+  define: {
+    __APP_VERSION__: JSON.stringify(packageJson.version || '0.0.0'),
+  },
   plugins: [react(), localAiProxyPlugin()],
   resolve: {
     alias: {

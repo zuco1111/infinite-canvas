@@ -40,7 +40,7 @@ export async function resolveResourceBlobUrl(storageKey?: string, fallback = '')
   return cacheObjectUrl(storageKey, blob);
 }
 
-export async function removeResourceBlobs(keys: Iterable<string>) {
+async function removeResourceBlobs(keys: Iterable<string>) {
   await Promise.all(
     Array.from(new Set(keys)).map(async (key) => {
       revokeObjectUrl(key);
@@ -49,7 +49,7 @@ export async function removeResourceBlobs(keys: Iterable<string>) {
   );
 }
 
-export async function listResourceBlobKeys() {
+async function listResourceBlobKeys() {
   const keys: string[] = [];
   await resourceBlobStore.iterate((_value, key) => {
     keys.push(key);

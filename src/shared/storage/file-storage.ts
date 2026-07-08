@@ -1,14 +1,11 @@
 'use client';
 
 import {
-  cleanupUnusedResourceBlobs,
   createResourceStorageKey,
   getResourceBlob,
   putResourceBlob,
-  removeResourceBlobs,
   resolveResourceBlobUrl,
 } from './blob-store';
-import { collectResourceStorageKeys } from './resource-usage';
 
 export type UploadedFile = {
   url: string;
@@ -53,19 +50,6 @@ export async function getMediaBlob(storageKey: string) {
 
 export async function setMediaBlob(storageKey: string, blob: Blob) {
   return putResourceBlob(storageKey, blob);
-}
-
-export async function deleteStoredMedia(keys: Iterable<string>) {
-  await removeResourceBlobs(keys);
-}
-
-export async function cleanupUnusedMedia(usedData: unknown) {
-  await cleanupUnusedResourceBlobs(collectMediaStorageKeys(usedData));
-}
-
-export function collectMediaStorageKeys(value: unknown, keys = new Set<string>()) {
-  const allKeys = collectResourceStorageKeys(value, keys);
-  return new Set(Array.from(allKeys).filter((key) => !key.startsWith('image:')));
 }
 
 function readVideoMeta(url: string) {

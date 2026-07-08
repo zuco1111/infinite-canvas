@@ -2,8 +2,8 @@ import type { AiTextMessage } from '@/features/generation';
 import { imageReferenceLabel } from '@/features/generation';
 import { seedanceReferenceLabel } from '@/features/generation';
 import { imageToDataUrl } from '@/shared/storage/image-storage';
-import type { ReferenceImage } from '@/types/image';
-import type { ReferenceAudio, ReferenceVideo } from '@/types/media';
+import type { ReferenceImage } from '@/shared/media/reference-types';
+import type { ReferenceAudio, ReferenceVideo } from '@/shared/media/reference-types';
 import { CanvasNodeType, type CanvasConnection, type CanvasNodeData } from '../types';
 import { getGenerationResourceNodes } from '../utils/canvas-resource-references';
 

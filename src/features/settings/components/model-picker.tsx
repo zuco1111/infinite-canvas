@@ -73,8 +73,10 @@ export function ModelPicker({
     >
       <SelectTrigger
         className={cn(
-          'canvas-composer-model-picker h-8 w-fit max-w-full gap-2 rounded-full px-3 text-sm font-normal',
-          fullWidth ? 'w-full min-w-0 justify-start' : 'min-w-[9rem] justify-start',
+          'canvas-composer-model-picker h-8 max-w-full gap-2 px-3 text-sm font-normal',
+          fullWidth
+            ? 'w-full min-w-0 justify-start rounded-lg shadow-none hover:bg-card focus-visible:ring-0'
+            : 'w-fit min-w-[9rem] justify-start rounded-full',
           className,
         )}
         onMouseDown={(event) => event.stopPropagation()}

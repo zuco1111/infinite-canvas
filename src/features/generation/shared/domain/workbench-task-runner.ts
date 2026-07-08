@@ -42,7 +42,7 @@ export async function runPollingWorkbenchTask<TState, TCompleted extends TState>
   throw new Error(timeoutMessage);
 }
 
-export function waitForWorkbenchTask(ms: number, signal?: AbortSignal) {
+function waitForWorkbenchTask(ms: number, signal?: AbortSignal) {
   return new Promise<void>((resolve, reject) => {
     if (signal?.aborted) {
       reject(new DOMException('Aborted', 'AbortError'));

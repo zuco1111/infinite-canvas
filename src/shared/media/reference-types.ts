@@ -1,3 +1,12 @@
+export type ReferenceImage = {
+  id: string;
+  name: string;
+  type: string;
+  dataUrl: string;
+  url?: string;
+  storageKey?: string;
+};
+
 export type ReferenceVideo = {
   id: string;
   name: string;

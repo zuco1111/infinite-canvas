@@ -2,7 +2,7 @@ import type { PlatformPort } from './platform-port';
 
 export const webPlatform: PlatformPort = {
   runtime: 'web',
-  getAppVersion: async () => '0.1.0',
+  getAppVersion: async () => __APP_VERSION__,
   openExternal: async (url) => {
     window.open(url, '_blank', 'noopener,noreferrer');
   },

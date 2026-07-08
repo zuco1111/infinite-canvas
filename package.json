@@ -1,8 +1,8 @@
 {
-  "name": "infinite-canvas-refactor",
-  "version": "0.2.0",
+  "name": "infinite-canvas",
+  "version": "0.2.1",
   "private": true,
-  "description": "React, Vite, and Electron skeleton for the Infinite Canvas refactor.",
+  "description": "Infinite Canvas web and desktop application.",
   "type": "module",
   "main": "dist-electron/main/index.cjs",
   "scripts": {
@@ -111,5 +111,6 @@
   "optionalDependencies": {
     "@openai/codex-darwin-x64": "npm:@openai/codex@^0.142.5-darwin-x64",
     "@openai/codex-win32-x64": "npm:@openai/codex@^0.142.5-win32-x64"
-  }
+  },
+  "author": "Zuco"
 }

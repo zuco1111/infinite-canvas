@@ -11,7 +11,6 @@ import {
   Image,
   Input,
   Modal,
-  Pagination,
   Select,
   Space,
   Tag,
@@ -25,6 +24,7 @@ import { uploadImage } from '@/shared/storage/image-storage';
 import {
   CatalogCheckableFilterGroup,
   CatalogItemCard,
+  CatalogPagination,
   CatalogPageHeader,
   CatalogPageShell,
   CatalogTextAction,
@@ -247,7 +247,7 @@ export default function AssetsPage() {
   };
 
   return (
-    <CatalogPageShell gridTone="soft">
+    <CatalogPageShell gridTone="soft" mainClassName="flex flex-col">
       <div className="pb-8">
         <CatalogPageHeader
           title="我的素材"
@@ -296,7 +296,7 @@ export default function AssetsPage() {
         </div>
       </div>
 
-      <div className="mx-auto flex max-w-7xl flex-col gap-5">
+      <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-5">
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {visibleAssets.map((asset) => (
             <AssetCard
@@ -312,26 +312,22 @@ export default function AssetsPage() {
         </div>
 
         {!visibleAssets.length ? (
-          <Empty
-            image={Empty.PRESENTED_IMAGE_SIMPLE}
-            description="没有找到素材"
-            className="py-20"
-          />
+          <div className="flex flex-1 items-center justify-center pb-10">
+            <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="没有找到素材" />
+          </div>
         ) : null}
 
-        <div className="flex justify-center">
-          <Pagination
-            current={page}
-            pageSize={pageSize}
-            total={filteredAssets.length}
-            showSizeChanger
-            pageSizeOptions={[10, 20, 50, 100]}
-            onChange={(nextPage, nextPageSize) => {
-              setPage(nextPage);
-              setPageSize(nextPageSize);
-            }}
-          />
-        </div>
+        <CatalogPagination
+          current={page}
+          pageSize={pageSize}
+          total={filteredAssets.length}
+          showSizeChanger
+          pageSizeOptions={[10, 20, 50, 100]}
+          onChange={(nextPage, nextPageSize) => {
+            setPage(nextPage);
+            setPageSize(nextPageSize);
+          }}
+        />
       </div>
 
       <Modal

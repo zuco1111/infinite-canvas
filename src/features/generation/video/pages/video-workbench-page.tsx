@@ -80,8 +80,8 @@ import {
   useUpdateAiConfig,
   type AiConfig,
 } from '@/features/settings';
-import type { ReferenceImage } from '@/types/image';
-import type { ReferenceAudio, ReferenceVideo } from '@/types/media';
+import type { ReferenceImage } from '@/shared/media/reference-types';
+import type { ReferenceAudio, ReferenceVideo } from '@/shared/media/reference-types';
 import { videoGenerationLogRepository } from '../../shared/repositories/generation-log-repository';
 import {
   createPendingWorkbenchResults,

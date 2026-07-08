@@ -386,7 +386,7 @@ function ToolbarButton({
     <Button
       type="text"
       aria-label={label}
-      className="!h-8 !w-8 !min-w-8 !p-0"
+      className="!inline-flex !h-8 !w-8 !min-w-8 !items-center !justify-center !p-0 [&_.ant-btn-icon]:!inline-flex [&_.ant-btn-icon]:!items-center [&_.ant-btn-icon]:!justify-center"
       disabled={disabled}
       style={
         active

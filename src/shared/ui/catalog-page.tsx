@@ -1,5 +1,6 @@
 import type { ReactNode, UIEventHandler } from 'react';
-import { Card, Tag } from 'antd';
+import { Card, Pagination, Tag } from 'antd';
+import type { PaginationProps } from 'antd';
 
 import { cn } from '@/shared/ui/cn';
 
@@ -62,7 +63,7 @@ export function CatalogPageHeader({
   );
 }
 
-export function CatalogFilterGroup({
+function CatalogFilterGroup({
   label,
   children,
   align = 'start',
@@ -162,6 +163,20 @@ export function CatalogStatusText({ children }: { children: ReactNode }) {
   return (
     <div className="mx-auto mt-6 max-w-6xl text-center text-xs text-muted-foreground">
       {children}
+    </div>
+  );
+}
+
+export function CatalogPagination({
+  containerClassName,
+  total = 0,
+  ...props
+}: PaginationProps & { containerClassName?: string }) {
+  if (total <= 0) return null;
+
+  return (
+    <div className={cn('flex justify-center', containerClassName)}>
+      <Pagination total={total} {...props} />
     </div>
   );
 }

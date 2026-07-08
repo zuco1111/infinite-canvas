@@ -1,6 +1,6 @@
 import { modelOptionName, resolveModelRequestConfig, type AiConfig } from '@/features/settings';
-import type { ReferenceImage } from '@/types/image';
-import type { ReferenceAudio, ReferenceVideo } from '@/types/media';
+import type { ReferenceImage } from '@/shared/media/reference-types';
+import type { ReferenceAudio, ReferenceVideo } from '@/shared/media/reference-types';
 
 export const SEEDANCE_REFERENCE_LIMITS = {
   images: 9,
@@ -69,7 +69,7 @@ export function isSeedanceVideoConfig(
   );
 }
 
-export function isSeedanceVideoModel(model: string) {
+function isSeedanceVideoModel(model: string) {
   const value = model.toLowerCase();
   return value.includes('seedance') || value.includes('doubao-seedance');
 }
@@ -79,7 +79,7 @@ export function isSeedanceFastModel(model: string) {
   return isSeedanceVideoModel(value) && value.includes('fast');
 }
 
-export function isArkPlanBaseUrl(baseUrl: string) {
+function isArkPlanBaseUrl(baseUrl: string) {
   return (
     baseUrl.toLowerCase().includes('ark.cn-beijing.volces.com/api/plan/v3') ||
     baseUrl.toLowerCase().includes('/api/plan/v3')
@@ -92,7 +92,7 @@ export function normalizeSeedanceResolution(value: string, model = '') {
   return seedanceResolutionOptions.some((item) => item.value === normalized) ? normalized : '720p';
 }
 
-export function normalizeResolutionToken(value: string) {
+function normalizeResolutionToken(value: string) {
   if (value === 'low') return '480p';
   if (value === 'auto' || value === 'high' || value === 'medium') return '720p';
   const resolution = String(value || '').replace(/p$/i, '') || '720';

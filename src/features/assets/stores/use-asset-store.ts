@@ -53,7 +53,7 @@ export const useAssetStore = create<AssetStore>()((set, get) => ({
   },
 }));
 
-export function hydrateAssets() {
+function hydrateAssets() {
   if (hydrationPromise) return hydrationPromise;
   hydrationPromise = assetRepository.list().then((assets) => {
     useAssetStore.setState({ assets, hydrated: true });
