@@ -74,6 +74,7 @@
 - 2026-07-09 版本 `0.3.0` 桌面分发验证：`DESKTOP_VERSION=0.3.0 npm run dist:desktop:all` 通过，生成 `release/Infinite Canvas-0.3.0-Mac-AppleSilicon.dmg`、`release/Infinite Canvas-0.3.0-Mac-Intel.dmg` 和 `release/Infinite Canvas-0.3.0-Windows.exe`；DMG 挂载卷宗标题分别验证为 `Infinite Canvas 0.3.0-Mac-AppleSilicon` 与 `Infinite Canvas 0.3.0-Mac-Intel`；`.zip`、blockmap 和 latest 元数据仅作为打包生成物保留在本地，不作为默认 GitHub Release 附件。
 - 2026-07-09 版本 `0.3.0` 追加验证：`npm run smoke:desktop-hash-routes` 通过，覆盖 `#/`、`#/canvas`、`#/image`、`#/video`、`#/prompts` 和 `#/assets`。
 - 2026-07-09 版本 `0.3.0` 追加验证：`npm run test:e2e` 通过，4 个 Playwright 测试全部通过；执行过程中仅出现 `NO_COLOR` 与 `FORCE_COLOR` 环境变量提示，不影响结果。
+- 2026-07-09 版本 `0.3.0` Release 分发追加验证：已创建 GitHub Release `v0.3.0`，并上传 6 个默认附件；GitHub API 确认固定 latest 别名为 `Infinite-Canvas-Mac-AppleSilicon.dmg`、`Infinite-Canvas-Mac-Intel.dmg` 和 `Infinite-Canvas-Windows.exe`，版本归档附件因 GitHub Asset 命名规则显示为 `Infinite.Canvas-0.3.0-Mac-AppleSilicon.dmg`、`Infinite.Canvas-0.3.0-Mac-Intel.dmg` 和 `Infinite.Canvas-0.3.0-Windows.exe`；三个固定 `/releases/latest/download/...` 下载链接均返回有效 `200` 响应。
 
 ## 阻塞项
 

@@ -58,6 +58,7 @@
 - 默认上传两组客户端安装包附件：
   - 版本归档附件：当前版本的 `Infinite Canvas-X.Y.Z-Mac-AppleSilicon.dmg`、`Infinite Canvas-X.Y.Z-Mac-Intel.dmg` 和 `Infinite Canvas-X.Y.Z-Windows.exe`，且 macOS DMG 打开后的窗口标题必须与对应平台名一致。
   - 固定 latest 别名附件：`Infinite-Canvas-Mac-AppleSilicon.dmg`、`Infinite-Canvas-Mac-Intel.dmg` 和 `Infinite-Canvas-Windows.exe`。
+- GitHub Release Asset 会将附件 `name` 中的空格规范化为点号；上传本地带空格的版本归档附件后，远端实际 asset name 和 browser download URL 可能显示为 `Infinite.Canvas-X.Y.Z-...`。本地 `release/` 文件名、DMG 卷宗标题和固定 latest 别名仍必须按上述规则生成与校验。
 - 固定 latest 别名不得包含版本号、空格或原始架构名；这些附件专用于以下永久下载链接：
   - `https://github.com/zuco1111/infinite-canvas/releases/latest/download/Infinite-Canvas-Mac-AppleSilicon.dmg`
   - `https://github.com/zuco1111/infinite-canvas/releases/latest/download/Infinite-Canvas-Mac-Intel.dmg`
