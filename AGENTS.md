@@ -75,6 +75,7 @@
 - 桌面打包、版本号递增、分发产物清理、GitHub tag 和 Release 附件规则统一见 `docs/RELEASE_AND_DISTRIBUTION.md`。
 - `build/`、`dist/`、`dist-electron/`、`release/`、`coverage/`、`playwright-report/` 和 `test-results/` 是生成物或验证产物，不进入版本控制。
 - 正式签名、公证、自动更新、商店发布和第三方插件系统尚未获批准，不得声称已完成。
+- 桌面 `file://` 下 `buildApiUrl()` 会返回 `infinite-canvas://ai-proxy` 自定义协议；通过 axios 请求该 URL 时必须使用 `src/shared/platform/axios-adapter.ts` 的 `axiosAdapterForUrl()`，避免浏览器 XHR adapter 在请求前拒绝自定义协议。
 
 ## 验证要求
 

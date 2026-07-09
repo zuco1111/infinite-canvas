@@ -11,6 +11,7 @@ import { dataUrlToFile } from '@/shared/media/image-utils';
 import { buildImageReferencePromptText } from '../domain/image-reference-prompt';
 import { imageToDataUrl } from '@/shared/storage/image-storage';
 import type { ReferenceImage } from '@/shared/media/reference-types';
+import { axiosAdapterForUrl } from '@/shared/platform/axios-adapter';
 
 export type AiTextMessage = {
   role: 'system' | 'user' | 'assistant';
@@ -810,8 +811,9 @@ export async function requestGeneration(
   const quality = normalizeQuality(config.quality);
   const requestSize = resolveRequestSize(quality, config.size);
   try {
+    const url = aiApiUrl(requestConfig, '/images/generations');
     const response = await axios.post<ImageApiResponse>(
-      aiApiUrl(requestConfig, '/images/generations'),
+      url,
       {
         model: requestConfig.model,
         prompt: withSystemPrompt(requestConfig, prompt),
@@ -821,6 +823,7 @@ export async function requestGeneration(
         ...imageResponseOptions(requestConfig.model),
       },
       {
+        ...axiosAdapterForUrl(url),
         headers: aiHeaders(requestConfig, 'application/json'),
         signal: options?.signal,
         timeout: IMAGE_REQUEST_TIMEOUT_MS,
@@ -876,15 +879,13 @@ export async function requestEdit(
   if (mask) formData.set('mask', dataUrlToFile(mask));
 
   try {
-    const response = await axios.post<ImageApiResponse>(
-      aiApiUrl(requestConfig, '/images/edits'),
-      formData,
-      {
-        headers: aiHeaders(requestConfig),
-        signal: options?.signal,
-        timeout: IMAGE_REQUEST_TIMEOUT_MS,
-      },
-    );
+    const url = aiApiUrl(requestConfig, '/images/edits');
+    const response = await axios.post<ImageApiResponse>(url, formData, {
+      ...axiosAdapterForUrl(url),
+      headers: aiHeaders(requestConfig),
+      signal: options?.signal,
+      timeout: IMAGE_REQUEST_TIMEOUT_MS,
+    });
     const images = parseImagePayload(response.data);
     return images;
   } catch (error) {

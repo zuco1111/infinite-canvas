@@ -351,7 +351,6 @@ export function useCanvasInteractionController({
       event.stopPropagation();
       setContextMenu(null);
       setHoveredNodeId(null);
-      setToolbarNodeId(null);
       setSelectedConnectionId(null);
 
       const currentSelected = selectedNodeIdsRef.current;
@@ -369,6 +368,11 @@ export function useCanvasInteractionController({
         nextSelected.add(nodeId);
       }
 
+      if (nextSelected.has(nodeId)) {
+        keepNodeToolbar(nodeId);
+      } else {
+        setToolbarNodeId(null);
+      }
       setSelectedNodeIds(nextSelected);
       const dragIds = new Set(nextSelected);
       currentNodes.forEach((node) => {
@@ -389,11 +393,10 @@ export function useCanvasInteractionController({
         ),
       };
       historyPausedRef.current = true;
-      nodeDraggingRef.current = true;
-      setIsNodeDragging(true);
     },
     [
       historyPausedRef,
+      keepNodeToolbar,
       nodesRef,
       selectedNodeIdsRef,
       setContextMenu,
@@ -499,6 +502,10 @@ export function useCanvasInteractionController({
           Math.abs(event.clientY - dragRef.current.startY) > 3
         ) {
           dragRef.current.hasMoved = true;
+          if (!nodeDraggingRef.current) {
+            nodeDraggingRef.current = true;
+            setIsNodeDragging(true);
+          }
         }
 
         if (rafRef.current) cancelAnimationFrame(rafRef.current);

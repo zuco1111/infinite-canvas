@@ -8,6 +8,7 @@ import {
 } from '../domain/audio-generation';
 import { uploadMediaFile, type UploadedFile } from '@/shared/storage/file-storage';
 import { buildApiUrl, resolveModelRequestConfig, type AiConfig } from '@/features/settings';
+import { axiosAdapterForUrl } from '@/shared/platform/axios-adapter';
 
 type RequestOptions = { signal?: AbortSignal };
 
@@ -34,8 +35,9 @@ export async function requestAudioGeneration(
   const instructions = config.audioInstructions.trim();
 
   try {
+    const url = aiApiUrl(requestConfig, '/audio/speech');
     const response = await axios.post<Blob>(
-      aiApiUrl(requestConfig, '/audio/speech'),
+      url,
       {
         model,
         input: prompt,
@@ -44,7 +46,12 @@ export async function requestAudioGeneration(
         speed: Number(normalizeAudioSpeedValue(config.audioSpeed)),
         ...(instructions ? { instructions } : {}),
       },
-      { headers: aiHeaders(requestConfig), responseType: 'blob', signal: options?.signal },
+      {
+        ...axiosAdapterForUrl(url),
+        headers: aiHeaders(requestConfig),
+        responseType: 'blob',
+        signal: options?.signal,
+      },
     );
     await assertAudioBlob(response.data);
     return response.data.type.startsWith('audio/')

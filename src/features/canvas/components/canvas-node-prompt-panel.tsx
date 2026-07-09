@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ArrowUp, LoaderCircle, Square } from 'lucide-react';
 import { Button } from 'antd';
 
@@ -57,13 +57,30 @@ export function CanvasNodePromptPanel({
   const hasImageContent = node.type === CanvasNodeType.Image && Boolean(node.metadata?.content);
   const isEditingExistingContent = hasTextContent || hasImageContent;
   const [prompt, setPrompt] = useState(isEditingExistingContent ? '' : node.metadata?.prompt || '');
+  const [submittedPrompt, setSubmittedPrompt] = useState<string | null>(null);
+  const wasRunningRef = useRef(false);
   const modelPickerClassName = 'max-w-[190px] flex-1';
 
   useEffect(() => {
+    if (isRunning) {
+      wasRunningRef.current = true;
+      return;
+    }
+
+    if (submittedPrompt !== null) {
+      if (wasRunningRef.current) {
+        wasRunningRef.current = false;
+        setSubmittedPrompt(null);
+        setPrompt(isEditingExistingContent ? '' : node.metadata?.prompt || '');
+      }
+      return;
+    }
+
     setPrompt(isEditingExistingContent ? '' : node.metadata?.prompt || '');
-  }, [isEditingExistingContent, node.id, node.metadata?.prompt]);
+  }, [isEditingExistingContent, isRunning, node.id, node.metadata?.prompt, submittedPrompt]);
 
   const updatePrompt = (value: string) => {
+    setSubmittedPrompt(null);
     setPrompt(value);
     if (!isEditingExistingContent) onPromptChange(node.id, value);
   };
@@ -71,8 +88,9 @@ export function CanvasNodePromptPanel({
   const submit = () => {
     const text = prompt.trim();
     if (!text || isRunning) return;
+    setSubmittedPrompt(text);
+    setPrompt(text);
     onGenerate(node.id, mode, text);
-    setPrompt('');
   };
 
   return (

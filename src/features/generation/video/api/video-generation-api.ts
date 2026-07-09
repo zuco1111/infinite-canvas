@@ -22,6 +22,7 @@ import {
 import type { ReferenceImage } from '@/shared/media/reference-types';
 import type { ReferenceAudio, ReferenceVideo } from '@/shared/media/reference-types';
 import { runPollingWorkbenchTask } from '../../shared/domain/workbench-task-runner';
+import { axiosAdapterForUrl } from '@/shared/platform/axios-adapter';
 
 type VideoResponse = { id: string; status?: string; error?: { message?: string } };
 type ApiVideoResponse =
@@ -155,9 +156,11 @@ async function createOpenAIVideoTask(
   );
   files.forEach((file) => body.append('input_reference[]', file));
   try {
+    const url = aiApiUrl(config, '/videos');
     const created = unwrapVideoResponse(
       (
-        await axios.post<ApiVideoResponse>(aiApiUrl(config, '/videos'), body, {
+        await axios.post<ApiVideoResponse>(url, body, {
+          ...axiosAdapterForUrl(url),
           headers: aiHeaders(config),
           signal: options?.signal,
         })
@@ -176,16 +179,20 @@ async function pollOpenAIVideoTask(
   options?: RequestOptions,
 ): Promise<VideoGenerationTaskState> {
   try {
+    const statusUrl = aiApiUrl(config, `/videos/${task.id}`);
     const video = unwrapVideoResponse(
       (
-        await axios.get<ApiVideoResponse>(aiApiUrl(config, `/videos/${task.id}`), {
+        await axios.get<ApiVideoResponse>(statusUrl, {
+          ...axiosAdapterForUrl(statusUrl),
           headers: aiHeaders(config),
           signal: options?.signal,
         })
       ).data,
     );
     if (video.status === 'completed') {
-      const content = await axios.get<Blob>(aiApiUrl(config, `/videos/${task.id}/content`), {
+      const contentUrl = aiApiUrl(config, `/videos/${task.id}/content`);
+      const content = await axios.get<Blob>(contentUrl, {
+        ...axiosAdapterForUrl(contentUrl),
         headers: aiHeaders(config),
         responseType: 'blob',
         signal: options?.signal,
@@ -234,9 +241,11 @@ async function createSeedanceTask(
   };
 
   try {
+    const url = seedanceApiUrl(config);
     const created = unwrapSeedanceTask(
       (
-        await axios.post<ApiEnvelope<SeedanceTask>>(seedanceApiUrl(config), payload, {
+        await axios.post<ApiEnvelope<SeedanceTask>>(url, payload, {
+          ...axiosAdapterForUrl(url),
           headers: aiHeaders(config, 'application/json'),
           signal: options?.signal,
         })
@@ -255,9 +264,11 @@ async function pollSeedanceTask(
   options?: RequestOptions,
 ): Promise<VideoGenerationTaskState> {
   try {
+    const url = seedanceApiUrl(config, task.id);
     const state = unwrapSeedanceTask(
       (
-        await axios.get<ApiEnvelope<SeedanceTask>>(seedanceApiUrl(config, task.id), {
+        await axios.get<ApiEnvelope<SeedanceTask>>(url, {
+          ...axiosAdapterForUrl(url),
           headers: aiHeaders(config),
           signal: options?.signal,
         })
