@@ -96,7 +96,7 @@ const webdavDomainLabels: Record<AppSyncDomainKey, string> = {
   'image-workbench': '生图工作台',
   'video-workbench': '视频创作台',
 };
-const ZUCO_CONSOLE_URL = 'https://api.zuco.ai';
+const ZUCO_CONSOLE_URL = 'https://api.zuco.ai/';
 
 function createWebdavDomainProgress(): Record<AppSyncDomainKey, WebdavDomainProgress> {
   return webdavDomainKeys.reduce(
@@ -341,11 +341,11 @@ export function AppConfigModal() {
                           className="h-auto p-0 text-xs font-semibold text-current"
                           onClick={openZucoConsolePage}
                         >
-                          打开控制台
+                          立即购买
                         </Button>
                       }
                     >
-                      <span>使用前请先配置可用 API 渠道</span>
+                      <span>使用前请先配置可用 API 渠道。没有API？</span>
                     </AppNotice>
                   </div>
                   <div className="flex shrink-0 gap-2">
