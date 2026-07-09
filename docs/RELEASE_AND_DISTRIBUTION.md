@@ -11,6 +11,7 @@
 - 打包前必须通过 `scripts/prepare-desktop-codex.cjs` 准备 Codex CLI 资源；npm 打包脚本已自动串联该步骤。
 - 正式分发安装包文件名统一使用面向用户的平台名：`Mac-AppleSilicon`、`Mac-Intel` 和 `Windows`。
 - DMG 内部卷宗标题，即用户打开 DMG 后 Finder 窗口标题，也必须使用上述平台名，不得显示 `arm64`、`x64` 或 `win-x64` 等原始架构名。
+- 每个正式 GitHub Release 同时维护两组安装包附件：带版本号的归档附件用于版本追溯，固定别名附件用于 `/releases/latest/download/...` 永久下载链接。
 - 当前桌面产物为本地客户端分发包，且暂不启用自动更新。
 - 不得在未确认正式证书和真机验收前声称已完成正式发布配置；未完成 Windows 代码签名前不得声称系统安装界面已显示正式发布者。
 
@@ -29,6 +30,7 @@
 
 - 每次正式桌面分发打包前必须删除 `release/` 中旧版本的 `Infinite Canvas-*` 分发包，只保留当前 `package.json` 版本对应的包。
 - 该清理由 `scripts/clean-old-desktop-packages.cjs` 统一执行，并已串入正式打包脚本。
+- 固定 latest 下载别名由 `scripts/prepare-latest-release-aliases.cjs` 从当前版本安装包复制生成；正式打包脚本已在产物重命名后串联该步骤。
 - `build/`、`dist/`、`dist-electron/`、`release/`、`coverage/`、`playwright-report/` 和 `test-results/` 是生成物或验证产物，不进入版本控制。
 
 ## 路由与资源
@@ -53,7 +55,13 @@
 - 版本节点必须创建并推送 `vX.Y.Z` tag，tag 版本必须与 `package.json` 和 `package-lock.json` 一致。
 - 客户端桌面分发产物不得提交到 git；应从 `release/` 目录上传到对应版本的 GitHub Release 作为附件。
 - 当用户要求“推送 GitHub”且当前版本存在匹配的桌面分发产物时，默认同时创建或更新对应 GitHub Release。
-- 默认只上传当前版本的 `Mac-AppleSilicon.dmg`、`Mac-Intel.dmg` 和 `Windows.exe` 三类客户端安装包，且 macOS DMG 打开后的窗口标题必须与对应平台名一致。
+- 默认上传两组客户端安装包附件：
+  - 版本归档附件：当前版本的 `Infinite Canvas-X.Y.Z-Mac-AppleSilicon.dmg`、`Infinite Canvas-X.Y.Z-Mac-Intel.dmg` 和 `Infinite Canvas-X.Y.Z-Windows.exe`，且 macOS DMG 打开后的窗口标题必须与对应平台名一致。
+  - 固定 latest 别名附件：`Infinite-Canvas-Mac-AppleSilicon.dmg`、`Infinite-Canvas-Mac-Intel.dmg` 和 `Infinite-Canvas-Windows.exe`。
+- 固定 latest 别名不得包含版本号、空格或原始架构名；这些附件专用于以下永久下载链接：
+  - `https://github.com/zuco1111/infinite-canvas/releases/latest/download/Infinite-Canvas-Mac-AppleSilicon.dmg`
+  - `https://github.com/zuco1111/infinite-canvas/releases/latest/download/Infinite-Canvas-Mac-Intel.dmg`
+  - `https://github.com/zuco1111/infinite-canvas/releases/latest/download/Infinite-Canvas-Windows.exe`
 - 不得上传 `.zip`、blockmap、latest 元数据或其他辅助产物，除非用户明确要求。
-- 上传 GitHub Release 前必须确认附件文件名版本与当前 tag 一致，且附件范围严格限定为当前版本的 `Mac-AppleSilicon.dmg`、`Mac-Intel.dmg` 和 `Windows.exe`。
+- 上传 GitHub Release 前必须确认版本归档附件文件名版本与当前 tag 一致，并确认固定 latest 别名附件来自同一批当前版本安装包。
 - 若 `release/` 中缺少这些必需产物，先按桌面打包约定生成或向用户说明无法上传。

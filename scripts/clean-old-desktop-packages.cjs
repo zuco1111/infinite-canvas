@@ -6,7 +6,13 @@ const packageJson = readJson(path.join(projectRoot, 'package.json'));
 const currentVersion = packageJson.version;
 const releaseDir = path.join(projectRoot, 'release');
 const productName = 'Infinite Canvas';
+const stableProductName = 'Infinite-Canvas';
 const artifactPattern = new RegExp(`^${escapeRegExp(productName)}-(\\d+\\.\\d+\\.\\d+)-.+`);
+const latestAliasNames = new Set([
+  `${stableProductName}-Mac-AppleSilicon.dmg`,
+  `${stableProductName}-Mac-Intel.dmg`,
+  `${stableProductName}-Windows.exe`,
+]);
 
 if (!/^\d+\.\d+\.\d+$/.test(currentVersion)) {
   throw new Error(`package.json version must be a stable semver version, got "${currentVersion}".`);
@@ -23,7 +29,7 @@ for (const entry of fs.readdirSync(releaseDir, { withFileTypes: true })) {
   if (!entry.isFile()) continue;
 
   const match = entry.name.match(artifactPattern);
-  if (!match || match[1] === currentVersion) continue;
+  if ((!match || match[1] === currentVersion) && !latestAliasNames.has(entry.name)) continue;
 
   const filePath = path.join(releaseDir, entry.name);
   fs.rmSync(filePath, { force: true });
