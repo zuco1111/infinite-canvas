@@ -31,9 +31,10 @@
 - 清理被 gitignore 的生成物目录，确保项目目录不保留可再生成的 `build/`、`dist/`、`dist-electron/`、`release/`、`test-results/` 等产物。
 - 将版本号更新为 `0.2.1`，并同步 `package.json` 与 `package-lock.json`。
 - 2026-07-09 将版本号更新为 `0.2.2`，并同步 `package.json` 与 `package-lock.json`。
+- 2026-07-09 将版本号更新为 `0.2.3`，并同步 `package.json` 与 `package-lock.json`。
 - 2026-07-09 为桌面 `file://` 下的 `infinite-canvas://ai-proxy` axios 请求补充 `fetch` adapter，并记录对应发布约束。
 - 2026-07-09 调整画布节点 prompt 提交与拖拽选择交互，补充对应单元测试。
-- 2026-07-09 将桌面正式分发安装包命名规则调整为 `Mac-AppleSilicon`、`Mac-Intel` 和 `Windows`。
+- 2026-07-09 将桌面正式分发安装包命名规则调整为 `Mac-AppleSilicon`、`Mac-Intel` 和 `Windows`，并在 `0.2.3` 中要求 DMG 内部卷宗标题同步使用该平台名，不再显示原始 `arm64` / `x64`。
 - 将应用作者、版权主体、目标 Windows 发布者名称和用户可见署名统一为 `Zuco`。
 - 将内置提示词库中明确要求画面署名、作者落款或水印的旧默认名称统一替换为 `Zuco`。
 
@@ -61,6 +62,10 @@
 - 2026-07-09 版本 `0.2.2` 桌面分发验证：`DESKTOP_VERSION=0.2.2 npm run dist:desktop:all` 通过，生成 `release/Infinite Canvas-0.2.2-Mac-AppleSilicon.dmg`、`release/Infinite Canvas-0.2.2-Mac-Intel.dmg` 和 `release/Infinite Canvas-0.2.2-Windows.exe`；`.zip`、blockmap 和 latest 元数据仅作为打包生成物保留在本地，不作为默认 GitHub Release 附件。
 - 2026-07-09 版本 `0.2.2` 追加验证：`npm run smoke:desktop-hash-routes` 通过，覆盖 `#/`、`#/canvas`、`#/image`、`#/video`、`#/prompts` 和 `#/assets`。
 - 2026-07-09 版本 `0.2.2` 追加验证：`npm run test:e2e` 通过，4 个 Playwright 测试全部通过；执行过程中仅出现 `NO_COLOR` 与 `FORCE_COLOR` 环境变量提示，不影响结果。
+- 2026-07-09 版本 `0.2.3` 追加验证：`npm run check` 通过，13 个测试文件、36 个测试全部通过。
+- 2026-07-09 版本 `0.2.3` 桌面分发验证：`DESKTOP_VERSION=0.2.3 npm run dist:desktop:all` 通过，生成 `release/Infinite Canvas-0.2.3-Mac-AppleSilicon.dmg`、`release/Infinite Canvas-0.2.3-Mac-Intel.dmg` 和 `release/Infinite Canvas-0.2.3-Windows.exe`；DMG 挂载卷宗标题分别验证为 `Infinite Canvas 0.2.3-Mac-AppleSilicon` 与 `Infinite Canvas 0.2.3-Mac-Intel`；`.zip`、blockmap 和 latest 元数据仅作为打包生成物保留在本地，不作为默认 GitHub Release 附件。
+- 2026-07-09 版本 `0.2.3` 追加验证：`npm run smoke:desktop-hash-routes` 通过，覆盖 `#/`、`#/canvas`、`#/image`、`#/video`、`#/prompts` 和 `#/assets`。
+- 2026-07-09 版本 `0.2.3` 追加验证：`npm run test:e2e` 通过，4 个 Playwright 测试全部通过；执行过程中仅出现 `NO_COLOR` 与 `FORCE_COLOR` 环境变量提示，不影响结果。
 
 ## 阻塞项
 

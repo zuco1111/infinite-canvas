@@ -10,6 +10,7 @@
 - 桌面包输出目录为 `release/`，中间资源目录为 `build/desktop-codex/`，二者不得提交。
 - 打包前必须通过 `scripts/prepare-desktop-codex.cjs` 准备 Codex CLI 资源；npm 打包脚本已自动串联该步骤。
 - 正式分发安装包文件名统一使用面向用户的平台名：`Mac-AppleSilicon`、`Mac-Intel` 和 `Windows`。
+- DMG 内部卷宗标题，即用户打开 DMG 后 Finder 窗口标题，也必须使用上述平台名，不得显示 `arm64`、`x64` 或 `win-x64` 等原始架构名。
 - 当前桌面产物为本地客户端分发包，且暂不启用自动更新。
 - 不得在未确认正式证书和真机验收前声称已完成正式发布配置；未完成 Windows 代码签名前不得声称系统安装界面已显示正式发布者。
 
@@ -52,7 +53,7 @@
 - 版本节点必须创建并推送 `vX.Y.Z` tag，tag 版本必须与 `package.json` 和 `package-lock.json` 一致。
 - 客户端桌面分发产物不得提交到 git；应从 `release/` 目录上传到对应版本的 GitHub Release 作为附件。
 - 当用户要求“推送 GitHub”且当前版本存在匹配的桌面分发产物时，默认同时创建或更新对应 GitHub Release。
-- 默认只上传当前版本的 `Mac-AppleSilicon.dmg`、`Mac-Intel.dmg` 和 `Windows.exe` 三类客户端安装包。
+- 默认只上传当前版本的 `Mac-AppleSilicon.dmg`、`Mac-Intel.dmg` 和 `Windows.exe` 三类客户端安装包，且 macOS DMG 打开后的窗口标题必须与对应平台名一致。
 - 不得上传 `.zip`、blockmap、latest 元数据或其他辅助产物，除非用户明确要求。
 - 上传 GitHub Release 前必须确认附件文件名版本与当前 tag 一致，且附件范围严格限定为当前版本的 `Mac-AppleSilicon.dmg`、`Mac-Intel.dmg` 和 `Windows.exe`。
 - 若 `release/` 中缺少这些必需产物，先按桌面打包约定生成或向用户说明无法上传。
