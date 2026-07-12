@@ -10,6 +10,13 @@
 - `docs/PRODUCT_CONSTRAINTS.md`：长期产品约束、数据源约束和用户可见文案边界。
 - `docs/RELEASE_AND_DISTRIBUTION.md`：桌面打包、版本号、GitHub Release 和分发规则。
 - `docs/PHASE_8_MODULAR_ARCHITECTURE.md`：模块化架构、feature 边界和 Phase 8 实施记录。
+- `docs/DESIGN_SYSTEM_REFACTOR_PLAN.md`：设计系统与视觉优化的长期方案、审批门、迁移顺序和完成定义。
+- `docs/design-system/INVENTORY.md`：阶段 1 当前组件、Token、样式来源、例外与风险库存。
+- `docs/design-system/TRACEABILITY.md`：旧设计项、目标设计项、生产调用点和迁移批次的双向追踪规则与状态。
+- `docs/design-system/PHASE_2_DESIGN_LAB.md`：阶段 2 Design Lab 架构、覆盖、构建隔离、验证、截图、当前问题和审批状态。
+- `docs/design-system/PHASE_3_CURRENT_STYLE_AUDIT.md`：阶段 3 现有样式对比审计、相似项分组、验证证据和待用户判断项。
+- `docs/design-system/HOMEPAGE_VISUAL_FREEZE.md`：用户确认的首页非导航视觉冻结范围、参考证据和迁移守门规则。
+- `docs/design-system/baselines/current/README.md`：视觉修改前的冻结基线、采集协议和环境限制。
 - `docs/VERSION_CLOSING.md`：版本收尾清理记录、验证结果、阻塞项和后续计划。
 
 历史阶段文档用于追溯事实，不自动成为当前工作规则；当前规则以本文件和上述专门文档中的最新约束为准。
@@ -63,6 +70,15 @@
 
 - 未经用户批准，不进行视觉 redesign。
 - 等值重构必须保持既有功能行为和视觉输出一致。
+- 后续设计系统与视觉优化工作必须遵守 `docs/DESIGN_SYSTEM_REFACTOR_PLAN.md`；该方案的确认不代表具体视觉规格已一次性获批。
+- 设计系统审计阶段不得修改生产组件、Token 或页面视觉；进入实现后只能迁移已经记录并经用户批准的目标规格，每个迁移切片必须单独验证和维护决策状态。
+- 设计系统阶段 1 已于 2026-07-11 获用户确认并完成；阶段 2 的 DS-O2、DS-O3、DS-O4、DS-O14 已于同日确认，当前态 Design Lab 也已于 2026-07-11 通过用户验收并完成。用户已于 2026-07-12 明确批准开始阶段 3，并将当前切片限定为对现有样式进行只读审计、把相似内容并置以便比较判断；该授权不关闭 DS-O1、DS-O6～DS-O10、DS-O13、DS-O15，不批准目标 Token、目标组件或生产视觉实施。改前 current 基线已经冻结，生产视觉变化后不得重写，只能在 approved 批次中新增目标基线。
+- Design Lab 使用独立 Vite entry 和项目原生 React/Vite 实现，必须复用真实 App Provider、主题和全局样式；不得注册为产品 feature、产品 route 或产品导航入口，也不得进入正式 Web/Electron 构建和生产 bundle。
+- `src/design-lab/*` 只承载开发评审入口、当前态展示、确定 fixture 和相关元数据；生产入口不得 import 该目录。Design Lab 如需 feature 上下文，只能使用 feature public API、shared contract 或明确的确定 fixture，不得读取 raw store、调用真实 AI/WebDAV/在线 Assistant/本地 Agent。
+- 阶段 2 只展示 Foundations/Primitives 当前态，不创建目标视觉或生产替换。截图 diff 和 axe 扫描只建立当前证据；全局视觉阈值、WCAG 目标和合规声明留待对应开放决策关闭。
+- 阶段 3 当前只读审计分组只表示“适合放在一起比较”，不得据此推断 retain、merge、split、variant、domain-wrapper、exception 或 retire 关系；目标关系仍须由用户逐项批准并登记到 `TRACEABILITY.md`。
+- 用户已确认 `/` 首页在 Light/Dark、Web 桌面/移动和 Electron 桌面下的非导航内容不做有意视觉修改；公共导航仍可在单独审批后修改。共享 Token 或组件迁移不得间接改变首页主体，具体边界与证据见 `docs/design-system/HOMEPAGE_VISUAL_FREEZE.md`。
+- 设计系统迁移不得根据名称或视觉相似度临时替换。必须先在 `docs/design-system/TRACEABILITY.md` 登记旧库存 ID、目标 ID、关系类型、全部调用点和迁移批次；迁移后对账已迁移、剩余和批准例外数量。
 - 多选场景统一使用 `src/shared/ui/app-multi-select-checkbox.tsx` 的 `AppMultiSelectCheckbox`。
 - 页面侧不得为多选场景直接使用 Ant Design `Checkbox`、原生 checkbox 或重复手写 checkbox 样式。
 - 空结果或空列表状态不得显示分页器；目录类页面优先使用 `CatalogPagination` 或同等 total guard。

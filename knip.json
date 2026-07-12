@@ -2,6 +2,8 @@
   "$schema": "https://unpkg.com/knip@5/schema.json",
   "entry": [
     "src/app/feature-registry/index.ts",
+    "src/design-lab/main.tsx",
+    "src/design-lab/preview-main.tsx",
     "src/features/canvas/index.ts",
     "src/shared/ai/ai-provider-port.ts",
     "src/shared/commands/command-contract.ts",

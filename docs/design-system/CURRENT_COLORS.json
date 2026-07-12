@@ -1,0 +1,1186 @@
+{
+  "schemaVersion": 1,
+  "kind": "design-system-current-style-values",
+  "sourceRevision": "acd16e3bd164a8cd5efa094e6e97e356dd2e2bd2",
+  "productionInputTreeSha256": "3949a6c8406af61b31d39df177a89dd057168b84d5770d6bb12b53a6a7c25764",
+  "generatedBy": "scripts/audit-design-system-current-values.cjs",
+  "extractionNotes": [
+    "Occurrences are source literal occurrences, not runtime rendered instances.",
+    "Class values cover JSX props ending in className, variables ending in ClassName, and cn/clsx/twMerge string arguments.",
+    "Dynamic runtime geometry and user content values remain explicit exceptions in INVENTORY.md."
+  ],
+  "section": "colors",
+  "appThemeTokens": {
+    "light": {
+      "background": "#fafaf9",
+      "foreground": "#1c1917",
+      "card": "#ffffff",
+      "popover": "#ffffff",
+      "border": "#e7e5e4",
+      "input": "#d6d3d1",
+      "ring": "#a8a29e",
+      "muted": "#78716c",
+      "mutedSurface": "#f5f5f4",
+      "subtleSurface": "#f4f2ed",
+      "primary": "#1c1917",
+      "primaryHover": "#0c0a09",
+      "primaryText": "#fafaf9",
+      "warning": "#d97706",
+      "warningSurface": "#fffbeb",
+      "warningBorder": "#fcd34d",
+      "danger": "#dc2626",
+      "dangerSurface": "#fef2f2",
+      "dangerBorder": "#fecaca",
+      "success": "#16a34a",
+      "successSurface": "#f0fdf4",
+      "successBorder": "#bbf7d0",
+      "tableSelectedBg": "rgba(28, 25, 23, 0.05)",
+      "tableSelectedHoverBg": "rgba(28, 25, 23, 0.08)"
+    },
+    "dark": {
+      "background": "#181715",
+      "foreground": "#f5f5f4",
+      "card": "#1f1d1a",
+      "popover": "#292524",
+      "border": "#44403c",
+      "input": "#57534e",
+      "ring": "#78716c",
+      "muted": "#d6d3d1",
+      "mutedSurface": "#292524",
+      "subtleSurface": "#211f1d",
+      "primary": "#fafafa",
+      "primaryHover": "#ffffff",
+      "primaryText": "#1c1917",
+      "warning": "#fbbf24",
+      "warningSurface": "rgba(120, 53, 15, 0.32)",
+      "warningBorder": "rgba(245, 158, 11, 0.5)",
+      "danger": "#fca5a5",
+      "dangerSurface": "rgba(127, 29, 29, 0.32)",
+      "dangerBorder": "rgba(248, 113, 113, 0.38)",
+      "success": "#86efac",
+      "successSurface": "rgba(20, 83, 45, 0.3)",
+      "successBorder": "rgba(74, 222, 128, 0.38)",
+      "tableSelectedBg": "rgba(255, 255, 255, 0.08)",
+      "tableSelectedHoverBg": "rgba(255, 255, 255, 0.12)"
+    }
+  },
+  "canvasThemeTokens": {
+    "light": {
+      "canvas": {
+        "background": "#f4f2ed",
+        "dot": "rgba(68,64,60,.28)",
+        "line": "rgba(68,64,60,.12)",
+        "selectionStroke": "#1c1917",
+        "selectionFill": "rgba(28,25,23,.06)"
+      },
+      "node": {
+        "label": "#57534e",
+        "fill": "#e7e5df",
+        "panel": "#fbfaf7",
+        "stroke": "#d6d3ca",
+        "activeStroke": "#1c1917",
+        "placeholder": "#8a8479",
+        "text": "#292524",
+        "muted": "#78716c",
+        "faint": "#a8a29e"
+      },
+      "toolbar": {
+        "panel": "rgba(251,250,247,.96)",
+        "border": "#d6d3ca",
+        "item": "#57534e",
+        "itemHover": "#e7e5df",
+        "activeBg": "#e7e5df",
+        "activeText": "#292524"
+      }
+    },
+    "dark": {
+      "canvas": {
+        "background": "#181715",
+        "dot": "rgba(245,245,244,.24)",
+        "line": "rgba(245,245,244,.10)",
+        "selectionStroke": "#fafaf9",
+        "selectionFill": "rgba(250,250,249,.10)"
+      },
+      "node": {
+        "label": "#d6d3d1",
+        "fill": "#292524",
+        "panel": "#1f1d1a",
+        "stroke": "#44403c",
+        "activeStroke": "#fafaf9",
+        "placeholder": "#a8a29e",
+        "text": "#f5f5f4",
+        "muted": "#d6d3d1",
+        "faint": "#78716c"
+      },
+      "toolbar": {
+        "panel": "rgba(31,29,26,.96)",
+        "border": "#44403c",
+        "item": "#d6d3d1",
+        "itemHover": "#292524",
+        "activeBg": "#3a3631",
+        "activeText": "#f5f5f4"
+      }
+    }
+  },
+  "canvasLegacyAliases": {
+    "background": {
+      "expression": "canvasThemeTokens.dark.canvas.background"
+    },
+    "gridMajor": {
+      "expression": "canvasThemeTokens.dark.canvas.dot"
+    },
+    "gridMinor": {
+      "expression": "canvasThemeTokens.dark.canvas.line"
+    },
+    "nodeBackground": {
+      "expression": "canvasThemeTokens.dark.node.fill"
+    },
+    "nodeBorder": {
+      "expression": "canvasThemeTokens.dark.node.stroke"
+    },
+    "nodeSelectedBorder": {
+      "expression": "canvasThemeTokens.dark.node.activeStroke"
+    },
+    "connectionStroke": {
+      "expression": "canvasThemeTokens.dark.node.faint"
+    },
+    "selectionFill": {
+      "expression": "canvasThemeTokens.dark.canvas.selectionFill"
+    },
+    "selectionStroke": {
+      "expression": "canvasThemeTokens.dark.canvas.selectionStroke"
+    }
+  },
+  "cssVariables": {
+    "light": {
+      "--radius": "0.5rem",
+      "--background": "#fafaf9",
+      "--foreground": "#1c1917",
+      "--card": "#ffffff",
+      "--card-foreground": "#1c1917",
+      "--popover": "#ffffff",
+      "--popover-foreground": "#1c1917",
+      "--border": "#e7e5e4",
+      "--input": "#d6d3d1",
+      "--ring": "#a8a29e",
+      "--primary": "#1c1917",
+      "--primary-foreground": "#fafaf9",
+      "--secondary": "#f5f5f4",
+      "--secondary-foreground": "#1c1917",
+      "--muted": "#f5f5f4",
+      "--muted-foreground": "#78716c",
+      "--accent": "#f5f5f4",
+      "--accent-foreground": "#1c1917",
+      "--destructive": "#dc2626",
+      "--destructive-foreground": "#fafaf9",
+      "--warning": "#d97706",
+      "--warning-background": "#fffbeb",
+      "--warning-border": "#fcd34d",
+      "--success": "#16a34a",
+      "--success-background": "#f0fdf4",
+      "--success-border": "#bbf7d0"
+    },
+    "dark": {
+      "--background": "#181715",
+      "--foreground": "#f5f5f4",
+      "--card": "#1f1d1a",
+      "--card-foreground": "#f5f5f4",
+      "--popover": "#292524",
+      "--popover-foreground": "#f5f5f4",
+      "--border": "#44403c",
+      "--input": "#57534e",
+      "--ring": "#78716c",
+      "--primary": "#fafafa",
+      "--primary-foreground": "#1c1917",
+      "--secondary": "#292524",
+      "--secondary-foreground": "#f5f5f4",
+      "--muted": "#292524",
+      "--muted-foreground": "#d6d3d1",
+      "--accent": "#292524",
+      "--accent-foreground": "#f5f5f4",
+      "--destructive": "#fca5a5",
+      "--destructive-foreground": "#1c1917",
+      "--warning": "#fbbf24",
+      "--warning-background": "rgba(120, 53, 15, 0.32)",
+      "--warning-border": "rgba(245, 158, 11, 0.5)",
+      "--success": "#86efac",
+      "--success-background": "rgba(20, 83, 45, 0.3)",
+      "--success-border": "rgba(74, 222, 128, 0.38)"
+    }
+  },
+  "hardcodedColors": [
+    {
+      "value": "#000",
+      "count": 2,
+      "locations": [
+        "src/features/canvas/components/canvas-node-mask-edit-dialog.tsx:66",
+        "src/features/canvas/components/canvas-node-mask-edit-dialog.tsx:67"
+      ]
+    },
+    {
+      "value": "#0358f7",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/dia-text-reveal.tsx:16"
+      ]
+    },
+    {
+      "value": "#10b981",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-mini-map.tsx:137"
+      ]
+    },
+    {
+      "value": "#111111",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-toolbar.tsx:428"
+      ]
+    },
+    {
+      "value": "#16a34a",
+      "count": 3,
+      "locations": [
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:185",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:614",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1073"
+      ]
+    },
+    {
+      "value": "#22c55e",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:229"
+      ]
+    },
+    {
+      "value": "#242529",
+      "count": 2,
+      "locations": [
+        "src/features/canvas/components/canvas-node-hover-toolbar.tsx:372",
+        "src/features/canvas/components/canvas-node-hover-toolbar.tsx:550"
+      ]
+    },
+    {
+      "value": "#2563eb",
+      "count": 2,
+      "locations": [
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:51",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:622"
+      ]
+    },
+    {
+      "value": "#2f80ff",
+      "count": 7,
+      "locations": [
+        "src/features/canvas/components/canvas-node.tsx:15",
+        "src/features/canvas/components/canvas-node.tsx:537",
+        "src/features/canvas/components/canvas-node.tsx:722",
+        "src/features/canvas/components/canvas-node.tsx:744",
+        "src/features/canvas/components/canvas-resource-mention-textarea.tsx:256",
+        "src/features/canvas/components/canvas-resource-mention-textarea.tsx:256",
+        "src/features/canvas/components/canvas-resource-mention-textarea.tsx:256"
+      ]
+    },
+    {
+      "value": "#60a5fa",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-mini-map.tsx:143"
+      ]
+    },
+    {
+      "value": "#8d9498",
+      "count": 2,
+      "locations": [
+        "src/features/canvas/components/canvas-image-toolbar-settings-modal.tsx:239",
+        "src/features/canvas/components/canvas-image-toolbar-settings-modal.tsx:239"
+      ]
+    },
+    {
+      "value": "#a855f7",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-mini-map.tsx:141"
+      ]
+    },
+    {
+      "value": "#A97CF8",
+      "count": 1,
+      "locations": [
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1118"
+      ]
+    },
+    {
+      "value": "#bdc4c8",
+      "count": 2,
+      "locations": [
+        "src/features/canvas/components/canvas-image-toolbar-settings-modal.tsx:239",
+        "src/features/canvas/components/canvas-image-toolbar-settings-modal.tsx:239"
+      ]
+    },
+    {
+      "value": "#c679c4",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/dia-text-reveal.tsx:16"
+      ]
+    },
+    {
+      "value": "#d97706",
+      "count": 4,
+      "locations": [
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:134",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:147",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:587",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1075"
+      ]
+    },
+    {
+      "value": "#dc2626",
+      "count": 5,
+      "locations": [
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:51",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:596",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:605",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1071",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1193"
+      ]
+    },
+    {
+      "value": "#e1e1fe",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/dia-text-reveal.tsx:16"
+      ]
+    },
+    {
+      "value": "#eeeeef",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node-hover-toolbar.tsx:564"
+      ]
+    },
+    {
+      "value": "#ef4444",
+      "count": 4,
+      "locations": [
+        "src/features/canvas/components/canvas-image-toolbar-settings-modal.tsx:287",
+        "src/features/canvas/components/canvas-node-hover-toolbar.tsx:559",
+        "src/features/canvas/components/canvas-node-mask-edit-dialog.tsx:206",
+        "src/features/canvas/components/canvas-node-upscale-dialog.tsx:124"
+      ]
+    },
+    {
+      "value": "#f0f0f1",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node-hover-toolbar.tsx:564"
+      ]
+    },
+    {
+      "value": "#F38CB8",
+      "count": 1,
+      "locations": [
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1118"
+      ]
+    },
+    {
+      "value": "#f59e0b",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:229"
+      ]
+    },
+    {
+      "value": "#f87171",
+      "count": 2,
+      "locations": [
+        "src/features/canvas/components/canvas-context-menu.tsx:71",
+        "src/features/canvas/components/canvas-toolbar.tsx:396"
+      ]
+    },
+    {
+      "value": "#f97316",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-mini-map.tsx:139"
+      ]
+    },
+    {
+      "value": "#fa3d1d",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/dia-text-reveal.tsx:16"
+      ]
+    },
+    {
+      "value": "#FDCC92",
+      "count": 1,
+      "locations": [
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1118"
+      ]
+    },
+    {
+      "value": "#ffb005",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/dia-text-reveal.tsx:16"
+      ]
+    },
+    {
+      "value": "#fff",
+      "count": 2,
+      "locations": [
+        "src/features/canvas/components/canvas-node-mask-edit-dialog.tsx:327",
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:259"
+      ]
+    },
+    {
+      "value": "#ffffff",
+      "count": 2,
+      "locations": [
+        "src/features/canvas/components/canvas-node-hover-toolbar.tsx:547",
+        "src/features/canvas/components/canvas-toolbar.tsx:428"
+      ]
+    },
+    {
+      "value": "rgb(68,64,60)",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:260"
+      ]
+    },
+    {
+      "value": "rgba(0, 0, 0, .24)",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node-mask-edit-dialog.tsx:298"
+      ]
+    },
+    {
+      "value": "rgba(0,0,0,.06)",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:256"
+      ]
+    },
+    {
+      "value": "rgba(0,0,0,.08)",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:256"
+      ]
+    },
+    {
+      "value": "rgba(0,0,0,.14)",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node.tsx:287"
+      ]
+    },
+    {
+      "value": "rgba(0,0,0,.28)",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node-crop-dialog.tsx:101"
+      ]
+    },
+    {
+      "value": "rgba(0,0,0,.3)",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node-crop-dialog.tsx:101"
+      ]
+    },
+    {
+      "value": "rgba(0,0,0,.32)",
+      "count": 2,
+      "locations": [
+        "src/features/canvas/components/canvas-toolbar.tsx:89",
+        "src/features/canvas/components/canvas-zoom-controls.tsx:29"
+      ]
+    },
+    {
+      "value": "rgba(0,0,0,.35)",
+      "count": 2,
+      "locations": [
+        "src/features/canvas/components/canvas-node-split-dialog.tsx:157",
+        "src/features/canvas/components/canvas-node-split-dialog.tsx:164"
+      ]
+    },
+    {
+      "value": "rgba(120,113,108,.28)",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:258"
+      ]
+    },
+    {
+      "value": "rgba(15,23,42,.10)",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node.tsx:708"
+      ]
+    },
+    {
+      "value": "rgba(15,23,42,.12)",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node-hover-toolbar.tsx:372"
+      ]
+    },
+    {
+      "value": "rgba(15,23,42,.16)",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node-hover-toolbar.tsx:551"
+      ]
+    },
+    {
+      "value": "rgba(217,119,6,.04)",
+      "count": 3,
+      "locations": [
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:135",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:148",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:589"
+      ]
+    },
+    {
+      "value": "rgba(217,119,6,.22)",
+      "count": 2,
+      "locations": [
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:146",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:588"
+      ]
+    },
+    {
+      "value": "rgba(217,119,6,.24)",
+      "count": 1,
+      "locations": [
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:133"
+      ]
+    },
+    {
+      "value": "rgba(22,163,74,.04)",
+      "count": 1,
+      "locations": [
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:616"
+      ]
+    },
+    {
+      "value": "rgba(22,163,74,.20)",
+      "count": 1,
+      "locations": [
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:615"
+      ]
+    },
+    {
+      "value": "rgba(22,163,74,.42)",
+      "count": 1,
+      "locations": [
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:184"
+      ]
+    },
+    {
+      "value": "rgba(220,38,38,.04)",
+      "count": 2,
+      "locations": [
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:598",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:607"
+      ]
+    },
+    {
+      "value": "rgba(220,38,38,.20)",
+      "count": 2,
+      "locations": [
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:597",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:606"
+      ]
+    },
+    {
+      "value": "rgba(220,38,38,.35)",
+      "count": 1,
+      "locations": [
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1193"
+      ]
+    },
+    {
+      "value": "rgba(245,245,244,.14)",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/catalog-page.tsx:10"
+      ]
+    },
+    {
+      "value": "rgba(245,245,244,.16)",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/catalog-page.tsx:11"
+      ]
+    },
+    {
+      "value": "rgba(245,245,244,.18)",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/catalog-page.tsx:12"
+      ]
+    },
+    {
+      "value": "rgba(245,245,244,.92)",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:259"
+      ]
+    },
+    {
+      "value": "rgba(255, 255, 255, .72)",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node-mask-edit-dialog.tsx:18"
+      ]
+    },
+    {
+      "value": "rgba(28, 25, 23, 0.16)",
+      "count": 3,
+      "locations": [
+        "src/features/canvas/components/canvas-audio-settings-popover.tsx:133",
+        "src/features/canvas/components/canvas-image-settings-popover.tsx:147",
+        "src/features/canvas/components/canvas-video-settings-popover.tsx:130"
+      ]
+    },
+    {
+      "value": "rgba(28,25,23,.10)",
+      "count": 2,
+      "locations": [
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:170",
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:237"
+      ]
+    },
+    {
+      "value": "rgba(28,25,23,.12)",
+      "count": 2,
+      "locations": [
+        "src/features/canvas/components/canvas-toolbar.tsx:89",
+        "src/features/canvas/components/canvas-zoom-controls.tsx:29"
+      ]
+    },
+    {
+      "value": "rgba(37, 99, 235, .38)",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node-mask-edit-dialog.tsx:17"
+      ]
+    },
+    {
+      "value": "rgba(37,99,235,.04)",
+      "count": 1,
+      "locations": [
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:624"
+      ]
+    },
+    {
+      "value": "rgba(37,99,235,.20)",
+      "count": 1,
+      "locations": [
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:623"
+      ]
+    },
+    {
+      "value": "rgba(68,64,60,.13)",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node.tsx:731"
+      ]
+    },
+    {
+      "value": "rgba(68,64,60,.16)",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node.tsx:800"
+      ]
+    }
+  ],
+  "rawColorUtilities": [
+    {
+      "value": "!bg-transparent",
+      "count": 1,
+      "locations": [
+        "src/features/prompts/components/canvas-prompt-library.tsx:20"
+      ]
+    },
+    {
+      "value": "!bg-white/85",
+      "count": 2,
+      "locations": [
+        "src/shared/ui/workbench-page.tsx:137",
+        "src/shared/ui/workbench-page.tsx:144"
+      ]
+    },
+    {
+      "value": "[&::-moz-range-thumb]:bg-[#8d9498]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-image-toolbar-settings-modal.tsx:239"
+      ]
+    },
+    {
+      "value": "[&::-moz-range-track]:bg-[#bdc4c8]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-image-toolbar-settings-modal.tsx:239"
+      ]
+    },
+    {
+      "value": "[&::-webkit-slider-runnable-track]:bg-[#bdc4c8]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-image-toolbar-settings-modal.tsx:239"
+      ]
+    },
+    {
+      "value": "[&::-webkit-slider-thumb]:bg-[#8d9498]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-image-toolbar-settings-modal.tsx:239"
+      ]
+    },
+    {
+      "value": "after:bg-transparent",
+      "count": 1,
+      "locations": [
+        "src/app/shell/components/app-top-nav.tsx:64"
+      ]
+    },
+    {
+      "value": "bg-[#2f80ff]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node.tsx:537"
+      ]
+    },
+    {
+      "value": "bg-[#2f80ff]/16",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-resource-mention-textarea.tsx:256"
+      ]
+    },
+    {
+      "value": "bg-[#eeeeef]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node-hover-toolbar.tsx:564"
+      ]
+    },
+    {
+      "value": "bg-[color-mix(in_srgb,var(--destructive)_8%,var(--card))]",
+      "count": 3,
+      "locations": [
+        "src/shared/ui/app-surface.tsx:12",
+        "src/shared/ui/workbench-page.tsx:258",
+        "src/shared/ui/workbench-style.ts:10"
+      ]
+    },
+    {
+      "value": "bg-black",
+      "count": 8,
+      "locations": [
+        "src/features/assets/pages/assets-page.tsx:647",
+        "src/features/canvas/components/canvas-config-composer.tsx:303",
+        "src/features/canvas/components/canvas-node-crop-dialog.tsx:91",
+        "src/features/canvas/components/canvas-node-split-dialog.tsx:71",
+        "src/features/canvas/components/canvas-node.tsx:635",
+        "src/features/canvas/components/canvas-resource-mention-textarea.tsx:365",
+        "src/features/generation/video/pages/video-workbench-page.tsx:663",
+        "src/features/generation/video/pages/video-workbench-page.tsx:962"
+      ]
+    },
+    {
+      "value": "bg-black/0",
+      "count": 1,
+      "locations": [
+        "src/features/assets/components/asset-picker-modal.tsx:89"
+      ]
+    },
+    {
+      "value": "bg-black/10",
+      "count": 2,
+      "locations": [
+        "src/features/canvas/components/canvas-config-composer.tsx:317",
+        "src/features/canvas/components/canvas-resource-mention-textarea.tsx:379"
+      ]
+    },
+    {
+      "value": "bg-black/20",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node-angle-dialog.tsx:69"
+      ]
+    },
+    {
+      "value": "bg-black/35",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node.tsx:537"
+      ]
+    },
+    {
+      "value": "bg-black/5",
+      "count": 2,
+      "locations": [
+        "src/features/canvas/components/canvas-node-split-dialog.tsx:70",
+        "src/features/canvas/components/canvas-node-upscale-dialog.tsx:93"
+      ]
+    },
+    {
+      "value": "bg-black/55",
+      "count": 5,
+      "locations": [
+        "src/features/canvas/components/canvas-node-crop-dialog.tsx:163",
+        "src/features/canvas/components/canvas-node-crop-dialog.tsx:167",
+        "src/features/canvas/components/canvas-node-crop-dialog.tsx:171",
+        "src/features/canvas/components/canvas-node-crop-dialog.tsx:180",
+        "src/features/canvas/components/canvas-node.tsx:758"
+      ]
+    },
+    {
+      "value": "bg-black/60",
+      "count": 8,
+      "locations": [
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1618",
+        "src/features/generation/image/pages/image-workbench-page.tsx:526",
+        "src/features/generation/image/pages/image-workbench-page.tsx:538",
+        "src/features/generation/video/pages/video-workbench-page.tsx:618",
+        "src/features/generation/video/pages/video-workbench-page.tsx:630",
+        "src/features/generation/video/pages/video-workbench-page.tsx:671",
+        "src/features/generation/video/pages/video-workbench-page.tsx:683",
+        "src/features/generation/video/pages/video-workbench-page.tsx:735"
+      ]
+    },
+    {
+      "value": "bg-current",
+      "count": 9,
+      "locations": [
+        "src/features/canvas/components/workspace/canvas-refresh-shell.tsx:20",
+        "src/features/canvas/components/workspace/canvas-refresh-shell.tsx:29",
+        "src/features/canvas/components/workspace/canvas-refresh-shell.tsx:30",
+        "src/features/canvas/components/workspace/canvas-refresh-shell.tsx:31",
+        "src/features/canvas/components/workspace/canvas-refresh-shell.tsx:40",
+        "src/features/canvas/components/workspace/canvas-refresh-shell.tsx:41",
+        "src/features/canvas/components/workspace/canvas-refresh-shell.tsx:42",
+        "src/features/canvas/components/workspace/canvas-refresh-shell.tsx:43",
+        "src/features/canvas/components/workspace/canvas-refresh-shell.tsx:44"
+      ]
+    },
+    {
+      "value": "bg-transparent",
+      "count": 17,
+      "locations": [
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:367",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1309",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1574",
+        "src/features/canvas/components/canvas-image-toolbar-settings-modal.tsx:239",
+        "src/features/canvas/components/canvas-node-mask-edit-dialog.tsx:130",
+        "src/features/canvas/components/canvas-node-mask-edit-dialog.tsx:131",
+        "src/features/canvas/components/canvas-node-mask-edit-dialog.tsx:135",
+        "src/features/canvas/components/canvas-node.tsx:505",
+        "src/features/canvas/components/canvas-node.tsx:521",
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:142",
+        "src/features/generation/audio/components/audio-settings-panel.tsx:107",
+        "src/features/generation/video/components/video-settings-panel.tsx:305",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1030",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1101",
+        "src/shared/ui/settings-panel.tsx:121",
+        "src/shared/ui/settings-panel.tsx:176",
+        "src/shared/ui/settings-panel.tsx:221"
+      ]
+    },
+    {
+      "value": "bg-white",
+      "count": 2,
+      "locations": [
+        "src/features/canvas/components/canvas-node-crop-dialog.tsx:113",
+        "src/features/canvas/components/canvas-node-hover-toolbar.tsx:372"
+      ]
+    },
+    {
+      "value": "bg-white/15",
+      "count": 1,
+      "locations": [
+        "src/app/shell/HomePage.tsx:139"
+      ]
+    },
+    {
+      "value": "border-black",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node-crop-dialog.tsx:113"
+      ]
+    },
+    {
+      "value": "border-black/10",
+      "count": 2,
+      "locations": [
+        "src/features/canvas/components/canvas-node-hover-toolbar.tsx:372",
+        "src/features/canvas/components/canvas-node-mask-edit-dialog.tsx:130"
+      ]
+    },
+    {
+      "value": "border-current",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/workspace/canvas-refresh-shell.tsx:32"
+      ]
+    },
+    {
+      "value": "border-transparent",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:148"
+      ]
+    },
+    {
+      "value": "border-white",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node-crop-dialog.tsx:101"
+      ]
+    },
+    {
+      "value": "border-white/50",
+      "count": 4,
+      "locations": [
+        "src/features/canvas/components/canvas-node-crop-dialog.tsx:105",
+        "src/features/canvas/components/canvas-node-crop-dialog.tsx:106",
+        "src/features/canvas/components/canvas-node-crop-dialog.tsx:107",
+        "src/features/canvas/components/canvas-node-crop-dialog.tsx:108"
+      ]
+    },
+    {
+      "value": "border-white/90",
+      "count": 2,
+      "locations": [
+        "src/features/canvas/components/canvas-node-split-dialog.tsx:157",
+        "src/features/canvas/components/canvas-node-split-dialog.tsx:164"
+      ]
+    },
+    {
+      "value": "dark:bg-transparent",
+      "count": 1,
+      "locations": [
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1309"
+      ]
+    },
+    {
+      "value": "dark:border-white/10",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node-mask-edit-dialog.tsx:130"
+      ]
+    },
+    {
+      "value": "dark:hover:bg-transparent",
+      "count": 1,
+      "locations": [
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1309"
+      ]
+    },
+    {
+      "value": "dark:hover:bg-white/10",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:123"
+      ]
+    },
+    {
+      "value": "fill-current",
+      "count": 2,
+      "locations": [
+        "src/features/canvas/components/canvas-config-node-panel.tsx:204",
+        "src/features/canvas/components/canvas-node-prompt-panel.tsx:209"
+      ]
+    },
+    {
+      "value": "focus-visible:border-transparent",
+      "count": 1,
+      "locations": [
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1309"
+      ]
+    },
+    {
+      "value": "from-black/70",
+      "count": 1,
+      "locations": [
+        "src/app/shell/HomePage.tsx:134"
+      ]
+    },
+    {
+      "value": "group-hover:bg-[#f0f0f1]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node-hover-toolbar.tsx:564"
+      ]
+    },
+    {
+      "value": "group-hover:bg-black/55",
+      "count": 1,
+      "locations": [
+        "src/features/assets/components/asset-picker-modal.tsx:89"
+      ]
+    },
+    {
+      "value": "hover:bg-black/5",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:123"
+      ]
+    },
+    {
+      "value": "hover:bg-current/20",
+      "count": 1,
+      "locations": [
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:943"
+      ]
+    },
+    {
+      "value": "hover:bg-transparent",
+      "count": 1,
+      "locations": [
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1309"
+      ]
+    },
+    {
+      "value": "hover:bg-white/10",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/workspace/connection-create-menu.tsx:50"
+      ]
+    },
+    {
+      "value": "hover:border-current",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:148"
+      ]
+    },
+    {
+      "value": "ring-[#2f80ff]/24",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-resource-mention-textarea.tsx:256"
+      ]
+    },
+    {
+      "value": "text-[#242529]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node-hover-toolbar.tsx:372"
+      ]
+    },
+    {
+      "value": "text-[#2f80ff]",
+      "count": 3,
+      "locations": [
+        "src/features/canvas/components/canvas-node.tsx:722",
+        "src/features/canvas/components/canvas-node.tsx:744",
+        "src/features/canvas/components/canvas-resource-mention-textarea.tsx:256"
+      ]
+    },
+    {
+      "value": "text-[#ef4444]",
+      "count": 3,
+      "locations": [
+        "src/features/canvas/components/canvas-node-hover-toolbar.tsx:559",
+        "src/features/canvas/components/canvas-node-mask-edit-dialog.tsx:206",
+        "src/features/canvas/components/canvas-node-upscale-dialog.tsx:124"
+      ]
+    },
+    {
+      "value": "text-current",
+      "count": 1,
+      "locations": [
+        "src/features/settings/components/app-config-modal.tsx:341"
+      ]
+    },
+    {
+      "value": "text-red-300",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node.tsx:427"
+      ]
+    },
+    {
+      "value": "text-red-400",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node-hover-toolbar.tsx:507"
+      ]
+    },
+    {
+      "value": "text-transparent",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/app-multi-select-checkbox.tsx:46"
+      ]
+    },
+    {
+      "value": "text-white",
+      "count": 13,
+      "locations": [
+        "src/app/shell/HomePage.tsx:134",
+        "src/app/shell/HomePage.tsx:139",
+        "src/features/assets/components/asset-picker-modal.tsx:89",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1618",
+        "src/features/canvas/components/canvas-node.tsx:537",
+        "src/features/canvas/components/canvas-node.tsx:758",
+        "src/features/generation/image/pages/image-workbench-page.tsx:526",
+        "src/features/generation/image/pages/image-workbench-page.tsx:538",
+        "src/features/generation/video/pages/video-workbench-page.tsx:618",
+        "src/features/generation/video/pages/video-workbench-page.tsx:630",
+        "src/features/generation/video/pages/video-workbench-page.tsx:671",
+        "src/features/generation/video/pages/video-workbench-page.tsx:683",
+        "src/features/generation/video/pages/video-workbench-page.tsx:735"
+      ]
+    },
+    {
+      "value": "text-white/75",
+      "count": 2,
+      "locations": [
+        "src/app/shell/HomePage.tsx:146",
+        "src/features/canvas/components/canvas-node.tsx:537"
+      ]
+    },
+    {
+      "value": "to-transparent",
+      "count": 1,
+      "locations": [
+        "src/app/shell/HomePage.tsx:134"
+      ]
+    },
+    {
+      "value": "via-black/35",
+      "count": 1,
+      "locations": [
+        "src/app/shell/HomePage.tsx:134"
+      ]
+    }
+  ],
+  "dynamicCssProperties": [
+    {
+      "value": "--magicui-theme-toggle-vt-duration",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/animated-theme-toggler.tsx:196"
+      ]
+    },
+    {
+      "value": "--magicui-theme-vt-clip-from",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/animated-theme-toggler.tsx:199"
+      ]
+    }
+  ]
+}

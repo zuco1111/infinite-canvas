@@ -6,6 +6,7 @@ export {
 export {
   AgentChatComposer,
   AgentChatMessage,
+  AgentModeSwitch,
   AgentPanelTabs,
   AgentPendingToolCard,
   AgentWorkingMessage,

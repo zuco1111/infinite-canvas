@@ -1,0 +1,2600 @@
+{
+  "schemaVersion": 1,
+  "kind": "design-system-current-style-values",
+  "sourceRevision": "acd16e3bd164a8cd5efa094e6e97e356dd2e2bd2",
+  "productionInputTreeSha256": "3949a6c8406af61b31d39df177a89dd057168b84d5770d6bb12b53a6a7c25764",
+  "generatedBy": "scripts/audit-design-system-current-values.cjs",
+  "extractionNotes": [
+    "Occurrences are source literal occurrences, not runtime rendered instances.",
+    "Class values cover JSX props ending in className, variables ending in ClassName, and cn/clsx/twMerge string arguments.",
+    "Dynamic runtime geometry and user content values remain explicit exceptions in INVENTORY.md."
+  ],
+  "section": "visual",
+  "extraction": {
+    "stringLiterals": 1228,
+    "uniqueTokens": 791,
+    "tokenOccurrences": 4455,
+    "contexts": [
+      "call:cn",
+      "jsx:buttonClassName",
+      "jsx:className",
+      "jsx:footerClassName",
+      "jsx:heightClassName",
+      "jsx:mainClassName",
+      "variable:aspectClassName",
+      "variable:modelPickerClassName",
+      "variable:toneClassName",
+      "variable:workbenchResultActionButtonClassName",
+      "variable:workbenchTagClassName",
+      "variable:workbenchTagToneClassName"
+    ]
+  },
+  "typography": [
+    {
+      "value": "!font-medium",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:166"
+      ]
+    },
+    {
+      "value": "!leading-5",
+      "count": 1,
+      "locations": [
+        "src/features/assets/pages/assets-page.tsx:547"
+      ]
+    },
+    {
+      "value": "!text-[var(--destructive)]",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/workbench-page.tsx:268"
+      ]
+    },
+    {
+      "value": "!text-xs",
+      "count": 2,
+      "locations": [
+        "src/features/assets/pages/assets-page.tsx:547",
+        "src/shared/ui/workbench-page.tsx:268"
+      ]
+    },
+    {
+      "value": "[&_.ant-segmented-item-label]:!leading-8",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-toolbar.tsx:310"
+      ]
+    },
+    {
+      "value": "*:data-[slot=select-value]:line-clamp-1",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/select.tsx:28"
+      ]
+    },
+    {
+      "value": "break-words",
+      "count": 6,
+      "locations": [
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:92",
+        "src/features/canvas/components/canvas-config-composer.tsx:164",
+        "src/features/canvas/components/canvas-node-hover-toolbar.tsx:578",
+        "src/features/canvas/components/canvas-node.tsx:505",
+        "src/features/canvas/components/canvas-node.tsx:521",
+        "src/features/canvas/components/canvas-resource-mention-textarea.tsx:145"
+      ]
+    },
+    {
+      "value": "data-highlighted:text-foreground",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/select.tsx:90"
+      ]
+    },
+    {
+      "value": "data-placeholder:text-muted-foreground",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/select.tsx:28"
+      ]
+    },
+    {
+      "value": "focus:text-foreground",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/select.tsx:90"
+      ]
+    },
+    {
+      "value": "font-bold",
+      "count": 1,
+      "locations": [
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1112"
+      ]
+    },
+    {
+      "value": "font-medium",
+      "count": 59,
+      "locations": [
+        "src/app/shell/HomePage.tsx:34",
+        "src/app/shell/HomePage.tsx:145",
+        "src/app/shell/components/app-top-nav.tsx:39",
+        "src/app/shell/components/app-top-nav.tsx:63",
+        "src/app/shell/components/mobile-nav-drawer.tsx:37",
+        "src/features/assets/components/asset-picker-modal.tsx:83",
+        "src/features/assets/components/asset-picker-modal.tsx:89",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:144",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:228",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:481",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1421",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1427",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1484",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1618",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1625",
+        "src/features/canvas/components/canvas-config-composer.tsx:287",
+        "src/features/canvas/components/canvas-config-node-panel.tsx:234",
+        "src/features/canvas/components/canvas-node-angle-dialog.tsx:108",
+        "src/features/canvas/components/canvas-node-angle-dialog.tsx:155",
+        "src/features/canvas/components/canvas-node-mask-edit-dialog.tsx:188",
+        "src/features/canvas/components/canvas-node-mask-edit-dialog.tsx:195",
+        "src/features/canvas/components/canvas-node-mask-edit-dialog.tsx:206",
+        "src/features/canvas/components/canvas-node-prompt-panel.tsx:210",
+        "src/features/canvas/components/canvas-node-split-dialog.tsx:138",
+        "src/features/canvas/components/canvas-node-upscale-dialog.tsx:110",
+        "src/features/canvas/components/canvas-node-upscale-dialog.tsx:124",
+        "src/features/canvas/components/canvas-node-upscale-dialog.tsx:130",
+        "src/features/canvas/components/canvas-node-upscale-dialog.tsx:138",
+        "src/features/canvas/components/canvas-node.tsx:432",
+        "src/features/canvas/components/canvas-node.tsx:484",
+        "src/features/canvas/components/canvas-node.tsx:537",
+        "src/features/canvas/components/canvas-node.tsx:731",
+        "src/features/canvas/components/canvas-node.tsx:758",
+        "src/features/canvas/components/canvas-resource-mention-textarea.tsx:256",
+        "src/features/canvas/components/canvas-resource-mention-textarea.tsx:348",
+        "src/features/canvas/components/canvas-toolbar.tsx:293",
+        "src/features/canvas/components/canvas-toolbar.tsx:294",
+        "src/features/canvas/components/canvas-toolbar.tsx:308",
+        "src/features/canvas/components/canvas-toolbar.tsx:342",
+        "src/features/canvas/components/workspace/canvas-overlays.tsx:139",
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:233",
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:256",
+        "src/features/canvas/components/workspace/connection-create-menu.tsx:45",
+        "src/features/canvas/pages/canvas-library-page.tsx:152",
+        "src/features/generation/image/components/image-settings-panel.tsx:99",
+        "src/features/generation/image/pages/image-workbench-page.tsx:526",
+        "src/features/generation/video/pages/video-workbench-page.tsx:618",
+        "src/features/generation/video/pages/video-workbench-page.tsx:671",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1095",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1126",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1158",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1175",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1283",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1289",
+        "src/features/settings/components/app-config-modal.tsx:737",
+        "src/shared/ui/catalog-page.tsx:82",
+        "src/shared/ui/catalog-page.tsx:154",
+        "src/shared/ui/settings-panel.tsx:65",
+        "src/shared/ui/workbench-page.tsx:265"
+      ]
+    },
+    {
+      "value": "font-mono",
+      "count": 5,
+      "locations": [
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:275",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1574",
+        "src/features/canvas/components/canvas-node.tsx:505",
+        "src/features/canvas/components/canvas-node.tsx:521",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1030"
+      ]
+    },
+    {
+      "value": "font-normal",
+      "count": 8,
+      "locations": [
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:155",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:238",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:481",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1309",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1163",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1180",
+        "src/features/settings/components/app-config-modal.tsx:310",
+        "src/features/settings/components/model-picker.tsx:76"
+      ]
+    },
+    {
+      "value": "font-semibold",
+      "count": 47,
+      "locations": [
+        "src/app/shell/HomePage.tsx:67",
+        "src/app/shell/HomePage.tsx:100",
+        "src/app/shell/components/app-top-nav.tsx:31",
+        "src/features/assets/pages/assets-page.tsx:535",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:141",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:225",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1242",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1476",
+        "src/features/canvas/components/canvas-config-composer.tsx:134",
+        "src/features/canvas/components/canvas-config-node-panel.tsx:81",
+        "src/features/canvas/components/canvas-node-angle-dialog.tsx:55",
+        "src/features/canvas/components/canvas-node-angle-dialog.tsx:157",
+        "src/features/canvas/components/canvas-node-mask-edit-dialog.tsx:163",
+        "src/features/canvas/components/canvas-node-mask-edit-dialog.tsx:189",
+        "src/features/canvas/components/canvas-node-split-dialog.tsx:63",
+        "src/features/canvas/components/canvas-node-split-dialog.tsx:83",
+        "src/features/canvas/components/canvas-node-split-dialog.tsx:102",
+        "src/features/canvas/components/canvas-node-split-dialog.tsx:106",
+        "src/features/canvas/components/canvas-node-upscale-dialog.tsx:89",
+        "src/features/canvas/components/canvas-node-upscale-dialog.tsx:103",
+        "src/features/canvas/components/canvas-node-upscale-dialog.tsx:154",
+        "src/features/canvas/components/canvas-node.tsx:708",
+        "src/features/canvas/components/canvas-project-card.tsx:67",
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:142",
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:148",
+        "src/features/canvas/components/workspace/connection-create-menu.tsx:124",
+        "src/features/canvas/pages/canvas-library-page.tsx:92",
+        "src/features/generation/audio/components/audio-settings-panel.tsx:50",
+        "src/features/generation/image/components/image-settings-panel.tsx:79",
+        "src/features/generation/image/pages/image-workbench-page.tsx:867",
+        "src/features/generation/shared/components/workbench-model-field.tsx:20",
+        "src/features/generation/video/components/video-settings-panel.tsx:85",
+        "src/features/generation/video/components/video-settings-panel.tsx:193",
+        "src/features/generation/video/pages/video-workbench-page.tsx:1037",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:986",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1085",
+        "src/features/prompts/components/prompt-card.tsx:40",
+        "src/features/settings/components/app-config-modal.tsx:309",
+        "src/features/settings/components/app-config-modal.tsx:341",
+        "src/features/settings/components/app-config-modal.tsx:369",
+        "src/features/settings/components/app-config-modal.tsx:451",
+        "src/features/settings/components/app-config-modal.tsx:569",
+        "src/shared/ui/catalog-page.tsx:60",
+        "src/shared/ui/workbench-page.tsx:67",
+        "src/shared/ui/workbench-page.tsx:78",
+        "src/shared/ui/workbench-page.tsx:87",
+        "src/shared/ui/workbench-page.tsx:286"
+      ]
+    },
+    {
+      "value": "font-serif",
+      "count": 2,
+      "locations": [
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1112",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1125"
+      ]
+    },
+    {
+      "value": "hover:text-foreground",
+      "count": 3,
+      "locations": [
+        "src/app/shell/components/app-top-nav.tsx:44",
+        "src/app/shell/components/app-top-nav.tsx:64",
+        "src/app/shell/components/mobile-nav-drawer.tsx:38"
+      ]
+    },
+    {
+      "value": "leading-[100%]",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/dia-text-reveal.tsx:236"
+      ]
+    },
+    {
+      "value": "leading-4",
+      "count": 5,
+      "locations": [
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:509",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1429",
+        "src/features/generation/video/components/video-settings-panel.tsx:212",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1128",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1293"
+      ]
+    },
+    {
+      "value": "leading-5",
+      "count": 31,
+      "locations": [
+        "src/app/shell/HomePage.tsx:146",
+        "src/features/assets/components/asset-picker-modal.tsx:77",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:141",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:225",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:367",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1242",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1427",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1477",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1484",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1485",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1574",
+        "src/features/canvas/components/canvas-node-hover-toolbar.tsx:516",
+        "src/features/canvas/components/canvas-node-prompt-panel.tsx:114",
+        "src/features/canvas/components/canvas-node-upscale-dialog.tsx:137",
+        "src/features/canvas/components/canvas-node.tsx:427",
+        "src/features/canvas/components/workspace/connection-create-menu.tsx:124",
+        "src/features/generation/audio/components/audio-settings-panel.tsx:107",
+        "src/features/generation/image/pages/image-workbench-page.tsx:867",
+        "src/features/generation/video/pages/video-workbench-page.tsx:1037",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1030",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1086",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1095",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1096",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1104",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1126",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1142",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1192",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1289",
+        "src/features/prompts/components/prompt-card.tsx:45",
+        "src/features/prompts/components/prompt-detail-dialog.tsx:38",
+        "src/shared/ui/app-surface.tsx:41"
+      ]
+    },
+    {
+      "value": "leading-6",
+      "count": 10,
+      "locations": [
+        "src/app/shell/components/app-top-nav.tsx:61",
+        "src/features/assets/pages/assets-page.tsx:526",
+        "src/features/assets/pages/assets-page.tsx:618",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:89",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:162",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:244",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1476",
+        "src/features/canvas/components/canvas-project-card.tsx:68",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:986",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1085"
+      ]
+    },
+    {
+      "value": "leading-7",
+      "count": 4,
+      "locations": [
+        "src/app/shell/HomePage.tsx:101",
+        "src/features/canvas/components/canvas-config-composer.tsx:154",
+        "src/features/canvas/components/canvas-config-composer.tsx:164",
+        "src/features/prompts/components/prompt-detail-dialog.tsx:51"
+      ]
+    },
+    {
+      "value": "leading-8",
+      "count": 1,
+      "locations": [
+        "src/app/shell/HomePage.tsx:70"
+      ]
+    },
+    {
+      "value": "leading-none",
+      "count": 8,
+      "locations": [
+        "src/app/shell/components/app-top-nav.tsx:31",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1618",
+        "src/features/canvas/components/canvas-node.tsx:722",
+        "src/features/canvas/components/canvas-node.tsx:758",
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:256",
+        "src/features/generation/video/components/video-settings-panel.tsx:140",
+        "src/features/generation/video/components/video-settings-panel.tsx:234",
+        "src/shared/ui/workbench-style.ts:4"
+      ]
+    },
+    {
+      "value": "lg:text-8xl",
+      "count": 1,
+      "locations": [
+        "src/app/shell/HomePage.tsx:67"
+      ]
+    },
+    {
+      "value": "line-clamp-1",
+      "count": 3,
+      "locations": [
+        "src/features/assets/components/asset-picker-modal.tsx:83",
+        "src/features/assets/pages/assets-page.tsx:535",
+        "src/features/prompts/components/prompt-card.tsx:40"
+      ]
+    },
+    {
+      "value": "line-clamp-2",
+      "count": 1,
+      "locations": [
+        "src/app/shell/HomePage.tsx:146"
+      ]
+    },
+    {
+      "value": "line-clamp-3",
+      "count": 1,
+      "locations": [
+        "src/features/prompts/components/prompt-card.tsx:45"
+      ]
+    },
+    {
+      "value": "list-none",
+      "count": 2,
+      "locations": [
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:128",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:216"
+      ]
+    },
+    {
+      "value": "peer-checked:text-primary-foreground",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/app-multi-select-checkbox.tsx:46"
+      ]
+    },
+    {
+      "value": "sm:text-7xl",
+      "count": 1,
+      "locations": [
+        "src/app/shell/HomePage.tsx:67"
+      ]
+    },
+    {
+      "value": "sm:text-base",
+      "count": 1,
+      "locations": [
+        "src/features/generation/shared/components/workbench-model-field.tsx:20"
+      ]
+    },
+    {
+      "value": "text-[#242529]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node-hover-toolbar.tsx:372"
+      ]
+    },
+    {
+      "value": "text-[#2f80ff]",
+      "count": 3,
+      "locations": [
+        "src/features/canvas/components/canvas-node.tsx:722",
+        "src/features/canvas/components/canvas-node.tsx:744",
+        "src/features/canvas/components/canvas-resource-mention-textarea.tsx:256"
+      ]
+    },
+    {
+      "value": "text-[#ef4444]",
+      "count": 3,
+      "locations": [
+        "src/features/canvas/components/canvas-node-hover-toolbar.tsx:559",
+        "src/features/canvas/components/canvas-node-mask-edit-dialog.tsx:206",
+        "src/features/canvas/components/canvas-node-upscale-dialog.tsx:124"
+      ]
+    },
+    {
+      "value": "text-[10px]",
+      "count": 13,
+      "locations": [
+        "src/features/assets/components/asset-picker-modal.tsx:84",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1421",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1434",
+        "src/features/canvas/components/canvas-node.tsx:415",
+        "src/features/canvas/components/canvas-node.tsx:537",
+        "src/features/canvas/components/canvas-node.tsx:602",
+        "src/features/generation/image/pages/image-workbench-page.tsx:526",
+        "src/features/generation/video/components/video-settings-panel.tsx:234",
+        "src/features/generation/video/pages/video-workbench-page.tsx:618",
+        "src/features/generation/video/pages/video-workbench-page.tsx:671",
+        "src/features/generation/video/pages/video-workbench-page.tsx:720",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1283",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1298"
+      ]
+    },
+    {
+      "value": "text-[11px]",
+      "count": 23,
+      "locations": [
+        "src/app/shell/HomePage.tsx:139",
+        "src/features/assets/pages/assets-page.tsx:540",
+        "src/features/assets/pages/assets-page.tsx:553",
+        "src/features/assets/pages/assets-page.tsx:557",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:96",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:144",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:228",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:509",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1429",
+        "src/features/canvas/components/canvas-config-composer.tsx:135",
+        "src/features/canvas/components/canvas-config-node-panel.tsx:139",
+        "src/features/canvas/components/canvas-config-node-panel.tsx:230",
+        "src/features/canvas/components/canvas-node.tsx:758",
+        "src/features/canvas/components/canvas-toolbar.tsx:294",
+        "src/features/canvas/components/canvas-toolbar.tsx:308",
+        "src/features/canvas/components/canvas-toolbar.tsx:342",
+        "src/features/generation/video/components/video-settings-panel.tsx:140",
+        "src/features/generation/video/components/video-settings-panel.tsx:212",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:908",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1104",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1128",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1293",
+        "src/features/prompts/components/prompt-card.tsx:48"
+      ]
+    },
+    {
+      "value": "text-[13px]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-image-toolbar-settings-modal.tsx:208"
+      ]
+    },
+    {
+      "value": "text-[15px]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node-hover-toolbar.tsx:372"
+      ]
+    },
+    {
+      "value": "text-[8px]",
+      "count": 1,
+      "locations": [
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1618"
+      ]
+    },
+    {
+      "value": "text-[var(--destructive)]",
+      "count": 3,
+      "locations": [
+        "src/shared/ui/app-surface.tsx:12",
+        "src/shared/ui/workbench-page.tsx:265",
+        "src/shared/ui/workbench-style.ts:10"
+      ]
+    },
+    {
+      "value": "text-[var(--success)]",
+      "count": 2,
+      "locations": [
+        "src/shared/ui/app-surface.tsx:13",
+        "src/shared/ui/workbench-style.ts:9"
+      ]
+    },
+    {
+      "value": "text-[var(--warning)]",
+      "count": 2,
+      "locations": [
+        "src/shared/ui/app-surface.tsx:10",
+        "src/shared/ui/workbench-style.ts:11"
+      ]
+    },
+    {
+      "value": "text-2xl",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/workbench-page.tsx:78"
+      ]
+    },
+    {
+      "value": "text-3xl",
+      "count": 2,
+      "locations": [
+        "src/app/shell/HomePage.tsx:100",
+        "src/features/canvas/pages/canvas-library-page.tsx:92"
+      ]
+    },
+    {
+      "value": "text-4xl",
+      "count": 2,
+      "locations": [
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1112",
+        "src/shared/ui/catalog-page.tsx:60"
+      ]
+    },
+    {
+      "value": "text-5xl",
+      "count": 1,
+      "locations": [
+        "src/app/shell/HomePage.tsx:67"
+      ]
+    },
+    {
+      "value": "text-balance",
+      "count": 2,
+      "locations": [
+        "src/app/shell/HomePage.tsx:67",
+        "src/app/shell/HomePage.tsx:70"
+      ]
+    },
+    {
+      "value": "text-base",
+      "count": 13,
+      "locations": [
+        "src/app/shell/HomePage.tsx:101",
+        "src/app/shell/components/app-top-nav.tsx:39",
+        "src/app/shell/components/mobile-nav-drawer.tsx:35",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1125",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1242",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1476",
+        "src/features/canvas/components/workspace/canvas-overlays.tsx:139",
+        "src/features/canvas/components/workspace/connection-create-menu.tsx:50",
+        "src/features/canvas/components/workspace/connection-create-menu.tsx:124",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:986",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1085",
+        "src/shared/ui/workbench-page.tsx:87",
+        "src/shared/ui/workbench-page.tsx:286"
+      ]
+    },
+    {
+      "value": "text-center",
+      "count": 22,
+      "locations": [
+        "src/app/shell/HomePage.tsx:66",
+        "src/app/shell/HomePage.tsx:99",
+        "src/features/assets/components/asset-picker-modal.tsx:77",
+        "src/features/assets/pages/assets-page.tsx:428",
+        "src/features/assets/pages/assets-page.tsx:526",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:55",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1110",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1455",
+        "src/features/canvas/components/canvas-node.tsx:426",
+        "src/features/canvas/components/workspace/canvas-overlays.tsx:139",
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:256",
+        "src/features/canvas/pages/canvas-library-page.tsx:151",
+        "src/features/generation/video/components/video-settings-panel.tsx:305",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1326",
+        "src/features/prompts/components/prompt-select-dialog.tsx:124",
+        "src/shared/ui/catalog-page.tsx:59",
+        "src/shared/ui/catalog-page.tsx:164",
+        "src/shared/ui/settings-panel.tsx:221",
+        "src/shared/ui/workbench-page.tsx:117",
+        "src/shared/ui/workbench-page.tsx:180",
+        "src/shared/ui/workbench-page.tsx:261",
+        "src/shared/ui/workbench-page.tsx:296"
+      ]
+    },
+    {
+      "value": "text-current",
+      "count": 1,
+      "locations": [
+        "src/features/settings/components/app-config-modal.tsx:341"
+      ]
+    },
+    {
+      "value": "text-foreground",
+      "count": 25,
+      "locations": [
+        "src/app/shell/HomePage.tsx:34",
+        "src/app/shell/HomePage.tsx:61",
+        "src/app/shell/HomePage.tsx:100",
+        "src/app/shell/UserLayout.tsx:9",
+        "src/app/shell/components/app-top-nav.tsx:31",
+        "src/app/shell/components/app-top-nav.tsx:63",
+        "src/app/shell/components/mobile-nav-drawer.tsx:37",
+        "src/features/assets/components/asset-picker-modal.tsx:83",
+        "src/features/assets/pages/assets-page.tsx:535",
+        "src/features/canvas/components/workspace/canvas-refresh-shell.tsx:5",
+        "src/features/canvas/pages/canvas-library-page.tsx:87",
+        "src/features/prompts/components/prompt-card.tsx:40",
+        "src/features/prompts/components/prompt-detail-dialog.tsx:51",
+        "src/features/settings/components/app-config-modal.tsx:737",
+        "src/shared/ui/app-multi-select-checkbox.tsx:28",
+        "src/shared/ui/app-surface.tsx:8",
+        "src/shared/ui/app-surface.tsx:9",
+        "src/shared/ui/catalog-page.tsx:33",
+        "src/shared/ui/catalog-page.tsx:60",
+        "src/shared/ui/catalog-page.tsx:154",
+        "src/shared/ui/select.tsx:28",
+        "src/shared/ui/workbench-page.tsx:17",
+        "src/shared/ui/workbench-page.tsx:78",
+        "src/shared/ui/workbench-style.ts:21",
+        "src/shared/ui/workbench-style.ts:22"
+      ]
+    },
+    {
+      "value": "text-inherit",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/dia-text-reveal.tsx:236"
+      ]
+    },
+    {
+      "value": "text-left",
+      "count": 19,
+      "locations": [
+        "src/app/shell/HomePage.tsx:124",
+        "src/features/assets/components/asset-picker-modal.tsx:71",
+        "src/features/assets/pages/assets-page.tsx:276",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:89",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:92",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:213",
+        "src/features/canvas/components/canvas-config-composer.tsx:274",
+        "src/features/canvas/components/canvas-context-menu.tsx:70",
+        "src/features/canvas/components/canvas-node-upscale-dialog.tsx:137",
+        "src/features/canvas/components/canvas-project-card.tsx:61",
+        "src/features/canvas/components/canvas-resource-mention-textarea.tsx:330",
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:142",
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:148",
+        "src/features/canvas/components/workspace/connection-create-menu.tsx:111",
+        "src/features/prompts/pages/prompts-page.tsx:97",
+        "src/features/settings/components/model-picker.tsx:87",
+        "src/shared/ui/catalog-page.tsx:204",
+        "src/shared/ui/catalog-page.tsx:210",
+        "src/shared/ui/workbench-style.ts:19"
+      ]
+    },
+    {
+      "value": "text-lg",
+      "count": 10,
+      "locations": [
+        "src/app/shell/HomePage.tsx:70",
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:142",
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:148",
+        "src/features/generation/audio/components/audio-settings-panel.tsx:50",
+        "src/features/generation/image/components/image-settings-panel.tsx:79",
+        "src/features/generation/image/components/image-settings-panel.tsx:125",
+        "src/features/generation/video/components/video-settings-panel.tsx:85",
+        "src/features/generation/video/components/video-settings-panel.tsx:114",
+        "src/features/generation/video/components/video-settings-panel.tsx:193",
+        "src/features/settings/components/app-config-modal.tsx:309"
+      ]
+    },
+    {
+      "value": "text-muted-foreground",
+      "count": 40,
+      "locations": [
+        "src/app/routes/AppRoutes.tsx:44",
+        "src/app/shell/HomePage.tsx:70",
+        "src/app/shell/HomePage.tsx:101",
+        "src/app/shell/components/app-top-nav.tsx:44",
+        "src/app/shell/components/app-top-nav.tsx:64",
+        "src/app/shell/components/mobile-nav-drawer.tsx:38",
+        "src/features/assets/components/asset-picker-modal.tsx:77",
+        "src/features/assets/components/asset-picker-modal.tsx:178",
+        "src/features/assets/pages/assets-page.tsx:262",
+        "src/features/assets/pages/assets-page.tsx:428",
+        "src/features/assets/pages/assets-page.tsx:526",
+        "src/features/assets/pages/assets-page.tsx:618",
+        "src/features/canvas/components/canvas-delete-projects-dialog.tsx:37",
+        "src/features/canvas/components/canvas-project-card.tsx:68",
+        "src/features/canvas/components/canvas-project-card.tsx:75",
+        "src/features/canvas/pages/canvas-library-page.tsx:81",
+        "src/features/canvas/pages/canvas-library-page.tsx:91",
+        "src/features/canvas/pages/canvas-library-page.tsx:141",
+        "src/features/canvas/pages/canvas-library-page.tsx:153",
+        "src/features/generation/video/pages/video-workbench-page.tsx:718",
+        "src/features/prompts/components/prompt-card.tsx:41",
+        "src/features/prompts/components/prompt-card.tsx:45",
+        "src/features/prompts/components/prompt-detail-dialog.tsx:38",
+        "src/features/prompts/components/prompt-detail-dialog.tsx:54",
+        "src/features/prompts/components/prompt-select-dialog.tsx:70",
+        "src/features/prompts/pages/prompts-page.tsx:91",
+        "src/features/settings/components/app-config-modal.tsx:636",
+        "src/features/settings/components/app-config-modal.tsx:738",
+        "src/shared/ui/app-surface.tsx:41",
+        "src/shared/ui/catalog-page.tsx:61",
+        "src/shared/ui/catalog-page.tsx:82",
+        "src/shared/ui/catalog-page.tsx:164",
+        "src/shared/ui/select.tsx:36",
+        "src/shared/ui/workbench-page.tsx:117",
+        "src/shared/ui/workbench-page.tsx:164",
+        "src/shared/ui/workbench-page.tsx:181",
+        "src/shared/ui/workbench-page.tsx:207",
+        "src/shared/ui/workbench-page.tsx:240",
+        "src/shared/ui/workbench-page.tsx:296",
+        "src/shared/ui/workbench-style.ts:7"
+      ]
+    },
+    {
+      "value": "text-popover-foreground",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/select.tsx:56"
+      ]
+    },
+    {
+      "value": "text-primary-foreground",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/workbench-style.ts:8"
+      ]
+    },
+    {
+      "value": "text-red-300",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node.tsx:427"
+      ]
+    },
+    {
+      "value": "text-red-400",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node-hover-toolbar.tsx:507"
+      ]
+    },
+    {
+      "value": "text-right",
+      "count": 5,
+      "locations": [
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:89",
+        "src/features/canvas/components/canvas-node-angle-dialog.tsx:157",
+        "src/features/canvas/components/canvas-zoom-controls.tsx:76",
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:268",
+        "src/features/settings/components/app-config-modal.tsx:738"
+      ]
+    },
+    {
+      "value": "text-secondary-foreground",
+      "count": 1,
+      "locations": [
+        "src/features/generation/video/pages/video-workbench-page.tsx:720"
+      ]
+    },
+    {
+      "value": "text-sm",
+      "count": 88,
+      "locations": [
+        "src/app/routes/AppRoutes.tsx:44",
+        "src/app/shell/HomePage.tsx:145",
+        "src/app/shell/components/app-top-nav.tsx:31",
+        "src/app/shell/components/app-top-nav.tsx:61",
+        "src/features/assets/components/asset-picker-modal.tsx:89",
+        "src/features/assets/pages/assets-page.tsx:428",
+        "src/features/assets/pages/assets-page.tsx:526",
+        "src/features/assets/pages/assets-page.tsx:535",
+        "src/features/assets/pages/assets-page.tsx:618",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:89",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:141",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:162",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:225",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:244",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:275",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:367",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:471",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1200",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1403",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1427",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1455",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1484",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1611",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1625",
+        "src/features/canvas/components/canvas-config-composer.tsx:154",
+        "src/features/canvas/components/canvas-config-composer.tsx:164",
+        "src/features/canvas/components/canvas-config-node-panel.tsx:76",
+        "src/features/canvas/components/canvas-config-node-panel.tsx:81",
+        "src/features/canvas/components/canvas-delete-projects-dialog.tsx:37",
+        "src/features/canvas/components/canvas-node-angle-dialog.tsx:56",
+        "src/features/canvas/components/canvas-node-crop-dialog.tsx:124",
+        "src/features/canvas/components/canvas-node-hover-toolbar.tsx:473",
+        "src/features/canvas/components/canvas-node-mask-edit-dialog.tsx:164",
+        "src/features/canvas/components/canvas-node-mask-edit-dialog.tsx:187",
+        "src/features/canvas/components/canvas-node-mask-edit-dialog.tsx:195",
+        "src/features/canvas/components/canvas-node-prompt-panel.tsx:114",
+        "src/features/canvas/components/canvas-node-split-dialog.tsx:64",
+        "src/features/canvas/components/canvas-node-split-dialog.tsx:81",
+        "src/features/canvas/components/canvas-node-split-dialog.tsx:99",
+        "src/features/canvas/components/canvas-node-upscale-dialog.tsx:101",
+        "src/features/canvas/components/canvas-node-upscale-dialog.tsx:151",
+        "src/features/canvas/components/canvas-node.tsx:454",
+        "src/features/canvas/components/canvas-node.tsx:628",
+        "src/features/canvas/components/canvas-node.tsx:649",
+        "src/features/canvas/components/canvas-node.tsx:657",
+        "src/features/canvas/components/canvas-project-card.tsx:68",
+        "src/features/canvas/components/canvas-toolbar.tsx:293",
+        "src/features/canvas/components/canvas-toolbar.tsx:436",
+        "src/features/canvas/components/workspace/canvas-overlays.tsx:191",
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:186",
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:233",
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:268",
+        "src/features/canvas/components/workspace/connection-create-menu.tsx:45",
+        "src/features/canvas/components/workspace/connection-create-menu.tsx:126",
+        "src/features/canvas/pages/canvas-library-page.tsx:81",
+        "src/features/canvas/pages/canvas-library-page.tsx:141",
+        "src/features/canvas/pages/canvas-library-page.tsx:153",
+        "src/features/generation/audio/components/audio-settings-panel.tsx:107",
+        "src/features/generation/image/pages/image-workbench-page.tsx:867",
+        "src/features/generation/shared/components/workbench-model-field.tsx:20",
+        "src/features/generation/video/components/video-settings-panel.tsx:299",
+        "src/features/generation/video/components/video-settings-panel.tsx:340",
+        "src/features/generation/video/pages/video-workbench-page.tsx:1037",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1095",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1126",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1242",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1289",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1326",
+        "src/features/prompts/components/prompt-card.tsx:40",
+        "src/features/prompts/components/prompt-detail-dialog.tsx:51",
+        "src/features/settings/components/app-config-modal.tsx:369",
+        "src/features/settings/components/app-config-modal.tsx:451",
+        "src/features/settings/components/app-config-modal.tsx:569",
+        "src/features/settings/components/model-picker.tsx:76",
+        "src/shared/ui/app-multi-select-checkbox.tsx:28",
+        "src/shared/ui/catalog-page.tsx:61",
+        "src/shared/ui/catalog-page.tsx:154",
+        "src/shared/ui/select.tsx:28",
+        "src/shared/ui/select.tsx:90",
+        "src/shared/ui/settings-panel.tsx:88",
+        "src/shared/ui/settings-panel.tsx:121",
+        "src/shared/ui/settings-panel.tsx:165",
+        "src/shared/ui/settings-panel.tsx:221",
+        "src/shared/ui/workbench-page.tsx:117",
+        "src/shared/ui/workbench-page.tsx:163",
+        "src/shared/ui/workbench-page.tsx:240",
+        "src/shared/ui/workbench-page.tsx:265",
+        "src/shared/ui/workbench-page.tsx:296"
+      ]
+    },
+    {
+      "value": "text-transparent",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/app-multi-select-checkbox.tsx:46"
+      ]
+    },
+    {
+      "value": "text-white",
+      "count": 13,
+      "locations": [
+        "src/app/shell/HomePage.tsx:134",
+        "src/app/shell/HomePage.tsx:139",
+        "src/features/assets/components/asset-picker-modal.tsx:89",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1618",
+        "src/features/canvas/components/canvas-node.tsx:537",
+        "src/features/canvas/components/canvas-node.tsx:758",
+        "src/features/generation/image/pages/image-workbench-page.tsx:526",
+        "src/features/generation/image/pages/image-workbench-page.tsx:538",
+        "src/features/generation/video/pages/video-workbench-page.tsx:618",
+        "src/features/generation/video/pages/video-workbench-page.tsx:630",
+        "src/features/generation/video/pages/video-workbench-page.tsx:671",
+        "src/features/generation/video/pages/video-workbench-page.tsx:683",
+        "src/features/generation/video/pages/video-workbench-page.tsx:735"
+      ]
+    },
+    {
+      "value": "text-white/75",
+      "count": 2,
+      "locations": [
+        "src/app/shell/HomePage.tsx:146",
+        "src/features/canvas/components/canvas-node.tsx:537"
+      ]
+    },
+    {
+      "value": "text-xl",
+      "count": 7,
+      "locations": [
+        "src/features/canvas/components/canvas-node-angle-dialog.tsx:55",
+        "src/features/canvas/components/canvas-node-mask-edit-dialog.tsx:163",
+        "src/features/canvas/components/canvas-node-split-dialog.tsx:63",
+        "src/features/canvas/components/canvas-node-upscale-dialog.tsx:89",
+        "src/features/canvas/components/canvas-project-card.tsx:67",
+        "src/features/canvas/pages/canvas-library-page.tsx:152",
+        "src/shared/ui/workbench-page.tsx:67"
+      ]
+    },
+    {
+      "value": "text-xs",
+      "count": 65,
+      "locations": [
+        "src/app/shell/HomePage.tsx:146",
+        "src/features/assets/components/asset-picker-modal.tsx:77",
+        "src/features/assets/components/asset-picker-modal.tsx:83",
+        "src/features/assets/pages/assets-page.tsx:406",
+        "src/features/assets/pages/assets-page.tsx:410",
+        "src/features/assets/pages/assets-page.tsx:536",
+        "src/features/assets/pages/assets-page.tsx:636",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:54",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:155",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:238",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:433",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1243",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1251",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1309",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1346",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1477",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1485",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1540",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1574",
+        "src/features/canvas/components/canvas-config-composer.tsx:134",
+        "src/features/canvas/components/canvas-config-composer.tsx:274",
+        "src/features/canvas/components/canvas-context-menu.tsx:70",
+        "src/features/canvas/components/canvas-node-hover-toolbar.tsx:516",
+        "src/features/canvas/components/canvas-node-mask-edit-dialog.tsx:206",
+        "src/features/canvas/components/canvas-node-prompt-panel.tsx:210",
+        "src/features/canvas/components/canvas-node-upscale-dialog.tsx:124",
+        "src/features/canvas/components/canvas-node-upscale-dialog.tsx:139",
+        "src/features/canvas/components/canvas-node.tsx:427",
+        "src/features/canvas/components/canvas-node.tsx:432",
+        "src/features/canvas/components/canvas-node.tsx:484",
+        "src/features/canvas/components/canvas-node.tsx:708",
+        "src/features/canvas/components/canvas-node.tsx:731",
+        "src/features/canvas/components/canvas-project-card.tsx:75",
+        "src/features/canvas/components/canvas-resource-mention-textarea.tsx:330",
+        "src/features/canvas/components/canvas-toolbar.tsx:449",
+        "src/features/canvas/components/canvas-zoom-controls.tsx:76",
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:210",
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:254",
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:256",
+        "src/features/canvas/pages/canvas-library-page.tsx:91",
+        "src/features/generation/image/components/image-settings-panel.tsx:99",
+        "src/features/generation/video/pages/video-workbench-page.tsx:718",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:999",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1030",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1086",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1096",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1142",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1158",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1175",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1192",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1232",
+        "src/features/prompts/components/prompt-card.tsx:41",
+        "src/features/prompts/components/prompt-card.tsx:45",
+        "src/features/prompts/components/prompt-detail-dialog.tsx:38",
+        "src/features/prompts/components/prompt-detail-dialog.tsx:54",
+        "src/features/settings/components/app-config-modal.tsx:341",
+        "src/features/settings/components/app-config-modal.tsx:636",
+        "src/features/settings/components/app-config-modal.tsx:736",
+        "src/shared/ui/app-surface.tsx:41",
+        "src/shared/ui/app-surface.tsx:59",
+        "src/shared/ui/catalog-page.tsx:82",
+        "src/shared/ui/catalog-page.tsx:164",
+        "src/shared/ui/settings-panel.tsx:65",
+        "src/shared/ui/workbench-page.tsx:207",
+        "src/shared/ui/workbench-style.ts:4"
+      ]
+    },
+    {
+      "value": "tracking-[0.18em]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node.tsx:602"
+      ]
+    },
+    {
+      "value": "tracking-[0.2em]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node.tsx:415"
+      ]
+    },
+    {
+      "value": "tracking-normal",
+      "count": 4,
+      "locations": [
+        "src/app/shell/HomePage.tsx:67",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1112",
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:142",
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:148"
+      ]
+    },
+    {
+      "value": "tracking-tight",
+      "count": 2,
+      "locations": [
+        "src/app/shell/components/app-top-nav.tsx:31",
+        "src/shared/ui/catalog-page.tsx:60"
+      ]
+    },
+    {
+      "value": "tracking-wide",
+      "count": 1,
+      "locations": [
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1125"
+      ]
+    },
+    {
+      "value": "whitespace-nowrap",
+      "count": 6,
+      "locations": [
+        "src/app/shell/components/app-top-nav.tsx:75",
+        "src/features/canvas/components/canvas-image-toolbar-settings-modal.tsx:293",
+        "src/features/canvas/components/canvas-node-angle-dialog.tsx:157",
+        "src/features/canvas/components/canvas-node-hover-toolbar.tsx:559",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1104",
+        "src/shared/ui/select.tsx:28"
+      ]
+    },
+    {
+      "value": "whitespace-pre-wrap",
+      "count": 9,
+      "locations": [
+        "src/features/assets/pages/assets-page.tsx:640",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:92",
+        "src/features/canvas/components/canvas-config-composer.tsx:164",
+        "src/features/canvas/components/canvas-node-hover-toolbar.tsx:578",
+        "src/features/canvas/components/canvas-node.tsx:505",
+        "src/features/canvas/components/canvas-node.tsx:521",
+        "src/features/canvas/components/canvas-resource-mention-textarea.tsx:145",
+        "src/features/prompts/components/prompt-detail-dialog.tsx:38",
+        "src/features/prompts/components/prompt-detail-dialog.tsx:51"
+      ]
+    }
+  ],
+  "radius": [
+    {
+      "value": "!rounded-full",
+      "count": 10,
+      "locations": [
+        "src/features/canvas/components/canvas-audio-settings-popover.tsx:75",
+        "src/features/canvas/components/canvas-image-settings-popover.tsx:90",
+        "src/features/canvas/components/canvas-node-prompt-panel.tsx:139",
+        "src/features/canvas/components/canvas-node-prompt-panel.tsx:162",
+        "src/features/canvas/components/canvas-node-prompt-panel.tsx:180",
+        "src/features/canvas/components/canvas-node-prompt-panel.tsx:199",
+        "src/features/canvas/components/canvas-video-settings-popover.tsx:72",
+        "src/features/prompts/components/canvas-prompt-library.tsx:20",
+        "src/shared/ui/workbench-page.tsx:137",
+        "src/shared/ui/workbench-page.tsx:144"
+      ]
+    },
+    {
+      "value": "!rounded-lg",
+      "count": 4,
+      "locations": [
+        "src/features/canvas/components/canvas-config-node-panel.tsx:166",
+        "src/features/canvas/components/canvas-config-node-panel.tsx:174",
+        "src/features/canvas/components/canvas-config-node-panel.tsx:186",
+        "src/features/canvas/components/canvas-config-node-panel.tsx:194"
+      ]
+    },
+    {
+      "value": "!rounded-md",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-config-node-panel.tsx:85"
+      ]
+    },
+    {
+      "value": "!rounded-xl",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:166"
+      ]
+    },
+    {
+      "value": "[&::-moz-range-thumb]:rounded-full",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-image-toolbar-settings-modal.tsx:239"
+      ]
+    },
+    {
+      "value": "[&::-moz-range-track]:rounded-full",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-image-toolbar-settings-modal.tsx:239"
+      ]
+    },
+    {
+      "value": "[&::-webkit-slider-runnable-track]:rounded-full",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-image-toolbar-settings-modal.tsx:239"
+      ]
+    },
+    {
+      "value": "[&::-webkit-slider-thumb]:rounded-full",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-image-toolbar-settings-modal.tsx:239"
+      ]
+    },
+    {
+      "value": "rounded",
+      "count": 11,
+      "locations": [
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1618",
+        "src/features/canvas/components/workspace/canvas-refresh-shell.tsx:32",
+        "src/features/canvas/components/workspace/canvas-refresh-shell.tsx:43",
+        "src/features/generation/image/pages/image-workbench-page.tsx:526",
+        "src/features/generation/image/pages/image-workbench-page.tsx:538",
+        "src/features/generation/video/pages/video-workbench-page.tsx:618",
+        "src/features/generation/video/pages/video-workbench-page.tsx:630",
+        "src/features/generation/video/pages/video-workbench-page.tsx:671",
+        "src/features/generation/video/pages/video-workbench-page.tsx:683",
+        "src/features/generation/video/pages/video-workbench-page.tsx:720",
+        "src/features/generation/video/pages/video-workbench-page.tsx:735"
+      ]
+    },
+    {
+      "value": "rounded-[18px]",
+      "count": 4,
+      "locations": [
+        "src/features/canvas/components/canvas-image-toolbar-settings-modal.tsx:208",
+        "src/features/canvas/components/canvas-node-hover-toolbar.tsx:372",
+        "src/features/canvas/components/canvas-node.tsx:635",
+        "src/features/canvas/components/workspace/connection-create-menu.tsx:32"
+      ]
+    },
+    {
+      "value": "rounded-[1px]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-mini-map.tsx:148"
+      ]
+    },
+    {
+      "value": "rounded-[24px]",
+      "count": 1,
+      "locations": [
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:318"
+      ]
+    },
+    {
+      "value": "rounded-[3px]",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/settings-panel.tsx:254"
+      ]
+    },
+    {
+      "value": "rounded-[5px]",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/app-multi-select-checkbox.tsx:46"
+      ]
+    },
+    {
+      "value": "rounded-[inherit]",
+      "count": 2,
+      "locations": [
+        "src/features/canvas/components/canvas-node.tsx:308",
+        "src/features/canvas/components/canvas-node.tsx:800"
+      ]
+    },
+    {
+      "value": "rounded-2xl",
+      "count": 5,
+      "locations": [
+        "src/features/canvas/components/canvas-config-composer.tsx:122",
+        "src/features/canvas/components/canvas-node-angle-dialog.tsx:65",
+        "src/features/canvas/components/canvas-node-prompt-panel.tsx:99",
+        "src/features/canvas/components/canvas-node.tsx:597",
+        "src/features/canvas/components/workspace/connection-create-menu.tsx:111"
+      ]
+    },
+    {
+      "value": "rounded-3xl",
+      "count": 2,
+      "locations": [
+        "src/features/canvas/components/canvas-node.tsx:274",
+        "src/features/canvas/components/canvas-node.tsx:696"
+      ]
+    },
+    {
+      "value": "rounded-full",
+      "count": 25,
+      "locations": [
+        "src/app/shell/HomePage.tsx:30",
+        "src/app/shell/HomePage.tsx:63",
+        "src/app/shell/HomePage.tsx:64",
+        "src/app/shell/components/app-top-nav.tsx:36",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:144",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:228",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:334",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:548",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1634",
+        "src/features/canvas/components/canvas-node-angle-dialog.tsx:69",
+        "src/features/canvas/components/canvas-node-crop-dialog.tsx:113",
+        "src/features/canvas/components/canvas-node.tsx:412",
+        "src/features/canvas/components/canvas-node.tsx:432",
+        "src/features/canvas/components/canvas-node.tsx:484",
+        "src/features/canvas/components/canvas-node.tsx:708",
+        "src/features/canvas/components/canvas-node.tsx:861",
+        "src/features/canvas/components/workspace/canvas-refresh-shell.tsx:42",
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:123",
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:242",
+        "src/features/generation/video/components/video-settings-panel.tsx:299",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1128",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1136",
+        "src/features/settings/components/model-picker.tsx:79",
+        "src/shared/ui/settings-panel.tsx:88",
+        "src/shared/ui/settings-panel.tsx:221"
+      ]
+    },
+    {
+      "value": "rounded-lg",
+      "count": 61,
+      "locations": [
+        "src/app/shell/components/mobile-nav-drawer.tsx:35",
+        "src/features/assets/components/asset-picker-modal.tsx:71",
+        "src/features/assets/pages/assets-page.tsx:398",
+        "src/features/assets/pages/assets-page.tsx:418",
+        "src/features/assets/pages/assets-page.tsx:420",
+        "src/features/assets/pages/assets-page.tsx:616",
+        "src/features/assets/pages/assets-page.tsx:618",
+        "src/features/assets/pages/assets-page.tsx:635",
+        "src/features/assets/pages/assets-page.tsx:647",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:131",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:219",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:433",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:509",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:573",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1238",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1409",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1481",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1574",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1611",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1616",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1625",
+        "src/features/canvas/components/canvas-config-composer.tsx:274",
+        "src/features/canvas/components/canvas-image-toolbar-settings-modal.tsx:290",
+        "src/features/canvas/components/canvas-mini-map.tsx:115",
+        "src/features/canvas/components/canvas-node-crop-dialog.tsx:91",
+        "src/features/canvas/components/canvas-node-crop-dialog.tsx:123",
+        "src/features/canvas/components/canvas-node-hover-toolbar.tsx:507",
+        "src/features/canvas/components/canvas-node-hover-toolbar.tsx:516",
+        "src/features/canvas/components/canvas-node-hover-toolbar.tsx:564",
+        "src/features/canvas/components/canvas-node-mask-edit-dialog.tsx:131",
+        "src/features/canvas/components/canvas-node-split-dialog.tsx:70",
+        "src/features/canvas/components/canvas-node-split-dialog.tsx:71",
+        "src/features/canvas/components/canvas-node-upscale-dialog.tsx:93",
+        "src/features/canvas/components/canvas-node-upscale-dialog.tsx:97",
+        "src/features/canvas/components/canvas-project-card.tsx:38",
+        "src/features/canvas/components/canvas-resource-mention-textarea.tsx:330",
+        "src/features/canvas/components/canvas-toolbar.tsx:296",
+        "src/features/canvas/components/canvas-toolbar.tsx:341",
+        "src/features/canvas/components/workspace/canvas-refresh-shell.tsx:25",
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:250",
+        "src/features/canvas/components/workspace/connection-create-menu.tsx:50",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1030",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1094",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1122",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1271",
+        "src/features/prompts/components/prompt-detail-dialog.tsx:35",
+        "src/features/prompts/components/prompt-detail-dialog.tsx:38",
+        "src/features/settings/components/model-picker.tsx:78",
+        "src/shared/ui/app-surface.tsx:28",
+        "src/shared/ui/select.tsx:56",
+        "src/shared/ui/workbench-page.tsx:33",
+        "src/shared/ui/workbench-page.tsx:49",
+        "src/shared/ui/workbench-page.tsx:65",
+        "src/shared/ui/workbench-page.tsx:105",
+        "src/shared/ui/workbench-page.tsx:163",
+        "src/shared/ui/workbench-page.tsx:180",
+        "src/shared/ui/workbench-page.tsx:199",
+        "src/shared/ui/workbench-page.tsx:226",
+        "src/shared/ui/workbench-page.tsx:258",
+        "src/shared/ui/workbench-page.tsx:296",
+        "src/shared/ui/workbench-style.ts:19"
+      ]
+    },
+    {
+      "value": "rounded-md",
+      "count": 30,
+      "locations": [
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:440",
+        "src/features/canvas/components/canvas-config-composer.tsx:298",
+        "src/features/canvas/components/canvas-config-composer.tsx:303",
+        "src/features/canvas/components/canvas-config-composer.tsx:317",
+        "src/features/canvas/components/canvas-config-node-panel.tsx:139",
+        "src/features/canvas/components/canvas-config-node-panel.tsx:230",
+        "src/features/canvas/components/canvas-node.tsx:537",
+        "src/features/canvas/components/canvas-node.tsx:758",
+        "src/features/canvas/components/canvas-resource-mention-textarea.tsx:256",
+        "src/features/canvas/components/canvas-resource-mention-textarea.tsx:360",
+        "src/features/canvas/components/canvas-resource-mention-textarea.tsx:365",
+        "src/features/canvas/components/canvas-resource-mention-textarea.tsx:379",
+        "src/features/canvas/components/canvas-toolbar.tsx:436",
+        "src/features/canvas/components/canvas-toolbar.tsx:449",
+        "src/features/canvas/components/workspace/canvas-refresh-shell.tsx:20",
+        "src/features/canvas/components/workspace/canvas-refresh-shell.tsx:40",
+        "src/features/canvas/components/workspace/canvas-refresh-shell.tsx:41",
+        "src/features/canvas/components/workspace/canvas-refresh-shell.tsx:44",
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:256",
+        "src/features/generation/image/pages/image-workbench-page.tsx:523",
+        "src/features/generation/image/pages/image-workbench-page.tsx:875",
+        "src/features/generation/video/pages/video-workbench-page.tsx:615",
+        "src/features/generation/video/pages/video-workbench-page.tsx:663",
+        "src/features/generation/video/pages/video-workbench-page.tsx:716",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1101",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1192",
+        "src/features/settings/components/app-config-modal.tsx:735",
+        "src/shared/ui/select.tsx:28",
+        "src/shared/ui/select.tsx:90",
+        "src/shared/ui/workbench-style.ts:4"
+      ]
+    },
+    {
+      "value": "rounded-sm",
+      "count": 4,
+      "locations": [
+        "src/app/shell/HomePage.tsx:25",
+        "src/features/canvas/components/workspace/canvas-refresh-shell.tsx:29",
+        "src/features/canvas/components/workspace/canvas-refresh-shell.tsx:30",
+        "src/features/canvas/components/workspace/canvas-refresh-shell.tsx:31"
+      ]
+    },
+    {
+      "value": "rounded-xl",
+      "count": 27,
+      "locations": [
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:120",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:213",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:326",
+        "src/features/canvas/components/canvas-config-composer.tsx:148",
+        "src/features/canvas/components/canvas-config-composer.tsx:266",
+        "src/features/canvas/components/canvas-context-menu.tsx:36",
+        "src/features/canvas/components/canvas-image-toolbar-settings-modal.tsx:222",
+        "src/features/canvas/components/canvas-node-angle-dialog.tsx:59",
+        "src/features/canvas/components/canvas-node-mask-edit-dialog.tsx:130",
+        "src/features/canvas/components/canvas-node-prompt-panel.tsx:114",
+        "src/features/canvas/components/canvas-node-split-dialog.tsx:69",
+        "src/features/canvas/components/canvas-node-split-dialog.tsx:99",
+        "src/features/canvas/components/canvas-node-upscale-dialog.tsx:92",
+        "src/features/canvas/components/canvas-node-upscale-dialog.tsx:151",
+        "src/features/canvas/components/canvas-node.tsx:731",
+        "src/features/canvas/components/canvas-resource-mention-textarea.tsx:314",
+        "src/features/canvas/components/canvas-toolbar.tsx:103",
+        "src/features/canvas/components/canvas-toolbar.tsx:285",
+        "src/features/canvas/components/canvas-zoom-controls.tsx:40",
+        "src/features/canvas/components/workspace/canvas-refresh-shell.tsx:15",
+        "src/features/canvas/components/workspace/canvas-refresh-shell.tsx:36",
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:233",
+        "src/features/canvas/components/workspace/connection-create-menu.tsx:118",
+        "src/features/generation/audio/components/audio-settings-panel.tsx:107",
+        "src/features/generation/video/components/video-settings-panel.tsx:266",
+        "src/shared/ui/settings-panel.tsx:121",
+        "src/shared/ui/settings-panel.tsx:165"
+      ]
+    }
+  ],
+  "border": [
+    {
+      "value": "!border-0",
+      "count": 1,
+      "locations": [
+        "src/app/shell/HomePage.tsx:139"
+      ]
+    },
+    {
+      "value": "[&::-moz-range-thumb]:border-0",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-image-toolbar-settings-modal.tsx:239"
+      ]
+    },
+    {
+      "value": "aria-invalid:border-destructive",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/select.tsx:28"
+      ]
+    },
+    {
+      "value": "aria-invalid:ring-2",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/select.tsx:28"
+      ]
+    },
+    {
+      "value": "aria-invalid:ring-destructive/20",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/select.tsx:28"
+      ]
+    },
+    {
+      "value": "border",
+      "count": 97,
+      "locations": [
+        "src/app/shell/HomePage.tsx:63",
+        "src/app/shell/HomePage.tsx:64",
+        "src/app/shell/HomePage.tsx:124",
+        "src/features/assets/components/asset-picker-modal.tsx:71",
+        "src/features/assets/pages/assets-page.tsx:398",
+        "src/features/assets/pages/assets-page.tsx:418",
+        "src/features/assets/pages/assets-page.tsx:420",
+        "src/features/assets/pages/assets-page.tsx:618",
+        "src/features/assets/pages/assets-page.tsx:635",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:120",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:131",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:144",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:213",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:219",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:228",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:318",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:326",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:334",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:433",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:509",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1409",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1481",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1574",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1625",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1634",
+        "src/features/canvas/components/canvas-config-composer.tsx:122",
+        "src/features/canvas/components/canvas-config-composer.tsx:148",
+        "src/features/canvas/components/canvas-config-composer.tsx:266",
+        "src/features/canvas/components/canvas-config-node-panel.tsx:139",
+        "src/features/canvas/components/canvas-config-node-panel.tsx:230",
+        "src/features/canvas/components/canvas-context-menu.tsx:36",
+        "src/features/canvas/components/canvas-image-toolbar-settings-modal.tsx:208",
+        "src/features/canvas/components/canvas-image-toolbar-settings-modal.tsx:222",
+        "src/features/canvas/components/canvas-mini-map.tsx:115",
+        "src/features/canvas/components/canvas-mini-map.tsx:161",
+        "src/features/canvas/components/canvas-node-angle-dialog.tsx:59",
+        "src/features/canvas/components/canvas-node-angle-dialog.tsx:69",
+        "src/features/canvas/components/canvas-node-crop-dialog.tsx:113",
+        "src/features/canvas/components/canvas-node-crop-dialog.tsx:123",
+        "src/features/canvas/components/canvas-node-hover-toolbar.tsx:372",
+        "src/features/canvas/components/canvas-node-hover-toolbar.tsx:507",
+        "src/features/canvas/components/canvas-node-hover-toolbar.tsx:516",
+        "src/features/canvas/components/canvas-node-mask-edit-dialog.tsx:130",
+        "src/features/canvas/components/canvas-node-prompt-panel.tsx:99",
+        "src/features/canvas/components/canvas-node-prompt-panel.tsx:114",
+        "src/features/canvas/components/canvas-node-split-dialog.tsx:69",
+        "src/features/canvas/components/canvas-node-split-dialog.tsx:99",
+        "src/features/canvas/components/canvas-node-upscale-dialog.tsx:92",
+        "src/features/canvas/components/canvas-node-upscale-dialog.tsx:151",
+        "src/features/canvas/components/canvas-node.tsx:432",
+        "src/features/canvas/components/canvas-node.tsx:484",
+        "src/features/canvas/components/canvas-node.tsx:708",
+        "src/features/canvas/components/canvas-node.tsx:731",
+        "src/features/canvas/components/canvas-node.tsx:800",
+        "src/features/canvas/components/canvas-project-card.tsx:38",
+        "src/features/canvas/components/canvas-resource-mention-textarea.tsx:314",
+        "src/features/canvas/components/canvas-toolbar.tsx:103",
+        "src/features/canvas/components/canvas-toolbar.tsx:285",
+        "src/features/canvas/components/canvas-zoom-controls.tsx:40",
+        "src/features/canvas/components/workspace/canvas-refresh-shell.tsx:15",
+        "src/features/canvas/components/workspace/canvas-refresh-shell.tsx:25",
+        "src/features/canvas/components/workspace/canvas-refresh-shell.tsx:32",
+        "src/features/canvas/components/workspace/canvas-refresh-shell.tsx:36",
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:256",
+        "src/features/canvas/components/workspace/connection-create-menu.tsx:32",
+        "src/features/canvas/pages/canvas-client-page.tsx:912",
+        "src/features/generation/audio/components/audio-settings-panel.tsx:107",
+        "src/features/generation/image/pages/image-workbench-page.tsx:523",
+        "src/features/generation/video/components/video-settings-panel.tsx:266",
+        "src/features/generation/video/components/video-settings-panel.tsx:299",
+        "src/features/generation/video/pages/video-workbench-page.tsx:615",
+        "src/features/generation/video/pages/video-workbench-page.tsx:663",
+        "src/features/generation/video/pages/video-workbench-page.tsx:716",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1030",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1101",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1122",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1128",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1192",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1271",
+        "src/shared/ui/app-multi-select-checkbox.tsx:46",
+        "src/shared/ui/app-surface.tsx:28",
+        "src/shared/ui/select.tsx:28",
+        "src/shared/ui/select.tsx:56",
+        "src/shared/ui/settings-panel.tsx:88",
+        "src/shared/ui/settings-panel.tsx:121",
+        "src/shared/ui/settings-panel.tsx:221",
+        "src/shared/ui/workbench-page.tsx:33",
+        "src/shared/ui/workbench-page.tsx:49",
+        "src/shared/ui/workbench-page.tsx:65",
+        "src/shared/ui/workbench-page.tsx:105",
+        "src/shared/ui/workbench-page.tsx:163",
+        "src/shared/ui/workbench-page.tsx:180",
+        "src/shared/ui/workbench-page.tsx:199",
+        "src/shared/ui/workbench-page.tsx:226",
+        "src/shared/ui/workbench-page.tsx:258",
+        "src/shared/ui/workbench-page.tsx:296",
+        "src/shared/ui/workbench-style.ts:19"
+      ]
+    },
+    {
+      "value": "border-[var(--destructive)]",
+      "count": 4,
+      "locations": [
+        "src/shared/ui/app-surface.tsx:12",
+        "src/shared/ui/workbench-page.tsx:258",
+        "src/shared/ui/workbench-page.tsx:273",
+        "src/shared/ui/workbench-style.ts:10"
+      ]
+    },
+    {
+      "value": "border-[var(--success-border)]",
+      "count": 2,
+      "locations": [
+        "src/shared/ui/app-surface.tsx:13",
+        "src/shared/ui/workbench-style.ts:9"
+      ]
+    },
+    {
+      "value": "border-[var(--warning-border)]",
+      "count": 2,
+      "locations": [
+        "src/shared/ui/app-surface.tsx:10",
+        "src/shared/ui/workbench-style.ts:11"
+      ]
+    },
+    {
+      "value": "border-0",
+      "count": 2,
+      "locations": [
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:367",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1309"
+      ]
+    },
+    {
+      "value": "border-2",
+      "count": 6,
+      "locations": [
+        "src/features/canvas/components/canvas-node-crop-dialog.tsx:101",
+        "src/features/canvas/components/canvas-node.tsx:274",
+        "src/features/canvas/components/canvas-node.tsx:412",
+        "src/features/canvas/components/canvas-node.tsx:861",
+        "src/features/generation/image/components/image-settings-panel.tsx:204",
+        "src/shared/ui/settings-panel.tsx:254"
+      ]
+    },
+    {
+      "value": "border-b",
+      "count": 5,
+      "locations": [
+        "src/app/shell/components/app-top-nav.tsx:26",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:468",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1234",
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:148",
+        "src/features/canvas/pages/canvas-library-page.tsx:89"
+      ]
+    },
+    {
+      "value": "border-b-2",
+      "count": 1,
+      "locations": [
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:481"
+      ]
+    },
+    {
+      "value": "border-black",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node-crop-dialog.tsx:113"
+      ]
+    },
+    {
+      "value": "border-black/10",
+      "count": 2,
+      "locations": [
+        "src/features/canvas/components/canvas-node-hover-toolbar.tsx:372",
+        "src/features/canvas/components/canvas-node-mask-edit-dialog.tsx:130"
+      ]
+    },
+    {
+      "value": "border-border",
+      "count": 35,
+      "locations": [
+        "src/app/shell/HomePage.tsx:63",
+        "src/app/shell/HomePage.tsx:64",
+        "src/app/shell/HomePage.tsx:96",
+        "src/app/shell/HomePage.tsx:124",
+        "src/app/shell/components/app-top-nav.tsx:26",
+        "src/features/assets/components/asset-picker-modal.tsx:71",
+        "src/features/assets/pages/assets-page.tsx:398",
+        "src/features/assets/pages/assets-page.tsx:418",
+        "src/features/assets/pages/assets-page.tsx:420",
+        "src/features/assets/pages/assets-page.tsx:618",
+        "src/features/assets/pages/assets-page.tsx:635",
+        "src/features/canvas/components/canvas-project-card.tsx:38",
+        "src/features/canvas/pages/canvas-library-page.tsx:89",
+        "src/features/canvas/pages/canvas-library-page.tsx:141",
+        "src/features/canvas/pages/canvas-library-page.tsx:151",
+        "src/features/generation/image/pages/image-workbench-page.tsx:523",
+        "src/features/generation/video/pages/video-workbench-page.tsx:615",
+        "src/features/generation/video/pages/video-workbench-page.tsx:663",
+        "src/features/generation/video/pages/video-workbench-page.tsx:716",
+        "src/shared/ui/app-surface.tsx:8",
+        "src/shared/ui/app-surface.tsx:9",
+        "src/shared/ui/select.tsx:28",
+        "src/shared/ui/select.tsx:56",
+        "src/shared/ui/workbench-page.tsx:33",
+        "src/shared/ui/workbench-page.tsx:49",
+        "src/shared/ui/workbench-page.tsx:65",
+        "src/shared/ui/workbench-page.tsx:105",
+        "src/shared/ui/workbench-page.tsx:163",
+        "src/shared/ui/workbench-page.tsx:180",
+        "src/shared/ui/workbench-page.tsx:199",
+        "src/shared/ui/workbench-page.tsx:203",
+        "src/shared/ui/workbench-page.tsx:226",
+        "src/shared/ui/workbench-page.tsx:296",
+        "src/shared/ui/workbench-style.ts:7",
+        "src/shared/ui/workbench-style.ts:22"
+      ]
+    },
+    {
+      "value": "border-current",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/workspace/canvas-refresh-shell.tsx:32"
+      ]
+    },
+    {
+      "value": "border-dashed",
+      "count": 8,
+      "locations": [
+        "src/app/shell/HomePage.tsx:63",
+        "src/app/shell/HomePage.tsx:64",
+        "src/features/assets/pages/assets-page.tsx:398",
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:148",
+        "src/shared/ui/workbench-page.tsx:105",
+        "src/shared/ui/workbench-page.tsx:180",
+        "src/shared/ui/workbench-page.tsx:226",
+        "src/shared/ui/workbench-page.tsx:296"
+      ]
+    },
+    {
+      "value": "border-input",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/app-multi-select-checkbox.tsx:46"
+      ]
+    },
+    {
+      "value": "border-l",
+      "count": 5,
+      "locations": [
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1216",
+        "src/features/canvas/components/canvas-node-crop-dialog.tsx:107",
+        "src/features/canvas/components/canvas-node-crop-dialog.tsx:108",
+        "src/features/canvas/components/canvas-node-split-dialog.tsx:157",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:931"
+      ]
+    },
+    {
+      "value": "border-none",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node.tsx:505"
+      ]
+    },
+    {
+      "value": "border-primary",
+      "count": 2,
+      "locations": [
+        "src/shared/ui/workbench-style.ts:8",
+        "src/shared/ui/workbench-style.ts:21"
+      ]
+    },
+    {
+      "value": "border-t",
+      "count": 7,
+      "locations": [
+        "src/app/shell/HomePage.tsx:96",
+        "src/features/canvas/components/canvas-node-crop-dialog.tsx:105",
+        "src/features/canvas/components/canvas-node-crop-dialog.tsx:106",
+        "src/features/canvas/components/canvas-node-split-dialog.tsx:164",
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:186",
+        "src/shared/ui/workbench-page.tsx:203",
+        "src/shared/ui/workbench-page.tsx:273"
+      ]
+    },
+    {
+      "value": "border-transparent",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:148"
+      ]
+    },
+    {
+      "value": "border-white",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node-crop-dialog.tsx:101"
+      ]
+    },
+    {
+      "value": "border-white/50",
+      "count": 4,
+      "locations": [
+        "src/features/canvas/components/canvas-node-crop-dialog.tsx:105",
+        "src/features/canvas/components/canvas-node-crop-dialog.tsx:106",
+        "src/features/canvas/components/canvas-node-crop-dialog.tsx:107",
+        "src/features/canvas/components/canvas-node-crop-dialog.tsx:108"
+      ]
+    },
+    {
+      "value": "border-white/90",
+      "count": 2,
+      "locations": [
+        "src/features/canvas/components/canvas-node-split-dialog.tsx:157",
+        "src/features/canvas/components/canvas-node-split-dialog.tsx:164"
+      ]
+    },
+    {
+      "value": "border-y",
+      "count": 2,
+      "locations": [
+        "src/features/canvas/pages/canvas-library-page.tsx:141",
+        "src/features/canvas/pages/canvas-library-page.tsx:151"
+      ]
+    },
+    {
+      "value": "dark:border-white/10",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node-mask-edit-dialog.tsx:130"
+      ]
+    },
+    {
+      "value": "data-[state=open]:ring-0",
+      "count": 1,
+      "locations": [
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1309"
+      ]
+    },
+    {
+      "value": "focus-visible:border-ring",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/select.tsx:28"
+      ]
+    },
+    {
+      "value": "focus-visible:border-transparent",
+      "count": 1,
+      "locations": [
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1309"
+      ]
+    },
+    {
+      "value": "focus-visible:outline-none",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/catalog-page.tsx:154"
+      ]
+    },
+    {
+      "value": "focus-visible:ring-0",
+      "count": 2,
+      "locations": [
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1309",
+        "src/features/settings/components/model-picker.tsx:78"
+      ]
+    },
+    {
+      "value": "focus-visible:ring-2",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/select.tsx:28"
+      ]
+    },
+    {
+      "value": "focus-visible:ring-ring/25",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/select.tsx:28"
+      ]
+    },
+    {
+      "value": "hover:border-current",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:148"
+      ]
+    },
+    {
+      "value": "outline-hidden",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/select.tsx:90"
+      ]
+    },
+    {
+      "value": "outline-none",
+      "count": 12,
+      "locations": [
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:367",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1574",
+        "src/features/canvas/components/canvas-config-composer.tsx:164",
+        "src/features/canvas/components/canvas-node-prompt-panel.tsx:114",
+        "src/features/canvas/components/canvas-node.tsx:505",
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:142",
+        "src/features/generation/audio/components/audio-settings-panel.tsx:107",
+        "src/features/generation/video/components/video-settings-panel.tsx:305",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1030",
+        "src/shared/ui/select.tsx:28",
+        "src/shared/ui/settings-panel.tsx:176",
+        "src/shared/ui/settings-panel.tsx:221"
+      ]
+    },
+    {
+      "value": "peer-checked:border-primary",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/app-multi-select-checkbox.tsx:46"
+      ]
+    },
+    {
+      "value": "peer-focus-visible:ring-2",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/app-multi-select-checkbox.tsx:46"
+      ]
+    },
+    {
+      "value": "peer-focus-visible:ring-ring/25",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/app-multi-select-checkbox.tsx:46"
+      ]
+    },
+    {
+      "value": "ring-[#2f80ff]/24",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-resource-mention-textarea.tsx:256"
+      ]
+    },
+    {
+      "value": "ring-1",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-resource-mention-textarea.tsx:256"
+      ]
+    }
+  ],
+  "shadow": [
+    {
+      "value": "!shadow-sm",
+      "count": 2,
+      "locations": [
+        "src/shared/ui/workbench-page.tsx:137",
+        "src/shared/ui/workbench-page.tsx:144"
+      ]
+    },
+    {
+      "value": "hover:shadow-md",
+      "count": 1,
+      "locations": [
+        "src/features/assets/components/asset-picker-modal.tsx:71"
+      ]
+    },
+    {
+      "value": "shadow-[0_0_0_1px_rgba(0,0,0,.3),0_0_28px_rgba(0,0,0,.28)]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node-crop-dialog.tsx:101"
+      ]
+    },
+    {
+      "value": "shadow-[0_0_0_1px_rgba(0,0,0,.35)]",
+      "count": 2,
+      "locations": [
+        "src/features/canvas/components/canvas-node-split-dialog.tsx:157",
+        "src/features/canvas/components/canvas-node-split-dialog.tsx:164"
+      ]
+    },
+    {
+      "value": "shadow-[0_14px_34px_rgba(68,64,60,.16)]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node.tsx:800"
+      ]
+    },
+    {
+      "value": "shadow-[0_6px_18px_rgba(15,23,42,.10)]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node.tsx:708"
+      ]
+    },
+    {
+      "value": "shadow-[0_8px_20px_rgba(68,64,60,.13)]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node.tsx:731"
+      ]
+    },
+    {
+      "value": "shadow-[0_8px_28px_rgba(15,23,42,.12)]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node-hover-toolbar.tsx:372"
+      ]
+    },
+    {
+      "value": "shadow-[inset_0_-1px_0_rgba(0,0,0,.08),0_1px_2px_rgba(0,0,0,.06)]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:256"
+      ]
+    },
+    {
+      "value": "shadow-2xl",
+      "count": 9,
+      "locations": [
+        "src/features/canvas/components/canvas-config-composer.tsx:122",
+        "src/features/canvas/components/canvas-config-composer.tsx:266",
+        "src/features/canvas/components/canvas-context-menu.tsx:36",
+        "src/features/canvas/components/canvas-mini-map.tsx:115",
+        "src/features/canvas/components/canvas-node-angle-dialog.tsx:65",
+        "src/features/canvas/components/canvas-node-prompt-panel.tsx:99",
+        "src/features/canvas/components/canvas-resource-mention-textarea.tsx:314",
+        "src/features/canvas/components/workspace/canvas-refresh-shell.tsx:25",
+        "src/features/canvas/components/workspace/connection-create-menu.tsx:32"
+      ]
+    },
+    {
+      "value": "shadow-lg",
+      "count": 6,
+      "locations": [
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:318",
+        "src/features/canvas/components/canvas-toolbar.tsx:103",
+        "src/features/canvas/components/canvas-toolbar.tsx:449",
+        "src/features/canvas/components/canvas-zoom-controls.tsx:40",
+        "src/features/canvas/components/workspace/canvas-refresh-shell.tsx:15",
+        "src/features/canvas/components/workspace/canvas-refresh-shell.tsx:36"
+      ]
+    },
+    {
+      "value": "shadow-none",
+      "count": 2,
+      "locations": [
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1309",
+        "src/features/settings/components/model-picker.tsx:78"
+      ]
+    },
+    {
+      "value": "shadow-sm",
+      "count": 7,
+      "locations": [
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:334",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1634",
+        "src/features/canvas/components/canvas-node.tsx:537",
+        "src/shared/ui/select.tsx:28",
+        "src/shared/ui/workbench-page.tsx:33",
+        "src/shared/ui/workbench-page.tsx:49",
+        "src/shared/ui/workbench-page.tsx:65"
+      ]
+    },
+    {
+      "value": "shadow-xl",
+      "count": 4,
+      "locations": [
+        "src/features/canvas/components/canvas-node-split-dialog.tsx:71",
+        "src/features/canvas/components/canvas-node-upscale-dialog.tsx:97",
+        "src/features/canvas/components/canvas-toolbar.tsx:285",
+        "src/shared/ui/select.tsx:56"
+      ]
+    }
+  ],
+  "layer": [
+    {
+      "value": "z-[100]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/pages/canvas-client-page.tsx:912"
+      ]
+    },
+    {
+      "value": "z-[120]",
+      "count": 2,
+      "locations": [
+        "src/features/canvas/components/canvas-resource-mention-textarea.tsx:314",
+        "src/features/canvas/components/workspace/connection-create-menu.tsx:32"
+      ]
+    },
+    {
+      "value": "z-[1200]",
+      "count": 2,
+      "locations": [
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1328",
+        "src/features/settings/components/model-picker.tsx:93"
+      ]
+    },
+    {
+      "value": "z-[70]",
+      "count": 3,
+      "locations": [
+        "src/features/canvas/components/canvas-node-hover-toolbar.tsx:372",
+        "src/features/canvas/components/canvas-node.tsx:377",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:924"
+      ]
+    },
+    {
+      "value": "z-[80]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-context-menu.tsx:36"
+      ]
+    },
+    {
+      "value": "z-[90]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-config-composer.tsx:266"
+      ]
+    },
+    {
+      "value": "z-0",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-config-composer.tsx:154"
+      ]
+    },
+    {
+      "value": "z-10",
+      "count": 5,
+      "locations": [
+        "src/features/canvas/components/canvas-config-composer.tsx:164",
+        "src/features/canvas/components/canvas-image-toolbar-settings-modal.tsx:208",
+        "src/features/canvas/components/canvas-node.tsx:255",
+        "src/shared/ui/select.tsx:113",
+        "src/shared/ui/select.tsx:131"
+      ]
+    },
+    {
+      "value": "z-20",
+      "count": 2,
+      "locations": [
+        "src/app/shell/components/app-top-nav.tsx:26",
+        "src/features/canvas/components/canvas-node.tsx:484"
+      ]
+    },
+    {
+      "value": "z-30",
+      "count": 5,
+      "locations": [
+        "src/features/canvas/components/canvas-node.tsx:537",
+        "src/features/canvas/components/canvas-node.tsx:708",
+        "src/features/canvas/components/canvas-node.tsx:731",
+        "src/features/canvas/components/canvas-node.tsx:855",
+        "src/features/canvas/components/canvas-toolbar.tsx:285"
+      ]
+    },
+    {
+      "value": "z-40",
+      "count": 2,
+      "locations": [
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1229",
+        "src/features/canvas/components/canvas-node.tsx:757"
+      ]
+    },
+    {
+      "value": "z-50",
+      "count": 10,
+      "locations": [
+        "src/features/canvas/components/canvas-mini-map.tsx:115",
+        "src/features/canvas/components/canvas-node.tsx:255",
+        "src/features/canvas/components/canvas-node.tsx:836",
+        "src/features/canvas/components/canvas-toolbar.tsx:97",
+        "src/features/canvas/components/canvas-zoom-controls.tsx:35",
+        "src/features/canvas/components/workspace/canvas-refresh-shell.tsx:15",
+        "src/features/canvas/components/workspace/canvas-refresh-shell.tsx:25",
+        "src/features/canvas/components/workspace/canvas-refresh-shell.tsx:36",
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:69",
+        "src/shared/ui/select.tsx:56"
+      ]
+    }
+  ],
+  "opacityBlur": [
+    {
+      "value": "backdrop-blur-md",
+      "count": 4,
+      "locations": [
+        "src/features/canvas/components/canvas-node.tsx:484",
+        "src/features/canvas/components/canvas-node.tsx:708",
+        "src/features/canvas/components/canvas-node.tsx:731",
+        "src/features/canvas/components/canvas-resource-mention-textarea.tsx:314"
+      ]
+    },
+    {
+      "value": "backdrop-blur-sm",
+      "count": 3,
+      "locations": [
+        "src/features/canvas/components/canvas-mini-map.tsx:115",
+        "src/features/canvas/components/canvas-node.tsx:758",
+        "src/features/canvas/components/workspace/canvas-refresh-shell.tsx:25"
+      ]
+    },
+    {
+      "value": "backdrop-blur-xl",
+      "count": 1,
+      "locations": [
+        "src/app/shell/components/app-top-nav.tsx:26"
+      ]
+    },
+    {
+      "value": "data-disabled:opacity-50",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/select.tsx:90"
+      ]
+    },
+    {
+      "value": "disabled:opacity-35",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/settings-panel.tsx:88"
+      ]
+    },
+    {
+      "value": "disabled:opacity-50",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/select.tsx:28"
+      ]
+    },
+    {
+      "value": "group-hover:opacity-100",
+      "count": 2,
+      "locations": [
+        "src/features/assets/components/asset-picker-modal.tsx:89",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:334"
+      ]
+    },
+    {
+      "value": "group-hover/batch:opacity-100",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node.tsx:731"
+      ]
+    },
+    {
+      "value": "group-hover/chip:opacity-100",
+      "count": 1,
+      "locations": [
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1634"
+      ]
+    },
+    {
+      "value": "hover:opacity-100",
+      "count": 3,
+      "locations": [
+        "src/features/canvas/components/canvas-node.tsx:484",
+        "src/features/canvas/components/workspace/connection-create-menu.tsx:50",
+        "src/shared/ui/catalog-page.tsx:154"
+      ]
+    },
+    {
+      "value": "hover:opacity-75",
+      "count": 2,
+      "locations": [
+        "src/app/shell/components/app-top-nav.tsx:31",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1309"
+      ]
+    },
+    {
+      "value": "hover:opacity-80",
+      "count": 3,
+      "locations": [
+        "src/features/canvas/components/canvas-context-menu.tsx:70",
+        "src/shared/ui/settings-panel.tsx:88",
+        "src/shared/ui/settings-panel.tsx:121"
+      ]
+    },
+    {
+      "value": "hover:opacity-85",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:233"
+      ]
+    },
+    {
+      "value": "opacity-0",
+      "count": 5,
+      "locations": [
+        "src/features/assets/components/asset-picker-modal.tsx:89",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:334",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1634",
+        "src/features/canvas/components/canvas-node.tsx:731",
+        "src/features/canvas/components/canvas-node.tsx:857"
+      ]
+    },
+    {
+      "value": "opacity-10",
+      "count": 9,
+      "locations": [
+        "src/features/canvas/components/workspace/canvas-refresh-shell.tsx:20",
+        "src/features/canvas/components/workspace/canvas-refresh-shell.tsx:29",
+        "src/features/canvas/components/workspace/canvas-refresh-shell.tsx:30",
+        "src/features/canvas/components/workspace/canvas-refresh-shell.tsx:31",
+        "src/features/canvas/components/workspace/canvas-refresh-shell.tsx:40",
+        "src/features/canvas/components/workspace/canvas-refresh-shell.tsx:41",
+        "src/features/canvas/components/workspace/canvas-refresh-shell.tsx:42",
+        "src/features/canvas/components/workspace/canvas-refresh-shell.tsx:43",
+        "src/features/canvas/components/workspace/canvas-refresh-shell.tsx:44"
+      ]
+    },
+    {
+      "value": "opacity-100",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node.tsx:857"
+      ]
+    },
+    {
+      "value": "opacity-15",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/workspace/canvas-refresh-shell.tsx:32"
+      ]
+    },
+    {
+      "value": "opacity-30",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node.tsx:600"
+      ]
+    },
+    {
+      "value": "opacity-35",
+      "count": 3,
+      "locations": [
+        "src/features/canvas/components/canvas-node.tsx:627",
+        "src/features/canvas/components/canvas-node.tsx:648",
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:254"
+      ]
+    },
+    {
+      "value": "opacity-40",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/infinite-canvas.tsx:266"
+      ]
+    },
+    {
+      "value": "opacity-45",
+      "count": 6,
+      "locations": [
+        "src/app/shell/HomePage.tsx:25",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:96",
+        "src/features/canvas/components/canvas-resource-mention-textarea.tsx:247",
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:210",
+        "src/features/generation/image/components/image-settings-panel.tsx:125",
+        "src/features/generation/video/components/video-settings-panel.tsx:114"
+      ]
+    },
+    {
+      "value": "opacity-50",
+      "count": 5,
+      "locations": [
+        "src/features/canvas/components/canvas-node-hover-toolbar.tsx:577",
+        "src/features/canvas/components/canvas-node.tsx:602",
+        "src/features/canvas/components/canvas-toolbar.tsx:294",
+        "src/features/canvas/components/canvas-toolbar.tsx:308",
+        "src/shared/ui/app-multi-select-checkbox.tsx:29"
+      ]
+    },
+    {
+      "value": "opacity-55",
+      "count": 12,
+      "locations": [
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1323",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1346",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1434",
+        "src/features/canvas/components/canvas-config-composer.tsx:135",
+        "src/features/canvas/components/canvas-node-upscale-dialog.tsx:139",
+        "src/features/canvas/components/canvas-node.tsx:724",
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:268",
+        "src/features/canvas/components/workspace/connection-create-menu.tsx:50",
+        "src/features/generation/video/components/video-settings-panel.tsx:140",
+        "src/features/generation/video/components/video-settings-panel.tsx:212",
+        "src/features/generation/video/components/video-settings-panel.tsx:234",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1298"
+      ]
+    },
+    {
+      "value": "opacity-60",
+      "count": 14,
+      "locations": [
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:57",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1125",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1200",
+        "src/features/canvas/components/canvas-node-angle-dialog.tsx:56",
+        "src/features/canvas/components/canvas-node-mask-edit-dialog.tsx:164",
+        "src/features/canvas/components/canvas-node-split-dialog.tsx:64",
+        "src/features/canvas/components/canvas-node-split-dialog.tsx:82",
+        "src/features/canvas/components/canvas-node-split-dialog.tsx:101",
+        "src/features/canvas/components/canvas-node-split-dialog.tsx:105",
+        "src/features/canvas/components/canvas-node-upscale-dialog.tsx:102",
+        "src/features/canvas/components/canvas-node-upscale-dialog.tsx:153",
+        "src/features/canvas/components/workspace/canvas-overlays.tsx:191",
+        "src/features/canvas/components/workspace/canvas-refresh-shell.tsx:7",
+        "src/shared/ui/workbench-page.tsx:232"
+      ]
+    },
+    {
+      "value": "opacity-65",
+      "count": 6,
+      "locations": [
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1429",
+        "src/features/canvas/components/canvas-config-composer.tsx:288",
+        "src/features/canvas/components/canvas-resource-mention-textarea.tsx:349",
+        "src/features/canvas/components/canvas-toolbar.tsx:293",
+        "src/features/canvas/components/canvas-toolbar.tsx:342",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1293"
+      ]
+    },
+    {
+      "value": "opacity-70",
+      "count": 5,
+      "locations": [
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1367",
+        "src/features/canvas/components/canvas-node.tsx:657",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1163",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1180",
+        "src/features/settings/components/model-picker.tsx:146"
+      ]
+    },
+    {
+      "value": "opacity-75",
+      "count": 8,
+      "locations": [
+        "src/features/canvas/components/canvas-node-angle-dialog.tsx:108",
+        "src/features/canvas/components/canvas-node-angle-dialog.tsx:155",
+        "src/features/canvas/components/canvas-node-mask-edit-dialog.tsx:188",
+        "src/features/canvas/components/canvas-node-mask-edit-dialog.tsx:195",
+        "src/features/canvas/components/canvas-node-split-dialog.tsx:138",
+        "src/features/canvas/components/canvas-node-upscale-dialog.tsx:110",
+        "src/features/canvas/components/canvas-node-upscale-dialog.tsx:130",
+        "src/shared/ui/catalog-page.tsx:154"
+      ]
+    },
+    {
+      "value": "opacity-80",
+      "count": 3,
+      "locations": [
+        "src/app/shell/HomePage.tsx:30",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:527",
+        "src/features/canvas/components/canvas-node-crop-dialog.tsx:124"
+      ]
+    },
+    {
+      "value": "opacity-85",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node.tsx:484"
+      ]
+    },
+    {
+      "value": "opacity-90",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node-crop-dialog.tsx:96"
+      ]
+    },
+    {
+      "value": "opacity-95",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node-split-dialog.tsx:75"
+      ]
+    },
+    {
+      "value": "placeholder:opacity-45",
+      "count": 1,
+      "locations": [
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:367"
+      ]
+    }
+  ],
+  "motion": [
+    {
+      "value": "animate-spin",
+      "count": 6,
+      "locations": [
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:408",
+        "src/features/canvas/components/canvas-config-node-panel.tsx:203",
+        "src/features/canvas/components/canvas-node-prompt-panel.tsx:208",
+        "src/features/canvas/components/canvas-node.tsx:412",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1248",
+        "src/shared/ui/workbench-page.tsx:241"
+      ]
+    },
+    {
+      "value": "data-[align-trigger=true]:animate-none",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/select.tsx:56"
+      ]
+    },
+    {
+      "value": "data-closed:animate-out",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/select.tsx:56"
+      ]
+    },
+    {
+      "value": "data-open:animate-in",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/select.tsx:56"
+      ]
+    },
+    {
+      "value": "duration-100",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/select.tsx:56"
+      ]
+    },
+    {
+      "value": "duration-150",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node.tsx:855"
+      ]
+    },
+    {
+      "value": "duration-200",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node.tsx:255"
+      ]
+    },
+    {
+      "value": "duration-300",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node.tsx:800"
+      ]
+    },
+    {
+      "value": "duration-500",
+      "count": 1,
+      "locations": [
+        "src/app/shell/HomePage.tsx:132"
+      ]
+    },
+    {
+      "value": "transition",
+      "count": 33,
+      "locations": [
+        "src/app/shell/HomePage.tsx:132",
+        "src/app/shell/components/app-top-nav.tsx:31",
+        "src/app/shell/components/app-top-nav.tsx:44",
+        "src/app/shell/components/app-top-nav.tsx:61",
+        "src/app/shell/components/mobile-nav-drawer.tsx:35",
+        "src/features/assets/components/asset-picker-modal.tsx:71",
+        "src/features/assets/components/asset-picker-modal.tsx:89",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:334",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:440",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:481",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1409",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1634",
+        "src/features/canvas/components/canvas-config-composer.tsx:274",
+        "src/features/canvas/components/canvas-node-hover-toolbar.tsx:564",
+        "src/features/canvas/components/canvas-node.tsx:432",
+        "src/features/canvas/components/canvas-node.tsx:484",
+        "src/features/canvas/components/canvas-node.tsx:708",
+        "src/features/canvas/components/canvas-node.tsx:731",
+        "src/features/canvas/components/canvas-project-card.tsx:38",
+        "src/features/canvas/components/canvas-resource-mention-textarea.tsx:330",
+        "src/features/canvas/components/canvas-toolbar.tsx:436",
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:123",
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:148",
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:233",
+        "src/features/canvas/components/workspace/connection-create-menu.tsx:50",
+        "src/features/canvas/components/workspace/connection-create-menu.tsx:111",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:943",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1271",
+        "src/shared/ui/app-multi-select-checkbox.tsx:46",
+        "src/shared/ui/catalog-page.tsx:154",
+        "src/shared/ui/settings-panel.tsx:88",
+        "src/shared/ui/settings-panel.tsx:121",
+        "src/shared/ui/workbench-style.ts:19"
+      ]
+    },
+    {
+      "value": "transition-all",
+      "count": 2,
+      "locations": [
+        "src/features/canvas/components/canvas-node.tsx:800",
+        "src/features/canvas/components/canvas-node.tsx:861"
+      ]
+    },
+    {
+      "value": "transition-colors",
+      "count": 2,
+      "locations": [
+        "src/features/canvas/components/canvas-context-menu.tsx:70",
+        "src/shared/ui/select.tsx:28"
+      ]
+    },
+    {
+      "value": "transition-opacity",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node.tsx:855"
+      ]
+    },
+    {
+      "value": "transition-shadow",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node.tsx:255"
+      ]
+    },
+    {
+      "value": "transition-transform",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node.tsx:724"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1829 @@
+{
+  "schemaVersion": 1,
+  "kind": "design-system-current-style-values",
+  "sourceRevision": "acd16e3bd164a8cd5efa094e6e97e356dd2e2bd2",
+  "productionInputTreeSha256": "3949a6c8406af61b31d39df177a89dd057168b84d5770d6bb12b53a6a7c25764",
+  "generatedBy": "scripts/audit-design-system-current-values.cjs",
+  "extractionNotes": [
+    "Occurrences are source literal occurrences, not runtime rendered instances.",
+    "Class values cover JSX props ending in className, variables ending in ClassName, and cn/clsx/twMerge string arguments.",
+    "Dynamic runtime geometry and user content values remain explicit exceptions in INVENTORY.md."
+  ],
+  "section": "classes",
+  "extraction": {
+    "stringLiterals": 1228,
+    "uniqueTokens": 791,
+    "tokenOccurrences": 4455,
+    "contexts": [
+      "call:cn",
+      "jsx:buttonClassName",
+      "jsx:className",
+      "jsx:footerClassName",
+      "jsx:heightClassName",
+      "jsx:mainClassName",
+      "variable:aspectClassName",
+      "variable:modelPickerClassName",
+      "variable:toneClassName",
+      "variable:workbenchResultActionButtonClassName",
+      "variable:workbenchTagClassName",
+      "variable:workbenchTagToneClassName"
+    ]
+  },
+  "arbitrary": [
+    {
+      "value": "!max-w-[170px]",
+      "count": 5,
+      "locations": [
+        "src/features/canvas/components/canvas-audio-settings-popover.tsx:75",
+        "src/features/canvas/components/canvas-node-prompt-panel.tsx:139",
+        "src/features/canvas/components/canvas-node-prompt-panel.tsx:162",
+        "src/features/canvas/components/canvas-node-prompt-panel.tsx:180",
+        "src/features/canvas/components/canvas-video-settings-popover.tsx:72"
+      ]
+    },
+    {
+      "value": "!max-w-[180px]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-image-settings-popover.tsx:90"
+      ]
+    },
+    {
+      "value": "!text-[var(--destructive)]",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/workbench-page.tsx:268"
+      ]
+    },
+    {
+      "value": "[&_.ant-btn-icon]:!inline-flex",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-toolbar.tsx:389"
+      ]
+    },
+    {
+      "value": "[&_.ant-btn-icon]:!items-center",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-toolbar.tsx:389"
+      ]
+    },
+    {
+      "value": "[&_.ant-btn-icon]:!justify-center",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-toolbar.tsx:389"
+      ]
+    },
+    {
+      "value": "[&_.ant-btn-icon]:shrink-0",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/workbench-style.ts:15"
+      ]
+    },
+    {
+      "value": "[&_.ant-segmented-group]:!flex",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-toolbar.tsx:310"
+      ]
+    },
+    {
+      "value": "[&_.ant-segmented-item-label]:!leading-8",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-toolbar.tsx:310"
+      ]
+    },
+    {
+      "value": "[&_.ant-segmented-item-label]:!min-h-8",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-toolbar.tsx:310"
+      ]
+    },
+    {
+      "value": "[&_.ant-segmented-item]:!flex-1",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-toolbar.tsx:310"
+      ]
+    },
+    {
+      "value": "[&_.ant-segmented-item]:!min-h-8",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-toolbar.tsx:310"
+      ]
+    },
+    {
+      "value": "[&_svg:not([class*='size-'])]:size-4",
+      "count": 4,
+      "locations": [
+        "src/shared/ui/select.tsx:28",
+        "src/shared/ui/select.tsx:90",
+        "src/shared/ui/select.tsx:113",
+        "src/shared/ui/select.tsx:131"
+      ]
+    },
+    {
+      "value": "[&_svg]:pointer-events-none",
+      "count": 2,
+      "locations": [
+        "src/shared/ui/select.tsx:28",
+        "src/shared/ui/select.tsx:90"
+      ]
+    },
+    {
+      "value": "[&_svg]:shrink-0",
+      "count": 2,
+      "locations": [
+        "src/shared/ui/select.tsx:28",
+        "src/shared/ui/select.tsx:90"
+      ]
+    },
+    {
+      "value": "[&::-moz-range-thumb]:bg-[#8d9498]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-image-toolbar-settings-modal.tsx:239"
+      ]
+    },
+    {
+      "value": "[&::-moz-range-thumb]:border-0",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-image-toolbar-settings-modal.tsx:239"
+      ]
+    },
+    {
+      "value": "[&::-moz-range-thumb]:h-2.5",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-image-toolbar-settings-modal.tsx:239"
+      ]
+    },
+    {
+      "value": "[&::-moz-range-thumb]:rounded-full",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-image-toolbar-settings-modal.tsx:239"
+      ]
+    },
+    {
+      "value": "[&::-moz-range-thumb]:w-[var(--preview-scrollbar-thumb-width)]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-image-toolbar-settings-modal.tsx:239"
+      ]
+    },
+    {
+      "value": "[&::-moz-range-track]:bg-[#bdc4c8]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-image-toolbar-settings-modal.tsx:239"
+      ]
+    },
+    {
+      "value": "[&::-moz-range-track]:h-2.5",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-image-toolbar-settings-modal.tsx:239"
+      ]
+    },
+    {
+      "value": "[&::-moz-range-track]:rounded-full",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-image-toolbar-settings-modal.tsx:239"
+      ]
+    },
+    {
+      "value": "[&::-webkit-inner-spin-button]:appearance-none",
+      "count": 3,
+      "locations": [
+        "src/features/generation/video/components/video-settings-panel.tsx:305",
+        "src/shared/ui/settings-panel.tsx:176",
+        "src/shared/ui/settings-panel.tsx:221"
+      ]
+    },
+    {
+      "value": "[&::-webkit-outer-spin-button]:appearance-none",
+      "count": 3,
+      "locations": [
+        "src/features/generation/video/components/video-settings-panel.tsx:305",
+        "src/shared/ui/settings-panel.tsx:176",
+        "src/shared/ui/settings-panel.tsx:221"
+      ]
+    },
+    {
+      "value": "[&::-webkit-slider-runnable-track]:bg-[#bdc4c8]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-image-toolbar-settings-modal.tsx:239"
+      ]
+    },
+    {
+      "value": "[&::-webkit-slider-runnable-track]:h-2.5",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-image-toolbar-settings-modal.tsx:239"
+      ]
+    },
+    {
+      "value": "[&::-webkit-slider-runnable-track]:rounded-full",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-image-toolbar-settings-modal.tsx:239"
+      ]
+    },
+    {
+      "value": "[&::-webkit-slider-thumb]:appearance-none",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-image-toolbar-settings-modal.tsx:239"
+      ]
+    },
+    {
+      "value": "[&::-webkit-slider-thumb]:bg-[#8d9498]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-image-toolbar-settings-modal.tsx:239"
+      ]
+    },
+    {
+      "value": "[&::-webkit-slider-thumb]:h-2.5",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-image-toolbar-settings-modal.tsx:239"
+      ]
+    },
+    {
+      "value": "[&::-webkit-slider-thumb]:rounded-full",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-image-toolbar-settings-modal.tsx:239"
+      ]
+    },
+    {
+      "value": "[&::-webkit-slider-thumb]:w-[var(--preview-scrollbar-thumb-width)]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-image-toolbar-settings-modal.tsx:239"
+      ]
+    },
+    {
+      "value": "[&>*]:shrink-0",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-toolbar.tsx:103"
+      ]
+    },
+    {
+      "value": "[&>span:last-child]:min-w-0",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/workbench-style.ts:15"
+      ]
+    },
+    {
+      "value": "[&>span:last-child]:truncate",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/workbench-style.ts:15"
+      ]
+    },
+    {
+      "value": "[appearance:textfield]",
+      "count": 3,
+      "locations": [
+        "src/features/generation/video/components/video-settings-panel.tsx:305",
+        "src/shared/ui/settings-panel.tsx:176",
+        "src/shared/ui/settings-panel.tsx:221"
+      ]
+    },
+    {
+      "value": "[background-size:16px_16px]",
+      "count": 2,
+      "locations": [
+        "src/app/shell/HomePage.tsx:61",
+        "src/shared/ui/catalog-page.tsx:39"
+      ]
+    },
+    {
+      "value": "*:[span]:last:flex",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/select.tsx:90"
+      ]
+    },
+    {
+      "value": "*:[span]:last:gap-2",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/select.tsx:90"
+      ]
+    },
+    {
+      "value": "*:[span]:last:items-center",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/select.tsx:90"
+      ]
+    },
+    {
+      "value": "*:data-[slot=select-value]:flex",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/select.tsx:28"
+      ]
+    },
+    {
+      "value": "*:data-[slot=select-value]:gap-1.5",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/select.tsx:28"
+      ]
+    },
+    {
+      "value": "*:data-[slot=select-value]:items-center",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/select.tsx:28"
+      ]
+    },
+    {
+      "value": "*:data-[slot=select-value]:line-clamp-1",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/select.tsx:28"
+      ]
+    },
+    {
+      "value": "aspect-[4/3]",
+      "count": 8,
+      "locations": [
+        "src/features/assets/components/asset-picker-modal.tsx:75",
+        "src/features/assets/components/asset-picker-modal.tsx:77",
+        "src/features/assets/pages/assets-page.tsx:425",
+        "src/features/assets/pages/assets-page.tsx:428",
+        "src/features/assets/pages/assets-page.tsx:524",
+        "src/features/assets/pages/assets-page.tsx:526",
+        "src/features/prompts/components/prompt-card.tsx:34",
+        "src/features/prompts/components/prompt-detail-dialog.tsx:35"
+      ]
+    },
+    {
+      "value": "auto-rows-[210px]",
+      "count": 1,
+      "locations": [
+        "src/app/shell/HomePage.tsx:114"
+      ]
+    },
+    {
+      "value": "bg-[#2f80ff]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node.tsx:537"
+      ]
+    },
+    {
+      "value": "bg-[#2f80ff]/16",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-resource-mention-textarea.tsx:256"
+      ]
+    },
+    {
+      "value": "bg-[#eeeeef]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node-hover-toolbar.tsx:564"
+      ]
+    },
+    {
+      "value": "bg-[color-mix(in_srgb,var(--destructive)_8%,var(--card))]",
+      "count": 3,
+      "locations": [
+        "src/shared/ui/app-surface.tsx:12",
+        "src/shared/ui/workbench-page.tsx:258",
+        "src/shared/ui/workbench-style.ts:10"
+      ]
+    },
+    {
+      "value": "bg-[radial-gradient(var(--border)_1px,transparent_1px)]",
+      "count": 2,
+      "locations": [
+        "src/app/shell/HomePage.tsx:61",
+        "src/shared/ui/catalog-page.tsx:39"
+      ]
+    },
+    {
+      "value": "bg-[var(--success-background)]",
+      "count": 2,
+      "locations": [
+        "src/shared/ui/app-surface.tsx:13",
+        "src/shared/ui/workbench-style.ts:9"
+      ]
+    },
+    {
+      "value": "bg-[var(--warning-background)]",
+      "count": 2,
+      "locations": [
+        "src/shared/ui/app-surface.tsx:10",
+        "src/shared/ui/workbench-style.ts:11"
+      ]
+    },
+    {
+      "value": "border-[var(--destructive)]",
+      "count": 4,
+      "locations": [
+        "src/shared/ui/app-surface.tsx:12",
+        "src/shared/ui/workbench-page.tsx:258",
+        "src/shared/ui/workbench-page.tsx:273",
+        "src/shared/ui/workbench-style.ts:10"
+      ]
+    },
+    {
+      "value": "border-[var(--success-border)]",
+      "count": 2,
+      "locations": [
+        "src/shared/ui/app-surface.tsx:13",
+        "src/shared/ui/workbench-style.ts:9"
+      ]
+    },
+    {
+      "value": "border-[var(--warning-border)]",
+      "count": 2,
+      "locations": [
+        "src/shared/ui/app-surface.tsx:10",
+        "src/shared/ui/workbench-style.ts:11"
+      ]
+    },
+    {
+      "value": "bottom-[72px]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-toolbar.tsx:285"
+      ]
+    },
+    {
+      "value": "bottom-[calc(100%+8px)]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-toolbar.tsx:449"
+      ]
+    },
+    {
+      "value": "data-[align-trigger=true]:animate-none",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/select.tsx:56"
+      ]
+    },
+    {
+      "value": "data-[position=popper]:h-(--radix-select-trigger-height)",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/select.tsx:69"
+      ]
+    },
+    {
+      "value": "data-[position=popper]:min-w-(--radix-select-trigger-width)",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/select.tsx:69"
+      ]
+    },
+    {
+      "value": "data-[position=popper]:w-full",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/select.tsx:69"
+      ]
+    },
+    {
+      "value": "data-[side=bottom]:slide-in-from-top-2",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/select.tsx:56"
+      ]
+    },
+    {
+      "value": "data-[side=bottom]:translate-y-1",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/select.tsx:58"
+      ]
+    },
+    {
+      "value": "data-[side=left]:-translate-x-1",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/select.tsx:58"
+      ]
+    },
+    {
+      "value": "data-[side=left]:slide-in-from-right-2",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/select.tsx:56"
+      ]
+    },
+    {
+      "value": "data-[side=right]:slide-in-from-left-2",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/select.tsx:56"
+      ]
+    },
+    {
+      "value": "data-[side=right]:translate-x-1",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/select.tsx:58"
+      ]
+    },
+    {
+      "value": "data-[side=top]:-translate-y-1",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/select.tsx:58"
+      ]
+    },
+    {
+      "value": "data-[side=top]:slide-in-from-bottom-2",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/select.tsx:56"
+      ]
+    },
+    {
+      "value": "data-[size=default]:h-8",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/select.tsx:28"
+      ]
+    },
+    {
+      "value": "data-[size=sm]:h-7",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/select.tsx:28"
+      ]
+    },
+    {
+      "value": "data-[state=open]:ring-0",
+      "count": 1,
+      "locations": [
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1309"
+      ]
+    },
+    {
+      "value": "grid-cols-[1fr_auto_1fr]",
+      "count": 2,
+      "locations": [
+        "src/features/generation/image/components/image-settings-panel.tsx:115",
+        "src/features/generation/video/components/video-settings-panel.tsx:106"
+      ]
+    },
+    {
+      "value": "grid-cols-[72px_minmax(0,1fr)]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node-hover-toolbar.tsx:576"
+      ]
+    },
+    {
+      "value": "grid-cols-[88px_1fr_72px]",
+      "count": 2,
+      "locations": [
+        "src/features/canvas/components/canvas-node-angle-dialog.tsx:107",
+        "src/features/canvas/components/canvas-node-angle-dialog.tsx:154"
+      ]
+    },
+    {
+      "value": "grid-cols-[auto_minmax(0,1fr)_auto]",
+      "count": 1,
+      "locations": [
+        "src/features/generation/video/pages/video-workbench-page.tsx:1028"
+      ]
+    },
+    {
+      "value": "grid-cols-[auto_minmax(0,1fr)]",
+      "count": 1,
+      "locations": [
+        "src/features/generation/image/pages/image-workbench-page.tsx:858"
+      ]
+    },
+    {
+      "value": "grid-cols-[minmax(0,1fr)_120px]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:250"
+      ]
+    },
+    {
+      "value": "grid-cols-[minmax(0,1fr)_148px]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-config-node-panel.tsx:150"
+      ]
+    },
+    {
+      "value": "grid-cols-[minmax(128px,1fr)_auto]",
+      "count": 1,
+      "locations": [
+        "src/features/generation/image/pages/image-workbench-page.tsx:857"
+      ]
+    },
+    {
+      "value": "group-hover:bg-[#f0f0f1]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node-hover-toolbar.tsx:564"
+      ]
+    },
+    {
+      "value": "group-hover:scale-[1.03]",
+      "count": 1,
+      "locations": [
+        "src/app/shell/HomePage.tsx:132"
+      ]
+    },
+    {
+      "value": "h-[1.35em]",
+      "count": 1,
+      "locations": [
+        "src/app/shell/HomePage.tsx:25"
+      ]
+    },
+    {
+      "value": "h-[10000px]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/pages/canvas-client-page.tsx:813"
+      ]
+    },
+    {
+      "value": "h-[56vh]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node-hover-toolbar.tsx:473"
+      ]
+    },
+    {
+      "value": "h-[68px]",
+      "count": 1,
+      "locations": [
+        "src/features/generation/video/components/video-settings-panel.tsx:224"
+      ]
+    },
+    {
+      "value": "h-[72px]",
+      "count": 1,
+      "locations": [
+        "src/features/generation/image/components/image-settings-panel.tsx:144"
+      ]
+    },
+    {
+      "value": "h-[78px]",
+      "count": 1,
+      "locations": [
+        "src/features/generation/video/components/video-settings-panel.tsx:129"
+      ]
+    },
+    {
+      "value": "hover:scale-[1.02]",
+      "count": 4,
+      "locations": [
+        "src/features/canvas/components/canvas-node.tsx:432",
+        "src/features/canvas/components/canvas-node.tsx:484",
+        "src/features/canvas/components/canvas-node.tsx:708",
+        "src/features/canvas/components/canvas-node.tsx:731"
+      ]
+    },
+    {
+      "value": "leading-[100%]",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/dia-text-reveal.tsx:236"
+      ]
+    },
+    {
+      "value": "left-[15%]",
+      "count": 1,
+      "locations": [
+        "src/app/shell/HomePage.tsx:63"
+      ]
+    },
+    {
+      "value": "lg:grid-cols-[300px_minmax(0,1fr)]",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/workbench-page.tsx:25"
+      ]
+    },
+    {
+      "value": "lg:grid-cols-[minmax(0,1fr)_320px]",
+      "count": 1,
+      "locations": [
+        "src/features/assets/pages/assets-page.tsx:343"
+      ]
+    },
+    {
+      "value": "lg:grid-cols-[minmax(360px,1fr)_320px]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node-mask-edit-dialog.tsx:129"
+      ]
+    },
+    {
+      "value": "lg:min-h-[560px]",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/workbench-page.tsx:180"
+      ]
+    },
+    {
+      "value": "max-h-[320px]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node-upscale-dialog.tsx:97"
+      ]
+    },
+    {
+      "value": "max-h-[340px]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node-split-dialog.tsx:75"
+      ]
+    },
+    {
+      "value": "max-h-[520px]",
+      "count": 1,
+      "locations": [
+        "src/features/prompts/components/prompt-select-dialog.tsx:93"
+      ]
+    },
+    {
+      "value": "max-h-[62vh]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node-crop-dialog.tsx:96"
+      ]
+    },
+    {
+      "value": "max-h-[68vh]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node-mask-edit-dialog.tsx:135"
+      ]
+    },
+    {
+      "value": "max-h-[min(var(--radix-select-content-available-height),18rem)]",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/select.tsx:56"
+      ]
+    },
+    {
+      "value": "max-w-[150px]",
+      "count": 1,
+      "locations": [
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1611"
+      ]
+    },
+    {
+      "value": "max-w-[180px]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:243"
+      ]
+    },
+    {
+      "value": "max-w-[190px]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node-prompt-panel.tsx:62"
+      ]
+    },
+    {
+      "value": "max-w-[220px]",
+      "count": 1,
+      "locations": [
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1309"
+      ]
+    },
+    {
+      "value": "max-w-[260px]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node.tsx:426"
+      ]
+    },
+    {
+      "value": "max-w-[280px]",
+      "count": 2,
+      "locations": [
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:142",
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:148"
+      ]
+    },
+    {
+      "value": "max-w-[360px]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-image-toolbar-settings-modal.tsx:222"
+      ]
+    },
+    {
+      "value": "max-w-[82%]",
+      "count": 2,
+      "locations": [
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:89",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:273"
+      ]
+    },
+    {
+      "value": "max-w-[88%]",
+      "count": 2,
+      "locations": [
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:55",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1585"
+      ]
+    },
+    {
+      "value": "max-w-[calc(100%-24px)]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node.tsx:757"
+      ]
+    },
+    {
+      "value": "max-w-[calc(100vw-24px)]",
+      "count": 2,
+      "locations": [
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1328",
+        "src/features/settings/components/model-picker.tsx:93"
+      ]
+    },
+    {
+      "value": "md:grid-cols-[1fr_auto_1fr]",
+      "count": 1,
+      "locations": [
+        "src/app/shell/HomePage.tsx:97"
+      ]
+    },
+    {
+      "value": "md:grid-cols-[300px_minmax(0,1fr)]",
+      "count": 1,
+      "locations": [
+        "src/features/prompts/components/prompt-detail-dialog.tsx:30"
+      ]
+    },
+    {
+      "value": "md:grid-cols-[minmax(260px,1fr)_280px]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node-split-dialog.tsx:68"
+      ]
+    },
+    {
+      "value": "md:grid-cols-[minmax(260px,1fr)_360px]",
+      "count": 2,
+      "locations": [
+        "src/features/canvas/components/canvas-node-angle-dialog.tsx:58",
+        "src/features/canvas/components/canvas-node-upscale-dialog.tsx:91"
+      ]
+    },
+    {
+      "value": "min-h-[280px]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node-upscale-dialog.tsx:93"
+      ]
+    },
+    {
+      "value": "min-h-[300px]",
+      "count": 3,
+      "locations": [
+        "src/features/canvas/components/canvas-image-toolbar-settings-modal.tsx:205",
+        "src/features/canvas/components/canvas-node-angle-dialog.tsx:59",
+        "src/features/canvas/components/canvas-node-split-dialog.tsx:70"
+      ]
+    },
+    {
+      "value": "min-h-[320px]",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/workbench-page.tsx:180"
+      ]
+    },
+    {
+      "value": "min-h-[360px]",
+      "count": 7,
+      "locations": [
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1574",
+        "src/features/canvas/components/canvas-node-hover-toolbar.tsx:473",
+        "src/features/canvas/components/canvas-node-mask-edit-dialog.tsx:130",
+        "src/features/canvas/components/canvas-node-mask-edit-dialog.tsx:161",
+        "src/features/canvas/pages/canvas-library-page.tsx:141",
+        "src/features/canvas/pages/canvas-library-page.tsx:151",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1030"
+      ]
+    },
+    {
+      "value": "min-h-[620px]",
+      "count": 1,
+      "locations": [
+        "src/app/shell/HomePage.tsx:66"
+      ]
+    },
+    {
+      "value": "min-h-[calc(100vh-4rem)]",
+      "count": 1,
+      "locations": [
+        "src/app/shell/HomePage.tsx:62"
+      ]
+    },
+    {
+      "value": "min-w-[9rem]",
+      "count": 1,
+      "locations": [
+        "src/features/settings/components/model-picker.tsx:79"
+      ]
+    },
+    {
+      "value": "origin-(--radix-select-content-transform-origin)",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/select.tsx:56"
+      ]
+    },
+    {
+      "value": "right-[23%]",
+      "count": 1,
+      "locations": [
+        "src/app/shell/HomePage.tsx:64"
+      ]
+    },
+    {
+      "value": "ring-[#2f80ff]/24",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-resource-mention-textarea.tsx:256"
+      ]
+    },
+    {
+      "value": "rounded-[18px]",
+      "count": 4,
+      "locations": [
+        "src/features/canvas/components/canvas-image-toolbar-settings-modal.tsx:208",
+        "src/features/canvas/components/canvas-node-hover-toolbar.tsx:372",
+        "src/features/canvas/components/canvas-node.tsx:635",
+        "src/features/canvas/components/workspace/connection-create-menu.tsx:32"
+      ]
+    },
+    {
+      "value": "rounded-[1px]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-mini-map.tsx:148"
+      ]
+    },
+    {
+      "value": "rounded-[24px]",
+      "count": 1,
+      "locations": [
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:318"
+      ]
+    },
+    {
+      "value": "rounded-[3px]",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/settings-panel.tsx:254"
+      ]
+    },
+    {
+      "value": "rounded-[5px]",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/app-multi-select-checkbox.tsx:46"
+      ]
+    },
+    {
+      "value": "rounded-[inherit]",
+      "count": 2,
+      "locations": [
+        "src/features/canvas/components/canvas-node.tsx:308",
+        "src/features/canvas/components/canvas-node.tsx:800"
+      ]
+    },
+    {
+      "value": "shadow-[0_0_0_1px_rgba(0,0,0,.3),0_0_28px_rgba(0,0,0,.28)]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node-crop-dialog.tsx:101"
+      ]
+    },
+    {
+      "value": "shadow-[0_0_0_1px_rgba(0,0,0,.35)]",
+      "count": 2,
+      "locations": [
+        "src/features/canvas/components/canvas-node-split-dialog.tsx:157",
+        "src/features/canvas/components/canvas-node-split-dialog.tsx:164"
+      ]
+    },
+    {
+      "value": "shadow-[0_14px_34px_rgba(68,64,60,.16)]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node.tsx:800"
+      ]
+    },
+    {
+      "value": "shadow-[0_6px_18px_rgba(15,23,42,.10)]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node.tsx:708"
+      ]
+    },
+    {
+      "value": "shadow-[0_8px_20px_rgba(68,64,60,.13)]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node.tsx:731"
+      ]
+    },
+    {
+      "value": "shadow-[0_8px_28px_rgba(15,23,42,.12)]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node-hover-toolbar.tsx:372"
+      ]
+    },
+    {
+      "value": "shadow-[inset_0_-1px_0_rgba(0,0,0,.08),0_1px_2px_rgba(0,0,0,.06)]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:256"
+      ]
+    },
+    {
+      "value": "sm:grid-cols-[56px_minmax(0,1fr)]",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/catalog-page.tsx:78"
+      ]
+    },
+    {
+      "value": "stroke-[3]",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/app-multi-select-checkbox.tsx:48"
+      ]
+    },
+    {
+      "value": "text-[#242529]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node-hover-toolbar.tsx:372"
+      ]
+    },
+    {
+      "value": "text-[#2f80ff]",
+      "count": 3,
+      "locations": [
+        "src/features/canvas/components/canvas-node.tsx:722",
+        "src/features/canvas/components/canvas-node.tsx:744",
+        "src/features/canvas/components/canvas-resource-mention-textarea.tsx:256"
+      ]
+    },
+    {
+      "value": "text-[#ef4444]",
+      "count": 3,
+      "locations": [
+        "src/features/canvas/components/canvas-node-hover-toolbar.tsx:559",
+        "src/features/canvas/components/canvas-node-mask-edit-dialog.tsx:206",
+        "src/features/canvas/components/canvas-node-upscale-dialog.tsx:124"
+      ]
+    },
+    {
+      "value": "text-[10px]",
+      "count": 13,
+      "locations": [
+        "src/features/assets/components/asset-picker-modal.tsx:84",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1421",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1434",
+        "src/features/canvas/components/canvas-node.tsx:415",
+        "src/features/canvas/components/canvas-node.tsx:537",
+        "src/features/canvas/components/canvas-node.tsx:602",
+        "src/features/generation/image/pages/image-workbench-page.tsx:526",
+        "src/features/generation/video/components/video-settings-panel.tsx:234",
+        "src/features/generation/video/pages/video-workbench-page.tsx:618",
+        "src/features/generation/video/pages/video-workbench-page.tsx:671",
+        "src/features/generation/video/pages/video-workbench-page.tsx:720",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1283",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1298"
+      ]
+    },
+    {
+      "value": "text-[11px]",
+      "count": 23,
+      "locations": [
+        "src/app/shell/HomePage.tsx:139",
+        "src/features/assets/pages/assets-page.tsx:540",
+        "src/features/assets/pages/assets-page.tsx:553",
+        "src/features/assets/pages/assets-page.tsx:557",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:96",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:144",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:228",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:509",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1429",
+        "src/features/canvas/components/canvas-config-composer.tsx:135",
+        "src/features/canvas/components/canvas-config-node-panel.tsx:139",
+        "src/features/canvas/components/canvas-config-node-panel.tsx:230",
+        "src/features/canvas/components/canvas-node.tsx:758",
+        "src/features/canvas/components/canvas-toolbar.tsx:294",
+        "src/features/canvas/components/canvas-toolbar.tsx:308",
+        "src/features/canvas/components/canvas-toolbar.tsx:342",
+        "src/features/generation/video/components/video-settings-panel.tsx:140",
+        "src/features/generation/video/components/video-settings-panel.tsx:212",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:908",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1104",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1128",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1293",
+        "src/features/prompts/components/prompt-card.tsx:48"
+      ]
+    },
+    {
+      "value": "text-[13px]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-image-toolbar-settings-modal.tsx:208"
+      ]
+    },
+    {
+      "value": "text-[15px]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node-hover-toolbar.tsx:372"
+      ]
+    },
+    {
+      "value": "text-[8px]",
+      "count": 1,
+      "locations": [
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1618"
+      ]
+    },
+    {
+      "value": "text-[var(--destructive)]",
+      "count": 3,
+      "locations": [
+        "src/shared/ui/app-surface.tsx:12",
+        "src/shared/ui/workbench-page.tsx:265",
+        "src/shared/ui/workbench-style.ts:10"
+      ]
+    },
+    {
+      "value": "text-[var(--success)]",
+      "count": 2,
+      "locations": [
+        "src/shared/ui/app-surface.tsx:13",
+        "src/shared/ui/workbench-style.ts:9"
+      ]
+    },
+    {
+      "value": "text-[var(--warning)]",
+      "count": 2,
+      "locations": [
+        "src/shared/ui/app-surface.tsx:10",
+        "src/shared/ui/workbench-style.ts:11"
+      ]
+    },
+    {
+      "value": "top-[48%]",
+      "count": 1,
+      "locations": [
+        "src/app/shell/HomePage.tsx:64"
+      ]
+    },
+    {
+      "value": "top-[calc(100%+6px)]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-config-composer.tsx:266"
+      ]
+    },
+    {
+      "value": "tracking-[0.18em]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node.tsx:602"
+      ]
+    },
+    {
+      "value": "tracking-[0.2em]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node.tsx:415"
+      ]
+    },
+    {
+      "value": "w-[10000px]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/pages/canvas-client-page.tsx:813"
+      ]
+    },
+    {
+      "value": "w-[240px]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/workspace/canvas-refresh-shell.tsx:25"
+      ]
+    },
+    {
+      "value": "w-[248px]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-toolbar.tsx:285"
+      ]
+    },
+    {
+      "value": "w-[260px]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/workspace/canvas-refresh-shell.tsx:36"
+      ]
+    },
+    {
+      "value": "w-[300px]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/workspace/connection-create-menu.tsx:32"
+      ]
+    },
+    {
+      "value": "w-[500px]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node.tsx:377"
+      ]
+    },
+    {
+      "value": "w-[76px]",
+      "count": 1,
+      "locations": [
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:279"
+      ]
+    },
+    {
+      "value": "xl:grid-cols-[320px_minmax(0,1fr)]",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/workbench-page.tsx:25"
+      ]
+    },
+    {
+      "value": "xl:grid-cols-[420px_minmax(0,1fr)]",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/workbench-page.tsx:41"
+      ]
+    },
+    {
+      "value": "z-[100]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/pages/canvas-client-page.tsx:912"
+      ]
+    },
+    {
+      "value": "z-[120]",
+      "count": 2,
+      "locations": [
+        "src/features/canvas/components/canvas-resource-mention-textarea.tsx:314",
+        "src/features/canvas/components/workspace/connection-create-menu.tsx:32"
+      ]
+    },
+    {
+      "value": "z-[1200]",
+      "count": 2,
+      "locations": [
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1328",
+        "src/features/settings/components/model-picker.tsx:93"
+      ]
+    },
+    {
+      "value": "z-[70]",
+      "count": 3,
+      "locations": [
+        "src/features/canvas/components/canvas-node-hover-toolbar.tsx:372",
+        "src/features/canvas/components/canvas-node.tsx:377",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:924"
+      ]
+    },
+    {
+      "value": "z-[80]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-context-menu.tsx:36"
+      ]
+    },
+    {
+      "value": "z-[90]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-config-composer.tsx:266"
+      ]
+    }
+  ],
+  "important": [
+    {
+      "value": "!bg-transparent",
+      "count": 1,
+      "locations": [
+        "src/features/prompts/components/canvas-prompt-library.tsx:20"
+      ]
+    },
+    {
+      "value": "!bg-white/85",
+      "count": 2,
+      "locations": [
+        "src/shared/ui/workbench-page.tsx:137",
+        "src/shared/ui/workbench-page.tsx:144"
+      ]
+    },
+    {
+      "value": "!border-0",
+      "count": 1,
+      "locations": [
+        "src/app/shell/HomePage.tsx:139"
+      ]
+    },
+    {
+      "value": "!cursor-pointer",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-config-node-panel.tsx:194"
+      ]
+    },
+    {
+      "value": "!font-medium",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:166"
+      ]
+    },
+    {
+      "value": "!h-10",
+      "count": 5,
+      "locations": [
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:404",
+        "src/features/canvas/components/canvas-config-node-panel.tsx:166",
+        "src/features/canvas/components/canvas-config-node-panel.tsx:174",
+        "src/features/canvas/components/canvas-config-node-panel.tsx:186",
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:166"
+      ]
+    },
+    {
+      "value": "!h-6",
+      "count": 7,
+      "locations": [
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1437",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1445",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1111",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1303",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1314",
+        "src/shared/ui/workbench-page.tsx:137",
+        "src/shared/ui/workbench-page.tsx:144"
+      ]
+    },
+    {
+      "value": "!h-7",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-config-composer.tsx:142"
+      ]
+    },
+    {
+      "value": "!h-8",
+      "count": 17,
+      "locations": [
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1025",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1037",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1051",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1265",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1490",
+        "src/features/canvas/components/canvas-audio-settings-popover.tsx:75",
+        "src/features/canvas/components/canvas-image-settings-popover.tsx:90",
+        "src/features/canvas/components/canvas-node-prompt-panel.tsx:139",
+        "src/features/canvas/components/canvas-node-prompt-panel.tsx:162",
+        "src/features/canvas/components/canvas-node-prompt-panel.tsx:180",
+        "src/features/canvas/components/canvas-node-prompt-panel.tsx:199",
+        "src/features/canvas/components/canvas-toolbar.tsx:389",
+        "src/features/canvas/components/canvas-video-settings-popover.tsx:72",
+        "src/features/canvas/components/canvas-zoom-controls.tsx:46",
+        "src/features/canvas/components/canvas-zoom-controls.tsx:56",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1147",
+        "src/features/prompts/components/canvas-prompt-library.tsx:20"
+      ]
+    },
+    {
+      "value": "!h-9",
+      "count": 4,
+      "locations": [
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:174",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:181",
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:390",
+        "src/features/canvas/components/canvas-config-node-panel.tsx:194"
+      ]
+    },
+    {
+      "value": "!inline-flex",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-toolbar.tsx:389"
+      ]
+    },
+    {
+      "value": "!items-center",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-toolbar.tsx:389"
+      ]
+    },
+    {
+      "value": "!justify-center",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-toolbar.tsx:389"
+      ]
+    },
+    {
+      "value": "!justify-start",
+      "count": 9,
+      "locations": [
+        "src/features/canvas/components/canvas-audio-settings-popover.tsx:75",
+        "src/features/canvas/components/canvas-config-node-panel.tsx:166",
+        "src/features/canvas/components/canvas-config-node-panel.tsx:174",
+        "src/features/canvas/components/canvas-config-node-panel.tsx:186",
+        "src/features/canvas/components/canvas-image-settings-popover.tsx:90",
+        "src/features/canvas/components/canvas-node-prompt-panel.tsx:139",
+        "src/features/canvas/components/canvas-node-prompt-panel.tsx:162",
+        "src/features/canvas/components/canvas-node-prompt-panel.tsx:180",
+        "src/features/canvas/components/canvas-video-settings-popover.tsx:72"
+      ]
+    },
+    {
+      "value": "!leading-5",
+      "count": 1,
+      "locations": [
+        "src/features/assets/pages/assets-page.tsx:547"
+      ]
+    },
+    {
+      "value": "!max-w-[170px]",
+      "count": 5,
+      "locations": [
+        "src/features/canvas/components/canvas-audio-settings-popover.tsx:75",
+        "src/features/canvas/components/canvas-node-prompt-panel.tsx:139",
+        "src/features/canvas/components/canvas-node-prompt-panel.tsx:162",
+        "src/features/canvas/components/canvas-node-prompt-panel.tsx:180",
+        "src/features/canvas/components/canvas-video-settings-popover.tsx:72"
+      ]
+    },
+    {
+      "value": "!max-w-[180px]",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-image-settings-popover.tsx:90"
+      ]
+    },
+    {
+      "value": "!mb-0",
+      "count": 3,
+      "locations": [
+        "src/features/assets/pages/assets-page.tsx:547",
+        "src/features/canvas/components/canvas-image-toolbar-settings-modal.tsx:249",
+        "src/shared/ui/workbench-page.tsx:268"
+      ]
+    },
+    {
+      "value": "!mb-2",
+      "count": 1,
+      "locations": [
+        "src/features/assets/pages/assets-page.tsx:623"
+      ]
+    },
+    {
+      "value": "!mb-4",
+      "count": 2,
+      "locations": [
+        "src/features/canvas/components/canvas-image-toolbar-settings-modal.tsx:191",
+        "src/features/canvas/components/canvas-image-toolbar-settings-modal.tsx:251"
+      ]
+    },
+    {
+      "value": "!min-w-10",
+      "count": 1,
+      "locations": [
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:404"
+      ]
+    },
+    {
+      "value": "!min-w-16",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-node-prompt-panel.tsx:199"
+      ]
+    },
+    {
+      "value": "!min-w-6",
+      "count": 5,
+      "locations": [
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1445",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1111",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1314",
+        "src/shared/ui/workbench-page.tsx:137",
+        "src/shared/ui/workbench-page.tsx:144"
+      ]
+    },
+    {
+      "value": "!min-w-7",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-config-composer.tsx:142"
+      ]
+    },
+    {
+      "value": "!min-w-8",
+      "count": 8,
+      "locations": [
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1025",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1037",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1051",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1265",
+        "src/features/canvas/components/canvas-toolbar.tsx:389",
+        "src/features/canvas/components/canvas-zoom-controls.tsx:46",
+        "src/features/canvas/components/canvas-zoom-controls.tsx:56",
+        "src/features/prompts/components/canvas-prompt-library.tsx:20"
+      ]
+    },
+    {
+      "value": "!min-w-9",
+      "count": 1,
+      "locations": [
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:390"
+      ]
+    },
+    {
+      "value": "!mt-2",
+      "count": 1,
+      "locations": [
+        "src/features/assets/pages/assets-page.tsx:547"
+      ]
+    },
+    {
+      "value": "!p-0",
+      "count": 7,
+      "locations": [
+        "src/features/canvas/components/canvas-config-composer.tsx:142",
+        "src/features/canvas/components/canvas-toolbar.tsx:389",
+        "src/features/canvas/components/canvas-zoom-controls.tsx:46",
+        "src/features/canvas/components/canvas-zoom-controls.tsx:56",
+        "src/features/prompts/components/canvas-prompt-library.tsx:20",
+        "src/shared/ui/workbench-page.tsx:137",
+        "src/shared/ui/workbench-page.tsx:144"
+      ]
+    },
+    {
+      "value": "!p-0.5",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-config-node-panel.tsx:85"
+      ]
+    },
+    {
+      "value": "!p-1",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-toolbar.tsx:310"
+      ]
+    },
+    {
+      "value": "!px-2",
+      "count": 5,
+      "locations": [
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1437",
+        "src/features/canvas/components/canvas-config-node-panel.tsx:166",
+        "src/features/canvas/components/canvas-config-node-panel.tsx:174",
+        "src/features/canvas/components/canvas-config-node-panel.tsx:186",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1303"
+      ]
+    },
+    {
+      "value": "!px-2.5",
+      "count": 3,
+      "locations": [
+        "src/features/canvas/components/canvas-audio-settings-popover.tsx:75",
+        "src/features/canvas/components/canvas-image-settings-popover.tsx:90",
+        "src/features/canvas/components/canvas-video-settings-popover.tsx:72"
+      ]
+    },
+    {
+      "value": "!px-3",
+      "count": 7,
+      "locations": [
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1490",
+        "src/features/canvas/components/canvas-node-prompt-panel.tsx:139",
+        "src/features/canvas/components/canvas-node-prompt-panel.tsx:162",
+        "src/features/canvas/components/canvas-node-prompt-panel.tsx:180",
+        "src/features/canvas/components/canvas-node-prompt-panel.tsx:199",
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:166",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1147"
+      ]
+    },
+    {
+      "value": "!rounded-full",
+      "count": 10,
+      "locations": [
+        "src/features/canvas/components/canvas-audio-settings-popover.tsx:75",
+        "src/features/canvas/components/canvas-image-settings-popover.tsx:90",
+        "src/features/canvas/components/canvas-node-prompt-panel.tsx:139",
+        "src/features/canvas/components/canvas-node-prompt-panel.tsx:162",
+        "src/features/canvas/components/canvas-node-prompt-panel.tsx:180",
+        "src/features/canvas/components/canvas-node-prompt-panel.tsx:199",
+        "src/features/canvas/components/canvas-video-settings-popover.tsx:72",
+        "src/features/prompts/components/canvas-prompt-library.tsx:20",
+        "src/shared/ui/workbench-page.tsx:137",
+        "src/shared/ui/workbench-page.tsx:144"
+      ]
+    },
+    {
+      "value": "!rounded-lg",
+      "count": 4,
+      "locations": [
+        "src/features/canvas/components/canvas-config-node-panel.tsx:166",
+        "src/features/canvas/components/canvas-config-node-panel.tsx:174",
+        "src/features/canvas/components/canvas-config-node-panel.tsx:186",
+        "src/features/canvas/components/canvas-config-node-panel.tsx:194"
+      ]
+    },
+    {
+      "value": "!rounded-md",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-config-node-panel.tsx:85"
+      ]
+    },
+    {
+      "value": "!rounded-xl",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/workspace/canvas-top-bar.tsx:166"
+      ]
+    },
+    {
+      "value": "!shadow-sm",
+      "count": 2,
+      "locations": [
+        "src/shared/ui/workbench-page.tsx:137",
+        "src/shared/ui/workbench-page.tsx:144"
+      ]
+    },
+    {
+      "value": "!text-[var(--destructive)]",
+      "count": 1,
+      "locations": [
+        "src/shared/ui/workbench-page.tsx:268"
+      ]
+    },
+    {
+      "value": "!text-xs",
+      "count": 2,
+      "locations": [
+        "src/features/assets/pages/assets-page.tsx:547",
+        "src/shared/ui/workbench-page.tsx:268"
+      ]
+    },
+    {
+      "value": "!w-10",
+      "count": 1,
+      "locations": [
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:404"
+      ]
+    },
+    {
+      "value": "!w-6",
+      "count": 5,
+      "locations": [
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1445",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1111",
+        "src/features/local-agent/components/canvas-local-agent-panel.tsx:1314",
+        "src/shared/ui/workbench-page.tsx:137",
+        "src/shared/ui/workbench-page.tsx:144"
+      ]
+    },
+    {
+      "value": "!w-7",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-config-composer.tsx:142"
+      ]
+    },
+    {
+      "value": "!w-8",
+      "count": 8,
+      "locations": [
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1025",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1037",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1051",
+        "src/features/assistant/components/canvas-assistant-panel.tsx:1265",
+        "src/features/canvas/components/canvas-toolbar.tsx:389",
+        "src/features/canvas/components/canvas-zoom-controls.tsx:46",
+        "src/features/canvas/components/canvas-zoom-controls.tsx:56",
+        "src/features/prompts/components/canvas-prompt-library.tsx:20"
+      ]
+    },
+    {
+      "value": "!w-9",
+      "count": 1,
+      "locations": [
+        "src/features/assistant/components/canvas-agent-chat-ui.tsx:390"
+      ]
+    },
+    {
+      "value": "!w-full",
+      "count": 4,
+      "locations": [
+        "src/features/canvas/components/canvas-config-node-panel.tsx:166",
+        "src/features/canvas/components/canvas-config-node-panel.tsx:174",
+        "src/features/canvas/components/canvas-config-node-panel.tsx:186",
+        "src/features/canvas/components/canvas-config-node-panel.tsx:194"
+      ]
+    },
+    {
+      "value": "[&_.ant-btn-icon]:!inline-flex",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-toolbar.tsx:389"
+      ]
+    },
+    {
+      "value": "[&_.ant-btn-icon]:!items-center",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-toolbar.tsx:389"
+      ]
+    },
+    {
+      "value": "[&_.ant-btn-icon]:!justify-center",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-toolbar.tsx:389"
+      ]
+    },
+    {
+      "value": "[&_.ant-segmented-group]:!flex",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-toolbar.tsx:310"
+      ]
+    },
+    {
+      "value": "[&_.ant-segmented-item-label]:!leading-8",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-toolbar.tsx:310"
+      ]
+    },
+    {
+      "value": "[&_.ant-segmented-item-label]:!min-h-8",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-toolbar.tsx:310"
+      ]
+    },
+    {
+      "value": "[&_.ant-segmented-item]:!flex-1",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-toolbar.tsx:310"
+      ]
+    },
+    {
+      "value": "[&_.ant-segmented-item]:!min-h-8",
+      "count": 1,
+      "locations": [
+        "src/features/canvas/components/canvas-toolbar.tsx:310"
+      ]
+    }
+  ]
+}

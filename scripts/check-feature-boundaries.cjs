@@ -7,6 +7,7 @@ const ts = require('typescript');
 const rootDir = process.cwd();
 const srcDir = path.join(rootDir, 'src');
 const appDir = path.join(srcDir, 'app');
+const designLabDir = path.join(srcDir, 'design-lab');
 const featuresDir = path.join(srcDir, 'features');
 const sharedDir = path.join(srcDir, 'shared');
 const sourceExtensions = new Set(['.ts', '.tsx']);
@@ -56,6 +57,7 @@ function resolveLocalSpecifier(specifier, sourceFile) {
 
 function getArea(filePath) {
   if (isWithin(filePath, appDir)) return { kind: 'app' };
+  if (isWithin(filePath, designLabDir)) return { kind: 'design-lab' };
   if (isWithin(filePath, sharedDir)) return { kind: 'shared' };
   if (isWithin(filePath, featuresDir)) {
     const [featureId] = path.relative(featuresDir, filePath).split(path.sep);
@@ -239,6 +241,26 @@ function validateImportBoundaries() {
           file: sourceRel,
           line: item.line,
           message: `Shared code must not ${item.kind} feature code: ${item.specifier}`,
+        });
+      }
+
+      if (sourceArea.kind !== 'design-lab' && targetArea.kind === 'design-lab') {
+        violations.push({
+          file: sourceRel,
+          line: item.line,
+          message: `Production src code must not ${item.kind} Design Lab code: ${item.specifier}`,
+        });
+      }
+
+      if (
+        sourceArea.kind === 'design-lab' &&
+        targetArea.kind === 'feature' &&
+        !targetArea.publicEntry
+      ) {
+        violations.push({
+          file: sourceRel,
+          line: item.line,
+          message: `Design Lab must use the public API for feature "${targetArea.featureId}": ${item.specifier}`,
         });
       }
 

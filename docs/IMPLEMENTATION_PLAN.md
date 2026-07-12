@@ -1,8 +1,10 @@
 # 实施切片计划
 
-状态：Phase 8 模块化架构与功能复用重构已完成；阶段 7 完整验证与收尾已完成。
+状态：Phase 8 模块化架构与功能复用重构已完成；后续设计系统与视觉优化阶段 1 和阶段 2 均已于 2026-07-11 获用户确认并完成；阶段 3 现有样式对比审计已于 2026-07-12 获用户批准并启动。
 
 日期：2026-07-07
+
+追加状态日期：2026-07-11
 
 依据：
 
@@ -10,6 +12,9 @@
 - `docs/VISUAL_BASELINE.md`
 - `docs/TARGET_ARCHITECTURE_DECISIONS.md`
 - `docs/OPEN_DECISIONS.md`
+- `docs/DESIGN_SYSTEM_REFACTOR_PLAN.md`
+- `docs/design-system/INVENTORY.md`
+- `docs/design-system/baselines/current/README.md`
 
 ## 当前结论
 
@@ -134,3 +139,7 @@ Phase 7 桌面端打包结果记录见 `docs/PHASE_7_DESKTOP_PACKAGING.md`。
 Phase 8 模块化架构与功能复用重构方案见 `docs/PHASE_8_MODULAR_ARCHITECTURE.md`。
 
 当前 Phase 8 阶段 7 完整验证与收尾已完成，Phase 8 模块化架构与功能复用重构已达到当前确认目标。后续如继续演进，应作为新阶段或独立切片确认；仍不得在未批准情况下引入功能行为变更、视觉 redesign、第三方插件系统、运行时开关 UI、正式签名/公证、自动更新或商店发布配置。
+
+设计系统与视觉优化已作为独立后续项目记录在 `docs/DESIGN_SYSTEM_REFACTOR_PLAN.md`。阶段 1 已形成 `docs/design-system/INVENTORY.md`、`docs/design-system/TRACEABILITY.md` 和 `docs/design-system/baselines/current/`，并于 2026-07-11 获用户确认；后续替换必须维护旧设计项、目标设计项、调用点和迁移批次的双向关系。DS-O2、DS-O3、DS-O4、DS-O14 已于 2026-07-11 关闭；阶段 2 独立、开发专用的 Foundations/Primitives 当前态 Design Lab 已完成实现与验证，并于同日通过用户验收，详细记录见 `docs/design-system/PHASE_2_DESIGN_LAB.md`。阶段 3 已于 2026-07-12 启动，当前仅执行相似项并置的只读现有样式审计；具体目标 Token、组件或生产页面视觉实现仍未获批准。
+
+用户已于 2026-07-11 冻结 `/` 首页非导航视觉；公共导航仍可单独修改。后续全局 Token/组件方案和迁移批次必须遵守 `docs/design-system/HOMEPAGE_VISUAL_FREEZE.md`，不得把首页列为试点或隐式迁移对象。

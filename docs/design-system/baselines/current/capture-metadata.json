@@ -1,0 +1,472 @@
+{
+  "schemaVersion": 1,
+  "kind": "pre-change-current-visual-baseline",
+  "capturedAt": "2026-07-11T06:47:00.454Z",
+  "sourceRevision": "acd16e3bd164a8cd5efa094e6e97e356dd2e2bd2",
+  "productionInputTreeSha256": "3949a6c8406af61b31d39df177a89dd057168b84d5770d6bb12b53a6a7c25764",
+  "captureScriptSha256": "bab35b96ca2a2c5eb1b3fb9a73be562dafe7d5423a910af685a96106b946e525",
+  "application": {
+    "name": "infinite-canvas",
+    "version": "0.3.0",
+    "electronReportedVersion": "43.0.0"
+  },
+  "runtime": {
+    "os": "Darwin 25.5.0",
+    "architecture": "x64",
+    "node": "v25.8.0",
+    "npm": "11.11.0",
+    "playwright": "1.61.1",
+    "chromium": "149.0.7827.55",
+    "electron": "43.0.0",
+    "tailwind": "3.4.19"
+  },
+  "electronRuntime": {
+    "mode": "isolated unpackaged runtime loading the production main bundle",
+    "deviceScaleFactor": 2,
+    "rendererViewport": "1280x768 CSS px",
+    "locale": "zh-CN",
+    "timezone": "Asia/Shanghai"
+  },
+  "captureContract": {
+    "webDesktopViewport": "1440x900 CSS px",
+    "webMobileViewport": "390x844 CSS px",
+    "electronWindow": "1280x800 native window; Retina screenshot is device-pixel scaled",
+    "locale": "zh-CN",
+    "timezone": "Asia/Shanghai",
+    "reducedMotion": "reduce",
+    "serviceWorkers": "blocked",
+    "externalMedia": "deterministic MEDIA FIXTURE SVG",
+    "externalNonMediaRequests": "blocked",
+    "previewProxyPaths": "/__ai-proxy blocked; /__resource-proxy fulfilled with fixture",
+    "electronRendererNetwork": "offline plus request interception",
+    "electronMainNetwork": "global fetch blocked before production main entry is required",
+    "preview": "fresh in-process Vite Preview; served HTML matched dist/index.html",
+    "persistedUserProfile": "not used",
+    "realServices": "AI, WebDAV, online assistant and local Agent not called",
+    "screenshot": "viewport only; animations disabled; caret hidden; 650ms portal settle"
+  },
+  "counts": {
+    "electron-file/desktop-dark": 7,
+    "electron/desktop-dark": 7,
+    "web/desktop-dark": 17,
+    "web/desktop-light": 12,
+    "web/mobile-dark": 11,
+    "web/mobile-light": 5
+  },
+  "screenshotCount": 59,
+  "files": [
+    {
+      "path": "electron-file/desktop-dark/01-home.png",
+      "width": 1440,
+      "height": 900,
+      "bytes": 76971,
+      "sha256": "ebba78336e6089f867e4d6a43619db5d4eb4ec34e6c121a645c9035a16fac5e6"
+    },
+    {
+      "path": "electron-file/desktop-dark/02-canvas-library.png",
+      "width": 1440,
+      "height": 900,
+      "bytes": 40252,
+      "sha256": "a25969984dfdc13f4c18915217c438ff14e5cce5b5e16e850ed209f48fd87d21"
+    },
+    {
+      "path": "electron-file/desktop-dark/03-image-workbench.png",
+      "width": 1440,
+      "height": 900,
+      "bytes": 87677,
+      "sha256": "c0b5624c9a7fd78d8608e4b72276f0a975a2979527498f630a3925588497c6c5"
+    },
+    {
+      "path": "electron-file/desktop-dark/04-video-workbench.png",
+      "width": 1440,
+      "height": 900,
+      "bytes": 95934,
+      "sha256": "2162504829bb1253ad04e3c8af43453f8f3c08a501b17cef45b6ebaea526cd60"
+    },
+    {
+      "path": "electron-file/desktop-dark/05-prompts.png",
+      "width": 1440,
+      "height": 900,
+      "bytes": 48573,
+      "sha256": "28f75644c86599311033d94ab6b44e0b564b78afe01edff8b5cf6aca57d11797"
+    },
+    {
+      "path": "electron-file/desktop-dark/06-assets.png",
+      "width": 1440,
+      "height": 900,
+      "bytes": 53287,
+      "sha256": "5444ed502e9511aaa03cf78b8e6079e45da5708e725f1e9f4f22cc809e1e643e"
+    },
+    {
+      "path": "electron-file/desktop-dark/07-canvas-workspace.png",
+      "width": 1440,
+      "height": 900,
+      "bytes": 49027,
+      "sha256": "50fd11d87870dc842a63aef633398fc2701436825177492709849c997ddab88a"
+    },
+    {
+      "path": "electron/desktop-dark/01-home.png",
+      "width": 2560,
+      "height": 1536,
+      "bytes": 136908,
+      "sha256": "34a06df91241773a6495ebc0b18c0815149e1ca9aa475b39fa4688905da0e3ec"
+    },
+    {
+      "path": "electron/desktop-dark/02-canvas-library.png",
+      "width": 2560,
+      "height": 1536,
+      "bytes": 83203,
+      "sha256": "53082646df36c98b878eb001d7adae82da8b6a81f5cf1f618f73d6ba434e6fa4"
+    },
+    {
+      "path": "electron/desktop-dark/03-image-workbench.png",
+      "width": 2560,
+      "height": 1536,
+      "bytes": 163461,
+      "sha256": "368314a1272bf332b5d44e2315774cc4826f1b7fc062734c58d69355c9e93738"
+    },
+    {
+      "path": "electron/desktop-dark/04-video-workbench.png",
+      "width": 2560,
+      "height": 1536,
+      "bytes": 172197,
+      "sha256": "bb3cd0f6a4477ad18dd58a5f6970ffae0d5f505f404b9dd9e6c27bd8a6cfe270"
+    },
+    {
+      "path": "electron/desktop-dark/05-prompts.png",
+      "width": 2560,
+      "height": 1536,
+      "bytes": 412864,
+      "sha256": "dcefd6abddc23d5eaad209a747f63e5e43f3807a58660a4a422389816820b4b7"
+    },
+    {
+      "path": "electron/desktop-dark/06-assets.png",
+      "width": 2560,
+      "height": 1536,
+      "bytes": 114279,
+      "sha256": "f204e7624c035ffa50097049e981dbd8460663f26db87c6aa025985f55a19b63"
+    },
+    {
+      "path": "electron/desktop-dark/07-canvas-workspace.png",
+      "width": 2560,
+      "height": 1536,
+      "bytes": 105481,
+      "sha256": "6c5ee001e315fee6ba88ddae50c8d247daba27d571282dc95f1d873d6608e126"
+    },
+    {
+      "path": "web/desktop-dark/01-home.png",
+      "width": 1440,
+      "height": 900,
+      "bytes": 107655,
+      "sha256": "9e97df5435d0817a9de00ff37a3a20c26042e4cd558fb9fdd8b9e77cafa716a4"
+    },
+    {
+      "path": "web/desktop-dark/02-canvas-library.png",
+      "width": 1440,
+      "height": 900,
+      "bytes": 39061,
+      "sha256": "c873cdfa3f05cf620c5a03882b4d8e25662f2f90405604c6e2fc9b335b420c1a"
+    },
+    {
+      "path": "web/desktop-dark/03-image-workbench.png",
+      "width": 1440,
+      "height": 900,
+      "bytes": 87677,
+      "sha256": "c0b5624c9a7fd78d8608e4b72276f0a975a2979527498f630a3925588497c6c5"
+    },
+    {
+      "path": "web/desktop-dark/04-video-workbench.png",
+      "width": 1440,
+      "height": 900,
+      "bytes": 95934,
+      "sha256": "2162504829bb1253ad04e3c8af43453f8f3c08a501b17cef45b6ebaea526cd60"
+    },
+    {
+      "path": "web/desktop-dark/05-prompts.png",
+      "width": 1440,
+      "height": 900,
+      "bytes": 243243,
+      "sha256": "3ff85421dd496c7443c57cee710c67febdfc5f736064ad5cfd83f971aac158d5"
+    },
+    {
+      "path": "web/desktop-dark/06-assets.png",
+      "width": 1440,
+      "height": 900,
+      "bytes": 52294,
+      "sha256": "6d3ee0c9a5c6449f06f9eccb9d90671907902b7ba77bbbd81d362e7e06f56891"
+    },
+    {
+      "path": "web/desktop-dark/07-config-channels.png",
+      "width": 1440,
+      "height": 900,
+      "bytes": 125490,
+      "sha256": "4e73146bc570a10616b44a87fb69d590f596e19705733b7c0a125fb855f7ba26"
+    },
+    {
+      "path": "web/desktop-dark/08-config-webdav.png",
+      "width": 1440,
+      "height": 900,
+      "bytes": 122413,
+      "sha256": "6fa1eee28fd03bc40dc031cc00786f0304662bf7adf1b8f147e9ea32e56dc700"
+    },
+    {
+      "path": "web/desktop-dark/09-prompt-detail.png",
+      "width": 1440,
+      "height": 900,
+      "bytes": 367531,
+      "sha256": "ec35ec5fddcad44da4cf936ed8994886d98ad2e83422e22053173108028971eb"
+    },
+    {
+      "path": "web/desktop-dark/10-asset-create.png",
+      "width": 1440,
+      "height": 900,
+      "bytes": 69993,
+      "sha256": "7aba5811b1e1eb472fea89731f3b49b590d99ba3780be7018599673df0a35c7f"
+    },
+    {
+      "path": "web/desktop-dark/11-canvas-empty.png",
+      "width": 1440,
+      "height": 900,
+      "bytes": 35374,
+      "sha256": "2d9395e7dafcc94dac35059b9550a53b919fe82be430f6721c1b9357d7bb203a"
+    },
+    {
+      "path": "web/desktop-dark/12-canvas-node-types.png",
+      "width": 1440,
+      "height": 900,
+      "bytes": 95174,
+      "sha256": "874f61c774cda58faff1de7ea288e12da407c6695f2ed782d2c468782d25a612"
+    },
+    {
+      "path": "web/desktop-dark/13-canvas-appearance.png",
+      "width": 1440,
+      "height": 900,
+      "bytes": 102891,
+      "sha256": "b63837d06679e7bf4b16e8079e88821f0482cd51e5ba0ab1a1c1d1d2d5d055b8"
+    },
+    {
+      "path": "web/desktop-dark/14-canvas-shortcuts.png",
+      "width": 1440,
+      "height": 900,
+      "bytes": 122628,
+      "sha256": "35b53a3a7785f32c305706bd959b736c3a02a6d596e05f23d0293a2c2db01a8e"
+    },
+    {
+      "path": "web/desktop-dark/15-canvas-assistant.png",
+      "width": 1440,
+      "height": 900,
+      "bytes": 113975,
+      "sha256": "ea4b6c8f00c969b6836fa1a7e78b8565eb17b7f1146da583162aca754ef4a636"
+    },
+    {
+      "path": "web/desktop-dark/16-prompts-loading.png",
+      "width": 1440,
+      "height": 900,
+      "bytes": 34152,
+      "sha256": "04ddfd54cf9b8040c6f7f32e0387970eaabc38f34bbe937622f8c9fa972a38be"
+    },
+    {
+      "path": "web/desktop-dark/17-prompts-error.png",
+      "width": 1440,
+      "height": 900,
+      "bytes": 49886,
+      "sha256": "73e83c11a3e3086204db1b5a576a339a61e8651ba7589cd3fc87b031179dc68a"
+    },
+    {
+      "path": "web/desktop-light/01-home.png",
+      "width": 1440,
+      "height": 900,
+      "bytes": 105735,
+      "sha256": "180901ac50739f17a22c7fdd810aff9630eedb536bcdc58d8095652936f11415"
+    },
+    {
+      "path": "web/desktop-light/02-canvas-library.png",
+      "width": 1440,
+      "height": 900,
+      "bytes": 38755,
+      "sha256": "216fbd3085d9821a8a28d964a18e6ffd18fdc5298e64202677da5aefc53a14ef"
+    },
+    {
+      "path": "web/desktop-light/03-image-workbench.png",
+      "width": 1440,
+      "height": 900,
+      "bytes": 85392,
+      "sha256": "a989912c49ff84372ee8b617845e75bd8b869de03135ed9bc8e13c6c92b2d277"
+    },
+    {
+      "path": "web/desktop-light/04-video-workbench.png",
+      "width": 1440,
+      "height": 900,
+      "bytes": 91601,
+      "sha256": "c307734d7d1382cb7ee4b2ec3e51b7447ca52c9f9c569f67ac88780ce6ba6656"
+    },
+    {
+      "path": "web/desktop-light/05-prompts.png",
+      "width": 1440,
+      "height": 900,
+      "bytes": 235171,
+      "sha256": "3b764f5846e905d42d8d719773ca7c418332840fd569d275e19b3045c62d6ba0"
+    },
+    {
+      "path": "web/desktop-light/06-assets.png",
+      "width": 1440,
+      "height": 900,
+      "bytes": 49450,
+      "sha256": "288472062d381ba7ab7633fd34ac5b673f7f38eabfeb64f4a2385ffbb9ef0168"
+    },
+    {
+      "path": "web/desktop-light/07-config-channels.png",
+      "width": 1440,
+      "height": 900,
+      "bytes": 126116,
+      "sha256": "73fe5c847f9d313e382e2e8f2ccd21b7e0d8dc1a2b9a1c3ecdcf0b5720fc62de"
+    },
+    {
+      "path": "web/desktop-light/11-canvas-empty.png",
+      "width": 1440,
+      "height": 900,
+      "bytes": 27356,
+      "sha256": "9a5291179af52dfc070f896055e11238d3b69f0b2bdc9b7a938419da76a785c2"
+    },
+    {
+      "path": "web/desktop-light/12-canvas-node-types.png",
+      "width": 1440,
+      "height": 900,
+      "bytes": 88414,
+      "sha256": "5767e47c83a9c6b6625cf4d4836e4f4fbdbbe8f84facdd580dca060e649f22d9"
+    },
+    {
+      "path": "web/desktop-light/13-canvas-appearance.png",
+      "width": 1440,
+      "height": 900,
+      "bytes": 96658,
+      "sha256": "09eb5fe088a2ef24a0432a6427d9bcbb0d4c67f99741717eb9cbe8c055c2bdb2"
+    },
+    {
+      "path": "web/desktop-light/14-canvas-shortcuts.png",
+      "width": 1440,
+      "height": 900,
+      "bytes": 118377,
+      "sha256": "97502056b34adc59b50f1f1870138ef997c3444004548310e44955ea36537376"
+    },
+    {
+      "path": "web/desktop-light/15-canvas-assistant.png",
+      "width": 1440,
+      "height": 900,
+      "bytes": 109085,
+      "sha256": "eec64677b4024a59552f96d3d13830a685aec71bd095b5732120e590523bd424"
+    },
+    {
+      "path": "web/mobile-dark/01-home.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 50448,
+      "sha256": "db4f62f06ebba96650b83c7f332533b8cbf28a1ad5516c3cb61ce79f7b4316bc"
+    },
+    {
+      "path": "web/mobile-dark/02-canvas-library.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 26040,
+      "sha256": "33eef89d3bd2e92a647c9f15f771351bb1f2c58e73e4ad9435b688649a28fdb6"
+    },
+    {
+      "path": "web/mobile-dark/03-image-workbench.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 43553,
+      "sha256": "11d94bd8edae3c2bee672c0167a089a189cf7dea16bfa4d1b1ee23c9c4596016"
+    },
+    {
+      "path": "web/mobile-dark/04-image-parameters.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 43207,
+      "sha256": "1d16c2c14c23172c2cbe370a167cdab5d6b2491727c7a6804018ab8c0418ad3e"
+    },
+    {
+      "path": "web/mobile-dark/05-video-workbench.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 47544,
+      "sha256": "a71110e950d2cb08989c6f9e0d1cca368727e1e1dc8d4f793bca87c8e8f6c29c"
+    },
+    {
+      "path": "web/mobile-dark/06-video-parameters.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 45500,
+      "sha256": "7a27e6d1726ab631ca5aa9e5fd3bffbfcdc44a061070ca03eec014429162645a"
+    },
+    {
+      "path": "web/mobile-dark/07-prompts.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 80339,
+      "sha256": "e4fdaf16304ffe471662b283743be045d9c85be4acb66343d4f32ac0aaa78090"
+    },
+    {
+      "path": "web/mobile-dark/08-assets.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 36677,
+      "sha256": "8942243ab30e6dca37718a77679319c14505b91cfbf7725f6deb881b9be0bf7f"
+    },
+    {
+      "path": "web/mobile-dark/09-mobile-navigation.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 24600,
+      "sha256": "eec6b47d2da6625d1a20f4218498c8885e70a74625633ddcb401b56b945409d1"
+    },
+    {
+      "path": "web/mobile-dark/10-config.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 56194,
+      "sha256": "54d58ce7f697a294014e31e0ca970069da5097dbca21f7a353ca746cd341b96d"
+    },
+    {
+      "path": "web/mobile-dark/11-canvas-workspace.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 26437,
+      "sha256": "a8e00075f77051a2fbffe4a0f4899eb72ae1cd3d6de0223de0e55c14121c0c04"
+    },
+    {
+      "path": "web/mobile-light/01-home.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 49252,
+      "sha256": "5cf4a7c922a2064fa22d828f7b875300be05d932906888c00243f35434e80202"
+    },
+    {
+      "path": "web/mobile-light/02-image-workbench.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 41663,
+      "sha256": "b406e89df7b6c6854974930f1413a50bf58507cd2d4192cfcde0ea766b89d3a3"
+    },
+    {
+      "path": "web/mobile-light/03-prompts.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 75723,
+      "sha256": "f2dc7d00eb728853dbcad9ffb8b14960e4a88ba48841fdd815f4911f836ce77c"
+    },
+    {
+      "path": "web/mobile-light/04-mobile-navigation.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 24373,
+      "sha256": "e7631efede85e465deb3a94a6cd2eaa3b5c5f9b0992362923e1340ff8946629f"
+    },
+    {
+      "path": "web/mobile-light/05-canvas-workspace.png",
+      "width": 390,
+      "height": 844,
+      "bytes": 25832,
+      "sha256": "7fa470d7c4e25539ba2814ec7c05f7968db4dd986ec1768480ccb45e6599abec"
+    }
+  ]
+}

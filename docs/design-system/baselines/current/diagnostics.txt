@@ -1,0 +1,5 @@
+web-desktop-dark-prompt-states: console: Failed to load resource: the server responded with a status of 503 (Service Unavailable)
+web-desktop-dark-prompt-states: console: Failed to load resource: the server responded with a status of 503 (Service Unavailable)
+electron-file-dark: console: Fetch API cannot load file://<repo>/dist/data/local-prompts.json. URL scheme "file" is not supported.
+electron-file-dark: console: Fetch API cannot load file://<repo>/dist/data/local-prompts.json. URL scheme "file" is not supported.
+electron-file-dark: console: Fetch API cannot load file://<repo>/dist/data/local-prompts.json. URL scheme "file" is not supported.

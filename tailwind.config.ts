@@ -1,8 +1,19 @@
 import type { Config } from 'tailwindcss';
 
+const productionContent = [
+  './index.html',
+  './src/main.tsx',
+  './src/app/**/*.{ts,tsx}',
+  './src/features/**/*.{ts,tsx}',
+  './src/shared/**/*.{ts,tsx}',
+];
+
 export default {
   darkMode: 'class',
-  content: ['./index.html', './src/**/*.{ts,tsx}'],
+  content:
+    process.env.DESIGN_LAB === '1'
+      ? [...productionContent, './design-lab.html', './src/design-lab/**/*.{ts,tsx}']
+      : productionContent,
   theme: {
     extend: {
       colors: {
